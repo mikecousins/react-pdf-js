@@ -1,13 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 
 class Pdf extends Component {
-  state = {};
-
   constructor(props) {
     super(props);
     this.onDocumentComplete = this.onDocumentComplete.bind(this);
     this.onPageComplete = this.onPageComplete.bind(this);
   }
+
+  state = {};
 
   componentDidMount() {
     this.loadPDFDocument(this.props);
@@ -23,22 +23,6 @@ class Pdf extends Component {
     if (pdf && newProps.page && newProps.page !== this.props.page) {
       this.setState({page: null});
       pdf.getPage(newProps.page).then(this.onPageComplete);
-    }
-  }
-
-  renderPdf() {
-    const {page} = this.state;
-    if (page) {
-      let {canvas} = this.refs;
-      if(canvas.getDOMNode) { // compatible with react 0.13
-        canvas = canvas.getDOMNode();
-      }
-      const canvasContext = canvas.getContext('2d');
-      const {scale} = this.props;
-      const viewport = page.getViewport(scale);
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-      page.render({canvasContext, viewport});
     }
   }
 
@@ -85,6 +69,22 @@ class Pdf extends Component {
       this.loadByteArray(byteArray);
     } else {
       throw new Error('React-PDFjs works with a file(URL) or (base64)content. At least one needs to be provided!');
+    }
+  }
+
+  renderPdf() {
+    const {page} = this.state;
+    if (page) {
+      let {canvas} = this.refs;
+      if (canvas.getDOMNode) { // compatible with react 0.13
+        canvas = canvas.getDOMNode();
+      }
+      const canvasContext = canvas.getContext('2d');
+      const {scale} = this.props;
+      const viewport = page.getViewport(scale);
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      page.render({canvasContext, viewport});
     }
   }
 
