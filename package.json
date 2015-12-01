@@ -1,6 +1,6 @@
 {
   "name": "react-pdfjs",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "A React component to wrap PDF.js",
   "main": "./lib/index.js",
   "jsnext:main": "./src/index.js",
@@ -29,9 +29,6 @@
     "url": "https://github.com/erikras/react-pdfjs/issues"
   },
   "homepage": "https://github.com/erikras/react-pdfjs",
-  "dependencies": {
-    "pdfjs-dist": "^1.3.44"
-  },
   "devDependencies": {
     "babel": "^5.8.23",
     "babel-core": "^5.8.25",

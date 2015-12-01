@@ -1,51 +1,74 @@
 import React, {Component, PropTypes} from 'react';
 
-require('pdfjs-dist/build/pdf.combined');
-
 class Pdf extends Component {
   state = {};
 
+  constructor(props) {
+    super(props);
+    this.onDocumentComplete = this.onDocumentComplete.bind(this);
+    this.onPageComplete = this.onPageComplete.bind(this);
+  }
+
   componentDidMount() {
     this.loadPDFDocument(this.props);
+    this.renderPdf();
   }
 
   componentWillReceiveProps(newProps) {
+    const {pdf} = this.state;
     if ((newProps.file && newProps.file !== this.props.file) ||
       (newProps.content && newProps.content !== this.props.content)) {
       this.loadPDFDocument(newProps);
     }
-    if (!!this.state.pdf && !!newProps.page && newProps.page !== this.props.page) {
+    if (pdf && newProps.page && newProps.page !== this.props.page) {
       this.setState({page: null});
-      this.state.pdf.getPage(newProps.page).then(this.onPageComplete);
+      pdf.getPage(newProps.page).then(this.onPageComplete);
+    }
+  }
+
+  renderPdf() {
+    const {page} = this.state;
+    if (page) {
+      let {canvas} = this.refs;
+      if(canvas.getDOMNode) { // compatible with react 0.13
+        canvas = canvas.getDOMNode();
+      }
+      const canvasContext = canvas.getContext('2d');
+      const {scale} = this.props;
+      const viewport = page.getViewport(scale);
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      page.render({canvasContext, viewport});
     }
   }
 
   onDocumentComplete(pdf) {
-    if (!this.isMounted()) return;
     this.setState({pdf: pdf});
-    if (!!this.props.onDocumentComplete && typeof this.props.onDocumentComplete === 'function') {
-      this.props.onDocumentComplete(pdf.numPages);
+    const {onDocumentComplete} = this.props;
+    if (typeof onDocumentComplete === 'function') {
+      onDocumentComplete(pdf.numPages);
     }
-    pdf.getPage(this.props.page).then(this._onPageComplete);
+    pdf.getPage(this.props.page).then(this.onPageComplete);
   }
 
   onPageComplete(page) {
-    if (!this.isMounted()) return;
     this.setState({page: page});
-    if (!!this.props.onPageComplete && typeof this.props.onPageComplete === 'function') {
-      this.props.onPageComplete(page.pageIndex + 1);
+    this.renderPdf();
+    const {onPageComplete} = this.props;
+    if (typeof onPageComplete === 'function') {
+      onPageComplete(page.pageIndex + 1);
     }
   }
 
   loadByteArray(byteArray) {
-    window.PDFJS.getDocument(byteArray).then(this._onDocumentComplete);
+    window.PDFJS.getDocument(byteArray).then(this.onDocumentComplete);
   }
 
   loadPDFDocument(props) {
     if (!!props.file) {
       if (typeof props.file === 'string') {
         return window.PDFJS.getDocument(props.file)
-          .then(this._onDocumentComplete);
+          .then(this.onDocumentComplete);
       }
       // Is a File object
       const reader = new FileReader();
@@ -66,21 +89,9 @@ class Pdf extends Component {
   }
 
   render() {
-    if (this.state.page) {
-      setTimeout(() => {
-        if (this.isMounted()) {
-          const {canvas} = this.refs;
-          const canvasContext = canvas.getContext('2d');
-          const {scale} = this.props;
-          const viewport = this.state.page.getViewport(scale);
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
-          this.state.page.render({canvasContext, viewport});
-        }
-      });
-      return <canvas ref="canvas"/>;
-    }
-    return this.props.loading || <div>Loading PDF...</div>;
+    const {loading} = this.props;
+    const {page} = this.state;
+    return page ? <canvas ref="canvas"/> : loading || <div>Loading PDF...</div>;
   }
 }
 Pdf.displayName = 'React-PDFjs';

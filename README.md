@@ -11,8 +11,20 @@
 
 ## Installation
 
-```
+```bash
 npm install --save react-pdfjs
+```
+
+You will have to include `PDF.js` yourself. Because it is such a heavy library, I recommend using a CDN:
+
+```html
+<script type="text/javascript" src="//npmcdn.com/pdfjs-dist@latest/build/pdf.combined.js"/>
+```
+
+Although if you want it in your bundle, you may simply `require` it in your client side code.
+
+```javascript
+require('pdfjs-dist/build/pdf.combined');
 ```
 
 ## Support
