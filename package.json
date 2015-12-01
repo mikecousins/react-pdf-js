@@ -1,6 +1,6 @@
 {
   "name": "react-pdfjs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A React component to wrap PDF.js",
   "main": "./lib/index.js",
   "jsnext:main": "./src/index.js",
