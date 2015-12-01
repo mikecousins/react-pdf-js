@@ -1,0 +1,60 @@
+{
+  "name": "react-pdfjs",
+  "version": "0.0.2",
+  "description": "A React component to wrap PDF.js",
+  "main": "./lib/index.js",
+  "jsnext:main": "./src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erikras/react-pdfjs"
+  },
+  "scripts": {
+    "build": "npm run build:lib && npm run build:umd && npm run build:umd:min",
+    "build:lib": "babel src --out-dir lib",
+    "build:umd": "webpack src/index.js dist/react-pdfjs.js --config webpack.config.development.js",
+    "build:umd:min": "webpack src/index.js dist/react-pdfjs.min.js --config webpack.config.production.js",
+    "clean": "rimraf dist lib",
+    "lint": "eslint src",
+    "prepublish": "npm run lint && npm run clean && npm run build"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "pdf",
+    "pdfjs"
+  ],
+  "author": "Erik Rasmussen <rasmussenerik@gmail.com> (http://github.com/erikras)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/erikras/react-pdfjs/issues"
+  },
+  "homepage": "https://github.com/erikras/react-pdfjs",
+  "dependencies": {
+    "pdfjs-dist": "^1.3.44"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.25",
+    "babel-eslint": "^4.1.3",
+    "babel-loader": "^5.3.2",
+    "babel-plugin-react-transform": "^1.1.1",
+    "babel-plugin-typecheck": "^1.3.0",
+    "babel-runtime": "^5.8.25",
+    "eslint": "^1.9.0",
+    "eslint-config-airbnb": "^0.1.0",
+    "eslint-plugin-react": "^3.5.1",
+    "react": "^0.14.0",
+    "rifraf": "^2.0.2",
+    "rimraf": "^2.4.3",
+    "webpack": "^1.12.3"
+  },
+  "npmName": "react-pdfjs",
+  "npmFileMap": [
+    {
+      "basePath": "/dist/",
+      "files": [
+        "*.js"
+      ]
+    }
+  ]
+}
