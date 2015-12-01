@@ -1,5 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 
+if (typeof window !== 'undefined') {
+  require('pdfjs-dist/build/pdf.combined');
+}
+
 class Pdf extends Component {
   constructor(props) {
     super(props);
