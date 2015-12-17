@@ -1,6 +1,6 @@
 {
   "name": "react-pdfjs",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "A React component to wrap PDF.js",
   "main": "./lib/index.js",
   "jsnext:main": "./src/index.js",
@@ -51,9 +51,10 @@
   "npmName": "react-pdfjs",
   "npmFileMap": [
     {
-      "basePath": "/dist/",
       "files": [
-        "*.js"
+        "dist/*.js",
+        "lib/*.js",
+        "src/*.js"
       ]
     }
   ]
