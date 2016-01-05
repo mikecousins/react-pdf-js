@@ -9,9 +9,10 @@ class Pdf extends Component {
     super(props);
     this.onDocumentComplete = this.onDocumentComplete.bind(this);
     this.onPageComplete = this.onPageComplete.bind(this);
+    this.state = {};
   }
 
-  state = {};
+  // state = {};
 
   componentDidMount() {
     this.loadPDFDocument(this.props);
@@ -24,9 +25,14 @@ class Pdf extends Component {
       (newProps.content && newProps.content !== this.props.content)) {
       this.loadPDFDocument(newProps);
     }
-    if (pdf && newProps.page && newProps.page !== this.props.page) {
+    // if (pdf && newProps.page && newProps.page !== this.props.page) {
+    //   this.setState({page: null});
+    //   pdf.getPage(newProps.page).then(this.onPageComplete);
+    // }
+    if (pdf && ((newProps.page && newProps.page !== this.props.page) ||
+      (newProps.scale && newProps.scale !== this.props.scale))) {
       this.setState({page: null});
-      pdf.getPage(newProps.page).then(this.onPageComplete);
+      pdf.getPage(newProps.page).then(this.onPageComplete)
     }
   }
 
