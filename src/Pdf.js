@@ -12,8 +12,6 @@ class Pdf extends Component {
     this.state = {};
   }
 
-  // state = {};
-
   componentDidMount() {
     this.loadPDFDocument(this.props);
     this.renderPdf();
@@ -25,10 +23,7 @@ class Pdf extends Component {
       (newProps.content && newProps.content !== this.props.content)) {
       this.loadPDFDocument(newProps);
     }
-    // if (pdf && newProps.page && newProps.page !== this.props.page) {
-    //   this.setState({page: null});
-    //   pdf.getPage(newProps.page).then(this.onPageComplete);
-    // }
+
     if (pdf && ((newProps.page && newProps.page !== this.props.page) ||
       (newProps.scale && newProps.scale !== this.props.scale))) {
       this.setState({page: null});
