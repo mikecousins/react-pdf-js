@@ -27,7 +27,7 @@ class Pdf extends Component {
     if (pdf && ((newProps.page && newProps.page !== this.props.page) ||
       (newProps.scale && newProps.scale !== this.props.scale))) {
       this.setState({page: null});
-      pdf.getPage(newProps.page).then(this.onPageComplete)
+      pdf.getPage(newProps.page).then(this.onPageComplete);
     }
   }
 
