@@ -9,8 +9,9 @@ class Pdf extends Component {
     super(props);
     this.onDocumentComplete = this.onDocumentComplete.bind(this);
     this.onPageComplete = this.onPageComplete.bind(this);
-    this.state = {};
   }
+
+  state = {};
 
   componentDidMount() {
     this.loadPDFDocument(this.props);
