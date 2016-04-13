@@ -1,17 +1,15 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 
 if (typeof window !== 'undefined') {
   require('pdfjs-dist/build/pdf.combined');
 }
 
-class Pdf extends Component {
+class Pdf extends React.Component {
   constructor(props) {
     super(props);
     this.onDocumentComplete = this.onDocumentComplete.bind(this);
     this.onPageComplete = this.onPageComplete.bind(this);
   }
-
-  state = {};
 
   componentDidMount() {
     this.loadPDFDocument(this.props);
@@ -19,7 +17,7 @@ class Pdf extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const {pdf} = this.state;
+    const { pdf } = this.state;
     if ((newProps.file && newProps.file !== this.props.file) ||
       (newProps.content && newProps.content !== this.props.content)) {
       this.loadPDFDocument(newProps);
@@ -27,14 +25,14 @@ class Pdf extends Component {
 
     if (pdf && ((newProps.page && newProps.page !== this.props.page) ||
       (newProps.scale && newProps.scale !== this.props.scale))) {
-      this.setState({page: null});
+      this.setState({ page: null });
       pdf.getPage(newProps.page).then(this.onPageComplete);
     }
   }
 
   onDocumentComplete(pdf) {
-    this.setState({pdf: pdf});
-    const {onDocumentComplete} = this.props;
+    this.setState({ pdf });
+    const { onDocumentComplete } = this.props;
     if (typeof onDocumentComplete === 'function') {
       onDocumentComplete(pdf.numPages);
     }
@@ -42,9 +40,9 @@ class Pdf extends Component {
   }
 
   onPageComplete(page) {
-    this.setState({page: page});
+    this.setState({ page });
     this.renderPdf();
-    const {onPageComplete} = this.props;
+    const { onPageComplete } = this.props;
     if (typeof onPageComplete === 'function') {
       onPageComplete(page.pageIndex + 1);
     }
@@ -79,37 +77,37 @@ class Pdf extends Component {
   }
 
   renderPdf() {
-    const {page} = this.state;
+    const { page } = this.state;
     if (page) {
-      let {canvas} = this.refs;
+      let { canvas } = this.refs;
       if (canvas.getDOMNode) { // compatible with react 0.13
         canvas = canvas.getDOMNode();
       }
       const canvasContext = canvas.getContext('2d');
-      const {scale} = this.props;
+      const { scale } = this.props;
       const viewport = page.getViewport(scale);
       canvas.height = viewport.height;
       canvas.width = viewport.width;
-      page.render({canvasContext, viewport});
+      page.render({ canvasContext, viewport });
     }
   }
 
   render() {
-    const {loading} = this.props;
-    const {page} = this.state;
-    return page ? <canvas ref="canvas"/> : loading || <div>Loading PDF...</div>;
+    const { loading } = this.props;
+    const { page } = this.state;
+    return page ? <canvas ref="canvas" /> : loading || <div>Loading PDF...</div>;
   }
 }
 Pdf.displayName = 'React-PDFjs';
 Pdf.propTypes = {
-  content: PropTypes.string,
-  file: PropTypes.string,
-  loading: PropTypes.any,
-  page: PropTypes.number,
-  scale: PropTypes.number,
-  onDocumentComplete: PropTypes.func,
-  onPageComplete: PropTypes.func
+  content: React.PropTypes.string,
+  file: React.PropTypes.string,
+  loading: React.PropTypes.any,
+  page: React.PropTypes.number,
+  scale: React.PropTypes.number,
+  onDocumentComplete: React.PropTypes.func,
+  onPageComplete: React.PropTypes.func,
 };
-Pdf.defaultProps = {page: 1, scale: 1.0};
+Pdf.defaultProps = { page: 1, scale: 1.0 };
 
 export default Pdf;
