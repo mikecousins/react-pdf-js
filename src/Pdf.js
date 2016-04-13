@@ -7,6 +7,7 @@ if (typeof window !== 'undefined') {
 class Pdf extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {};
     this.onDocumentComplete = this.onDocumentComplete.bind(this);
     this.onPageComplete = this.onPageComplete.bind(this);
   }
