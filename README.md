@@ -1,7 +1,7 @@
 #react-pdf-js
 ---
-[![NPM Version](https://img.shields.io/npm/v/react-pdfjs.svg?style=flat-square)](https://www.npmjs.com/package/react-pdfjs)
-[![NPM Downloads](https://img.shields.io/npm/dm/react-pdfjs.svg?style=flat-square)](https://www.npmjs.com/package/react-pdfjs)
+[![NPM Version](https://img.shields.io/npm/v/react-pdf-js.svg?style=flat-square)](https://www.npmjs.com/package/react-pdf-js)
+[![NPM Downloads](https://img.shields.io/npm/dm/react-pdf-js.svg?style=flat-square)](https://www.npmjs.com/package/react-pdf-js)
 [![Build Status](https://img.shields.io/travis/mikecousins/react-pdfjs/master.svg?style=flat-square)](https://travis-ci.org/mikecousins/react-pdfjs)
 [![devDependency Status](https://david-dm.org/mikecousins/react-pdfjs/dev-status.svg)](https://david-dm.org/mikecousins/react-pdfjs#info=devDependencies)
 
@@ -15,13 +15,7 @@
 npm install --save react-pdf-js
 ```
 
-## Support
-
-This project will not be supported. It is a port of [react-pdf](https://github.com/nnarhinen/react-pdf) to ES6 and
-React 0.14. Don't expect any response if you submit an issue, but if you submit a well-written pull request, it _might_
-be merged in.
-
 ## Credit
 
-As stated above, this is a port of [react-pdf](https://github.com/nnarhinen/react-pdf), so thank you to
-[its authors](https://github.com/nnarhinen/react-pdf#author).
+This project is a fork of [react-pdfjs](https://github.com/erikras/react-pdfjs) which itself was a port of [react-pdf](https://github.com/nnarhinen/react-pdf), so thank you to
+the original authours.
