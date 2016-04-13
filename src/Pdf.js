@@ -73,7 +73,7 @@ class Pdf extends React.Component {
       }
       this.loadByteArray(byteArray);
     } else {
-      throw new Error('React-PDFjs works with a file(URL) or (base64)content. At least one needs to be provided!');
+      throw new Error('react-pdf-js works with a file(URL) or (base64)content. At least one needs to be provided!');
     }
   }
 
@@ -96,7 +96,7 @@ class Pdf extends React.Component {
     return page ? <canvas ref="canvas" /> : loading || <div>Loading PDF...</div>;
   }
 }
-Pdf.displayName = 'React-PDFjs';
+Pdf.displayName = 'react-pdf-js';
 Pdf.propTypes = {
   content: React.PropTypes.string,
   file: React.PropTypes.string,
