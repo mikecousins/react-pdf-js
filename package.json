@@ -6,7 +6,7 @@
   "jsnext:main": "./src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mikecousins/react-pdfjs"
+    "url": "https://github.com/mikecousins/react-pdf-js"
   },
   "scripts": {
     "build": "npm run build:lib && npm run build:umd && npm run build:umd:min",
@@ -26,9 +26,9 @@
   "author": "Mike Cousins <mike@mikecousins.com> (http://github.com/mikecousins)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mikecousins/react-pdfjs/issues"
+    "url": "https://github.com/mikecousins/react-pdf-js/issues"
   },
-  "homepage": "https://github.com/mikecousins/react-pdfjs",
+  "homepage": "https://github.com/mikecousins/react-pdf-js",
   "dependencies": {
     "pdfjs-dist": "1.5.222"
   },
