@@ -46,15 +46,22 @@ class MyPdfViewer extends React.Component {
   }
 
   renderPagination(page, pages) {
-    let previousButton = <button type="button" className="btn btn-default" onClick={this.handlePrevious}><i className="fa fa-arrow-left"></i> Previous</button>;
+    let previousButton = <li className="previous" onClick={this.handlePrevious}><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
     if (page === 1) {
-      previousButton = <button type="button" className="btn btn-default" disabled><i className="fa fa-arrow-left"></i> Previous</button>;
+      previousButton = <li className="previous disabled"><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
     }
-    let nextButton = <button type="button" className="btn btn-default" onClick={this.handleNext}>Next <i className="fa fa-arrow-right"></i></button>;
+    let nextButton = <li className="next" onClick={this.handleNext}><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
     if (page === pages) {
-      nextButton = <button type="button" className="btn btn-default" disabled>Next <i className="fa fa-arrow-right"></i></button>;
+      nextButton = <li className="next disabled"><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
     }
-    return <div>{previousButton} {nextButton}</div>;
+    return (
+      <nav>
+        <ul className="pager">
+          {previousButton}
+          {nextButton}
+        </ul>
+      </nav>
+      );
   }
 
   render() {
