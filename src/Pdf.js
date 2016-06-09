@@ -16,8 +16,14 @@ class Pdf extends React.Component {
 
   componentWillReceiveProps(newProps) {
     const { pdf } = this.state;
+
+    const newDocInit = newProps.documentInitParameters;
+    const docInit = this.props.documentInitParameters;
+
     if ((newProps.file && newProps.file !== this.props.file) ||
-      (newProps.content && newProps.content !== this.props.content)) {
+      (newProps.content && newProps.content !== this.props.content) ||
+      (newDocInit && newDocInit !== docInit) ||
+      (newDocInit && docInit && newDocInit.url !== docInit.url)) {
       this.loadPDFDocument(newProps);
     }
 
@@ -69,6 +75,9 @@ class Pdf extends React.Component {
         byteArray[index] = bytes.charCodeAt(index);
       }
       this.loadByteArray(byteArray);
+    } else if (!!props.documentInitParameters) {
+      return window.PDFJS.getDocument(props.documentInitParameters)
+        .then(this.onDocumentComplete);
     } else {
       throw new Error('react-pdf-js works with a file(URL) or (base64)content. At least one needs to be provided!');
     }
@@ -97,6 +106,7 @@ Pdf.displayName = 'react-pdf-js';
 Pdf.propTypes = {
   content: React.PropTypes.string,
   file: React.PropTypes.string,
+  documentInitParameters: React.PropTypes.object,
   loading: React.PropTypes.any,
   page: React.PropTypes.number,
   scale: React.PropTypes.number,
