@@ -1,6 +1,6 @@
 {
   "name": "react-pdf-js",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "A React component to wrap PDF.js",
   "main": "./lib/index.js",
   "jsnext:main": "./src/index.js",
@@ -11,8 +11,8 @@
   "scripts": {
     "build": "npm run build:lib && npm run build:umd && npm run build:umd:min",
     "build:lib": "babel src --out-dir lib",
-    "build:umd": "webpack src/index.js dist/react-pdfjs.js --config webpack.config.development.js",
-    "build:umd:min": "webpack src/index.js dist/react-pdfjs.min.js --config webpack.config.production.js",
+    "build:umd": "webpack src/index.js dist/react-pdf-js.js --config webpack.config.development.js",
+    "build:umd:min": "webpack src/index.js dist/react-pdf-js.min.js --config webpack.config.production.js",
     "clean": "rimraf dist lib",
     "lint": "eslint src",
     "prepublish": "npm run lint && npm run clean && npm run build"
@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/mikecousins/react-pdf-js",
   "dependencies": {
-    "pdfjs-dist": "1.5.279"
+    "pdfjs-dist": "1.5.292"
   },
   "devDependencies": {
     "babel-cli": "6.9.0",
@@ -43,11 +43,11 @@
     "babel-preset-es2015": "6.9.0",
     "babel-preset-react": "6.5.0",
     "babel-runtime": "6.9.2",
-    "eslint": "2.11.1",
+    "eslint": "2.12.0",
     "eslint-config-airbnb": "9.0.1",
     "eslint-plugin-import": "1.8.1",
     "eslint-plugin-react": "5.1.1",
-    "eslint-plugin-jsx-a11y": "1.2.2",
+    "eslint-plugin-jsx-a11y": "1.4.0",
     "react": "15.1.0",
     "rifraf": "2.0.2",
     "rimraf": "2.5.2",
