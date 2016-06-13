@@ -15,17 +15,10 @@ class Pdf extends React.Component {
     this.renderPdf();
   }
 
-  // Not sure... Would this helpful?
-  // componentWillUnmount() {
-  //   const {pdf} = this.state;
-  //   pdf.destroy();
-  // }
-
   componentWillReceiveProps(newProps) {
     const { pdf } = this.state;
 
-    // Only reload iff the most significant source
-    // has changed!
+    // Only reload if the most significant source has changed!
     let newSource = newProps.file;
     let oldSource = newSource ? this.props.file : null;
     newSource = newSource || newProps.binaryContent;
@@ -42,6 +35,11 @@ class Pdf extends React.Component {
       this.setState({ page: null });
       pdf.getPage(newProps.page).then(this.onPageComplete);
     }
+  }
+
+  componentWillUnmount() {
+    const { pdf } = this.state;
+    pdf.destroy();
   }
 
   onGetPdfRaw(pdfRaw) {
@@ -96,7 +94,7 @@ class Pdf extends React.Component {
       reader.readAsArrayBuffer(props.file);
     } else if (props.binaryContent) {
       this.loadByteArray(props.binaryContent);
-    } else if (props.content) {
+    } else if (!!props.content) {
       const bytes = window.atob(props.content);
       const byteLength = bytes.length;
       const byteArray = new Uint8Array(new ArrayBuffer(byteLength));
