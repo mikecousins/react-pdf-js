@@ -206,7 +206,7 @@ Pdf.propTypes = {
   page: React.PropTypes.number,
   scale: React.PropTypes.number,
   onContentAvailable: React.PropTypes.func,
-  onBinaryContentAvailable: React.PropTypes.func.isRequired,
+  onBinaryContentAvailable: React.PropTypes.func,
   binaryToBase64: React.PropTypes.func,
   onDocumentComplete: React.PropTypes.func,
   onPageComplete: React.PropTypes.func,
