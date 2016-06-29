@@ -1,6 +1,6 @@
 {
   "name": "react-pdf-js",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "A React component to wrap PDF.js",
   "main": "./lib/index.js",
   "jsnext:main": "./src/index.js",
@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/mikecousins/react-pdf-js",
   "dependencies": {
-    "pdfjs-dist": "1.5.294"
+    "pdfjs-dist": "1.5.309"
   },
   "devDependencies": {
     "babel-cli": "6.10.1",
