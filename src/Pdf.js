@@ -1,5 +1,6 @@
 import React from 'react';
 require('pdfjs-dist/build/pdf.combined');
+require('pdfjs-dist/web/compatibility');
 
 class Pdf extends React.Component {
   constructor(props) {
