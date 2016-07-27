@@ -2,6 +2,26 @@ import React from 'react';
 require('pdfjs-dist/build/pdf.combined');
 require('pdfjs-dist/web/compatibility');
 
+const makeCancelable = (promise) => {
+  let hasCanceled = false;
+
+  const wrappedPromise = new Promise((resolve, reject) => {
+    promise.then((val) => (
+      hasCanceled ? reject({ pdf: val, isCanceled: true }) : resolve(val)
+    ));
+    promise.catch((error) => (
+      hasCanceled ? reject({ isCanceled: true }) : reject(error)
+    ));
+  });
+
+  return {
+    promise: wrappedPromise,
+    cancel() {
+      hasCanceled = true;
+    },
+  };
+};
+
 class Pdf extends React.Component {
   constructor(props) {
     super(props);
@@ -9,6 +29,7 @@ class Pdf extends React.Component {
     this.onGetPdfRaw = this.onGetPdfRaw.bind(this);
     this.onDocumentComplete = this.onDocumentComplete.bind(this);
     this.onPageComplete = this.onPageComplete.bind(this);
+    this.getDocument = this.getDocument.bind(this);
   }
 
   componentDidMount() {
@@ -47,7 +68,12 @@ class Pdf extends React.Component {
 
   componentWillUnmount() {
     const { pdf } = this.state;
-    pdf.destroy();
+    if (pdf) {
+      pdf.destroy();
+    }
+    if (this.documentPromise) {
+      this.documentPromise.cancel();
+    }
   }
 
   onGetPdfRaw(pdfRaw) {
@@ -76,6 +102,12 @@ class Pdf extends React.Component {
     pdf.getPage(this.props.page).then(this.onPageComplete);
   }
 
+  onDocumentError(err) {
+    if (err.isCanceled && err.pdf) {
+      err.pdf.destroy();
+    }
+  }
+
   onPageComplete(page) {
     this.setState({ page });
     this.renderPdf();
@@ -85,15 +117,27 @@ class Pdf extends React.Component {
     }
   }
 
+  getDocument(val) {
+    if (this.documentPromise) {
+      this.documentPromise.cancel();
+    }
+    this.documentPromise = makeCancelable(window.PDFJS.getDocument(val).promise);
+    this.documentPromise
+      .promise
+      .then(this.onDocumentComplete)
+      .catch(this.onDocumentError);
+    return this.documentPromise;
+  }
+
+
   loadByteArray(byteArray) {
-    window.PDFJS.getDocument(byteArray).then(this.onDocumentComplete);
+    this.getDocument(byteArray);
   }
 
   loadPDFDocument(props) {
     if (!!props.file) {
       if (typeof props.file === 'string') {
-        return window.PDFJS.getDocument(props.file)
-          .then(this.onDocumentComplete);
+        return this.getDocument(props.file);
       }
       // Is a File object
       const reader = new FileReader();
@@ -111,8 +155,7 @@ class Pdf extends React.Component {
       }
       this.loadByteArray(byteArray);
     } else if (!!props.documentInitParameters) {
-      return window.PDFJS.getDocument(props.documentInitParameters)
-        .then(this.onDocumentComplete);
+      return this.getDocument(props.documentInitParameters);
     } else {
       throw new Error('react-pdf-js works with a file(URL) or (base64)content. At least one needs to be provided!');
     }
