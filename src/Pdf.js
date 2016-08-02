@@ -1,4 +1,5 @@
 import React from 'react';
+
 require('pdfjs-dist/build/pdf.combined');
 require('pdfjs-dist/web/compatibility');
 
@@ -135,7 +136,7 @@ class Pdf extends React.Component {
   }
 
   loadPDFDocument(props) {
-    if (!!props.file) {
+    if (props.file) {
       if (typeof props.file === 'string') {
         return this.getDocument(props.file);
       }
@@ -146,7 +147,7 @@ class Pdf extends React.Component {
       reader.readAsArrayBuffer(props.file);
     } else if (props.binaryContent) {
       this.loadByteArray(props.binaryContent);
-    } else if (!!props.content) {
+    } else if (props.content) {
       const bytes = window.atob(props.content);
       const byteLength = bytes.length;
       const byteArray = new Uint8Array(new ArrayBuffer(byteLength));
@@ -154,7 +155,7 @@ class Pdf extends React.Component {
         byteArray[index] = bytes.charCodeAt(index);
       }
       this.loadByteArray(byteArray);
-    } else if (!!props.documentInitParameters) {
+    } else if (props.documentInitParameters) {
       return this.getDocument(props.documentInitParameters);
     } else {
       throw new Error('react-pdf-js works with a file(URL) or (base64)content. At least one needs to be provided!');
@@ -181,7 +182,7 @@ class Pdf extends React.Component {
     let chunk;
 
     // Main loop deals with bytes in chunks of 3
-    for (let i = 0; i < mainLength; i = i + 3) {
+    for (let i = 0; i < mainLength; i += 3) {
       // Combine the three bytes into a single integer
       chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
 
@@ -223,7 +224,7 @@ class Pdf extends React.Component {
   renderPdf() {
     const { page } = this.state;
     if (page) {
-      const { canvas } = this.refs;
+      const { canvas } = this;
       const canvasContext = canvas.getContext('2d');
       const { scale } = this.props;
       const viewport = page.getViewport(scale);
@@ -236,7 +237,7 @@ class Pdf extends React.Component {
   render() {
     const { loading } = this.props;
     const { page } = this.state;
-    return page ? <canvas ref="canvas" /> : loading || <div>Loading PDF...</div>;
+    return page ? <canvas ref={c => this.canvas = c} /> : loading || <div>Loading PDF...</div>;
   }
 }
 
