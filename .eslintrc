@@ -1,18 +1,18 @@
 {
-  "extends": "eslint-config-airbnb",
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": [
+    "react"
+  ],
   "env": {
     "browser": true,
     "mocha": true,
     "node": true
   },
   "rules": {
-    "max-len": [2, 200, 2],
-    "consistent-return": 0,
-    "linebreak-style": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "no-return-assign": 0
+    "consistent-return": "off",
+    "react/forbid-prop-types": "off",
+    "no-bitwise": "off"
   },
-  "plugins": [
-    "react"
-  ]
+
 }

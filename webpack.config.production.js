@@ -10,8 +10,7 @@ config.plugins = [
     'process.env.NODE_ENV': JSON.stringify('production')
   }),
   new webpack.optimize.UglifyJsPlugin({
-    compressor: {
-      screw_ie8: true,
+    compress: {
       warnings: false
     }
   })

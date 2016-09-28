@@ -7,10 +7,10 @@ const makeCancelable = (promise) => {
   let hasCanceled = false;
 
   const wrappedPromise = new Promise((resolve, reject) => {
-    promise.then((val) => (
+    promise.then(val => (
       hasCanceled ? reject({ pdf: val, isCanceled: true }) : resolve(val)
     ));
-    promise.catch((error) => (
+    promise.catch(error => (
       hasCanceled ? reject({ isCanceled: true }) : reject(error)
     ));
   });
@@ -24,6 +24,71 @@ const makeCancelable = (promise) => {
 };
 
 class Pdf extends React.Component {
+  static onDocumentError(err) {
+    if (err.isCanceled && err.pdf) {
+      err.pdf.destroy();
+    }
+  }
+
+  // Converts an ArrayBuffer directly to base64, without any intermediate 'convert to string then
+  // use window.btoa' step and without risking a blow of the stack. According to [Jon Leightons's]
+  // tests, this appears to be a faster approach: http://jsperf.com/encoding-xhr-image-data/5
+  // Jon Leighton https://gist.github.com/jonleighton/958841
+  static defaultBinaryToBase64(arrayBuffer) {
+    let base64 = '';
+    const encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+    const bytes = new Uint8Array(arrayBuffer);
+    const byteLength = bytes.byteLength;
+    const byteRemainder = byteLength % 3;
+    const mainLength = byteLength - byteRemainder;
+
+    let a;
+    let b;
+    let c;
+    let d;
+    let chunk;
+
+    // Main loop deals with bytes in chunks of 3
+    for (let i = 0; i < mainLength; i += 3) {
+      // Combine the three bytes into a single integer
+      chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
+
+      // Use bitmasks to extract 6-bit segments from the triplet
+      a = (chunk & 16515072) >> 18; // 16515072 = (2^6 - 1) << 18
+      b = (chunk & 258048) >> 12; // 258048   = (2^6 - 1) << 12
+      c = (chunk & 4032) >> 6; // 4032     = (2^6 - 1) << 6
+      d = chunk & 63;               // 63       = 2^6 - 1
+
+      // Convert the raw binary segments to the appropriate ASCII encoding
+      base64 = [base64, encodings[a], encodings[b], encodings[c], encodings[d]].join('');
+    }
+
+    // Deal with the remaining bytes and padding
+    if (byteRemainder === 1) {
+      chunk = bytes[mainLength];
+
+      a = (chunk & 252) >> 2; // 252 = (2^6 - 1) << 2
+
+      // Set the 4 least significant bits to zero
+      b = (chunk & 3) << 4; // 3   = 2^2 - 1
+
+      base64 = [base64, encodings[a], encodings[b], '=='].join('');
+    } else if (byteRemainder === 2) {
+      chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1];
+
+      a = (chunk & 64512) >> 10; // 64512 = (2^6 - 1) << 10
+      b = (chunk & 1008) >> 4; // 1008  = (2^6 - 1) << 4
+
+      // Set the 2 least significant bits to zero
+      c = (chunk & 15) << 2; // 15    = 2^4 - 1
+
+      base64 = [base64, encodings[a], encodings[b], encodings[c], '='].join('');
+    }
+
+    return base64;
+  }
+
   constructor(props) {
     super(props);
     this.state = {};
@@ -103,12 +168,6 @@ class Pdf extends React.Component {
     pdf.getPage(this.props.page).then(this.onPageComplete);
   }
 
-  onDocumentError(err) {
-    if (err.isCanceled && err.pdf) {
-      err.pdf.destroy();
-    }
-  }
-
   onPageComplete(page) {
     this.setState({ page });
     this.renderPdf();
@@ -151,7 +210,7 @@ class Pdf extends React.Component {
       const bytes = window.atob(props.content);
       const byteLength = bytes.length;
       const byteArray = new Uint8Array(new ArrayBuffer(byteLength));
-      for (let index = 0; index < byteLength; index++) {
+      for (let index = 0; index < byteLength; index += 1) {
         byteArray[index] = bytes.charCodeAt(index);
       }
       this.loadByteArray(byteArray);
@@ -160,65 +219,6 @@ class Pdf extends React.Component {
     } else {
       throw new Error('react-pdf-js works with a file(URL) or (base64)content. At least one needs to be provided!');
     }
-  }
-
-  // Converts an ArrayBuffer directly to base64, without any intermediate 'convert to string then
-  // use window.btoa' step and without risking a blow of the stack. According to [Jon Leightons's]
-  // tests, this appears to be a faster approach: http://jsperf.com/encoding-xhr-image-data/5
-  // Jon Leighton https://gist.github.com/jonleighton/958841
-  defaultBinaryToBase64(arrayBuffer) {
-    let base64 = '';
-    const encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-
-    const bytes = new Uint8Array(arrayBuffer);
-    const byteLength = bytes.byteLength;
-    const byteRemainder = byteLength % 3;
-    const mainLength = byteLength - byteRemainder;
-
-    let a;
-    let b;
-    let c;
-    let d;
-    let chunk;
-
-    // Main loop deals with bytes in chunks of 3
-    for (let i = 0; i < mainLength; i += 3) {
-      // Combine the three bytes into a single integer
-      chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
-
-      // Use bitmasks to extract 6-bit segments from the triplet
-      a = (chunk & 16515072) >> 18; // 16515072 = (2^6 - 1) << 18
-      b = (chunk & 258048) >> 12; // 258048   = (2^6 - 1) << 12
-      c = (chunk & 4032) >> 6; // 4032     = (2^6 - 1) << 6
-      d = chunk & 63;               // 63       = 2^6 - 1
-
-      // Convert the raw binary segments to the appropriate ASCII encoding
-      base64 = [base64, encodings[a], encodings[b], encodings[c], encodings[d]].join('');
-    }
-
-    // Deal with the remaining bytes and padding
-    if (byteRemainder === 1) {
-      chunk = bytes[mainLength];
-
-      a = (chunk & 252) >> 2; // 252 = (2^6 - 1) << 2
-
-      // Set the 4 least significant bits to zero
-      b = (chunk & 3) << 4; // 3   = 2^2 - 1
-
-      base64 = [base64, encodings[a], encodings[b], '=='].join('');
-    } else if (byteRemainder === 2) {
-      chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1];
-
-      a = (chunk & 64512) >> 10; // 64512 = (2^6 - 1) << 10
-      b = (chunk & 1008) >> 4; // 1008  = (2^6 - 1) << 4
-
-      // Set the 2 least significant bits to zero
-      c = (chunk & 15) << 2; // 15    = 2^4 - 1
-
-      base64 = [base64, encodings[a], encodings[b], encodings[c], '='].join('');
-    }
-
-    return base64;
   }
 
   renderPdf() {
@@ -237,15 +237,17 @@ class Pdf extends React.Component {
   render() {
     const { loading } = this.props;
     const { page } = this.state;
-    return page ? <canvas ref={c => this.canvas = c} /> : loading || <div>Loading PDF...</div>;
+    return page ?
+      <canvas ref={(c) => { this.canvas = c; }} /> :
+      loading || <div>Loading PDF...</div>;
   }
 }
 
 Pdf.displayName = 'react-pdf-js';
 Pdf.propTypes = {
   content: React.PropTypes.string,
-  documentInitParameters: React.PropTypes.object,
-  binaryContent: React.PropTypes.object,
+  documentInitParameters: React.PropTypes.shape,
+  binaryContent: React.PropTypes.shape,
   file: React.PropTypes.any, // Could be File object or URL string.
   loading: React.PropTypes.any,
   page: React.PropTypes.number,
