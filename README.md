@@ -25,7 +25,7 @@ class MyPdfViewer extends React.Component {
   constructor(props) {
     super(props);
     this.onDocumentComplete = this.onDocumentComplete.bind(this);
-    this.onPageCompleted = this.onPageCompleted.bind(this);
+    this.onPageComplete = this.onPageComplete.bind(this);
     this.handlePrevious = this.handlePrevious.bind(this);
     this.handleNext = this.handleNext.bind(this);
   }
@@ -34,7 +34,7 @@ class MyPdfViewer extends React.Component {
     this.setState({ page: 1, pages });
   }
 
-  onPageCompleted(page) {
+  onPageComplete(page) {
     this.setState({ page });
   }
 
@@ -72,7 +72,7 @@ class MyPdfViewer extends React.Component {
     }
     return (
       <div>
-        <PDF file="somefile.pdf" onDocumentComplete={this.onDocumentComplete} onPageCompleted={this.onPageCompleted} page={this.state.page} />
+        <PDF file="somefile.pdf" onDocumentComplete={this.onDocumentComplete} onPageComplete={this.onPageComplete} page={this.state.page} />
         {pagination}
       </div>
   }
