@@ -246,8 +246,12 @@ class Pdf extends React.Component {
 Pdf.displayName = 'react-pdf-js';
 Pdf.propTypes = {
   content: React.PropTypes.string,
-  documentInitParameters: React.PropTypes.shape,
-  binaryContent: React.PropTypes.shape,
+  documentInitParameters: React.PropTypes.shape({
+    url: React.PropTypes.string,
+  }),
+  binaryContent: React.PropTypes.shape({
+    data: React.PropTypes.any,
+  }),
   file: React.PropTypes.any, // Could be File object or URL string.
   loading: React.PropTypes.any,
   page: React.PropTypes.number,

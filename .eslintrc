@@ -12,7 +12,8 @@
   "rules": {
     "consistent-return": "off",
     "react/forbid-prop-types": "off",
-    "no-bitwise": "off"
+    "no-bitwise": "off",
+    "react/no-unused-prop-types": [2, { skipShapeProps: true }]
   },
 
 }
