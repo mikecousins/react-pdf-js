@@ -1,6 +1,6 @@
 {
   "name": "react-pdf-js",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "description": "A React component to wrap PDF.js",
   "main": "./lib/index.js",
   "jsnext:main": "./src/index.js",
@@ -30,12 +30,12 @@
   },
   "homepage": "https://github.com/mikecousins/react-pdf-js",
   "dependencies": {
-    "pdfjs-dist": "1.5.496",
+    "pdfjs-dist": "1.6.263",
     "react": "15.3.2"
   },
   "devDependencies": {
     "babel-cli": "6.16.0",
-    "babel-core": "6.16.0",
+    "babel-core": "6.17.0",
     "babel-eslint": "7.0.0",
     "babel-loader": "6.2.5",
     "babel-plugin-react-transform": "2.0.2",
@@ -44,11 +44,11 @@
     "babel-preset-es2015": "6.16.0",
     "babel-preset-react": "6.16.0",
     "babel-runtime": "6.11.6",
-    "eslint": "3.6.1",
+    "eslint": "3.8.1",
     "eslint-config-airbnb": "12.0.0",
     "eslint-plugin-import": "1.16.0",
-    "eslint-plugin-react": "6.3.0",
-    "eslint-plugin-jsx-a11y": "2.2.2",
+    "eslint-plugin-react": "6.4.1",
+    "eslint-plugin-jsx-a11y": "2.2.3",
     "rifraf": "2.0.2",
     "rimraf": "2.5.4",
     "webpack": "1.13.2"
