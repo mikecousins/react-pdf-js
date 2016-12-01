@@ -238,7 +238,11 @@ class Pdf extends React.Component {
     const { loading } = this.props;
     const { page } = this.state;
     return page ?
-      <canvas ref={(c) => { this.canvas = c; }} /> :
+      <canvas
+        ref={(c) => { this.canvas = c; }}
+        className={this.props.className}
+        style={this.props.style}
+      /> :
       loading || <div>Loading PDF...</div>;
   }
 }
@@ -261,6 +265,8 @@ Pdf.propTypes = {
   binaryToBase64: React.PropTypes.func,
   onDocumentComplete: React.PropTypes.func,
   onPageComplete: React.PropTypes.func,
+  className: React.PropTypes.string,
+  style: React.PropTypes.object,
 };
 Pdf.defaultProps = { page: 1, scale: 1.0 };
 
