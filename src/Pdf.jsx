@@ -126,7 +126,8 @@ class Pdf extends React.Component {
     }
 
     if (pdf && ((newProps.page && newProps.page !== this.props.page) ||
-      (newProps.scale && newProps.scale !== this.props.scale))) {
+      (newProps.scale && newProps.scale !== this.props.scale) ||
+      (newProps.rotate && newProps.rotate !== this.props.rotate))) {
       this.setState({ page: null });
       pdf.getPage(newProps.page).then(this.onPageComplete);
     }
@@ -226,8 +227,8 @@ class Pdf extends React.Component {
     if (page) {
       const { canvas } = this;
       const canvasContext = canvas.getContext('2d');
-      const { scale } = this.props;
-      const viewport = page.getViewport(scale);
+      const { scale, rotate } = this.props;
+      const viewport = page.getViewport(scale, rotate);
       canvas.height = viewport.height;
       canvas.width = viewport.width;
       page.render({ canvasContext, viewport });
@@ -260,6 +261,7 @@ Pdf.propTypes = {
   loading: React.PropTypes.any,
   page: React.PropTypes.number,
   scale: React.PropTypes.number,
+  rotate: React.PropTypes.number,
   onContentAvailable: React.PropTypes.func,
   onBinaryContentAvailable: React.PropTypes.func,
   binaryToBase64: React.PropTypes.func,
