@@ -13,10 +13,10 @@ module.exports = {
     'react': reactExternal
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel',
+        use: 'babel-loader',
         exclude: /node_modules/
       }
     ]
@@ -26,6 +26,6 @@ module.exports = {
     libraryTarget: 'umd'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   }
 };

@@ -5,6 +5,7 @@
   ],
   "plugins": [
     "typecheck",
+    "transform-class-properties",
     "transform-runtime"
   ]
 }

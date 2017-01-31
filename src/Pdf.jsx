@@ -24,6 +24,34 @@ const makeCancelable = (promise) => {
 };
 
 class Pdf extends React.Component {
+
+  static propTypes = {
+    content: React.PropTypes.string,
+    documentInitParameters: React.PropTypes.shape({
+      url: React.PropTypes.string,
+    }),
+    binaryContent: React.PropTypes.shape({
+      data: React.PropTypes.any,
+    }),
+    file: React.PropTypes.any, // Could be File object or URL string.
+    loading: React.PropTypes.any,
+    page: React.PropTypes.number,
+    scale: React.PropTypes.number,
+    rotate: React.PropTypes.number,
+    onContentAvailable: React.PropTypes.func,
+    onBinaryContentAvailable: React.PropTypes.func,
+    binaryToBase64: React.PropTypes.func,
+    onDocumentComplete: React.PropTypes.func,
+    onPageComplete: React.PropTypes.func,
+    className: React.PropTypes.string,
+    style: React.PropTypes.object,
+  };
+
+  static defaultProps = {
+    page: 1,
+    scale: 1.0,
+  };
+
   static onDocumentError(err) {
     if (err.isCanceled && err.pdf) {
       err.pdf.destroy();
@@ -249,27 +277,5 @@ class Pdf extends React.Component {
 }
 
 Pdf.displayName = 'react-pdf-js';
-Pdf.propTypes = {
-  content: React.PropTypes.string,
-  documentInitParameters: React.PropTypes.shape({
-    url: React.PropTypes.string,
-  }),
-  binaryContent: React.PropTypes.shape({
-    data: React.PropTypes.any,
-  }),
-  file: React.PropTypes.any, // Could be File object or URL string.
-  loading: React.PropTypes.any,
-  page: React.PropTypes.number,
-  scale: React.PropTypes.number,
-  rotate: React.PropTypes.number,
-  onContentAvailable: React.PropTypes.func,
-  onBinaryContentAvailable: React.PropTypes.func,
-  binaryToBase64: React.PropTypes.func,
-  onDocumentComplete: React.PropTypes.func,
-  onPageComplete: React.PropTypes.func,
-  className: React.PropTypes.string,
-  style: React.PropTypes.object,
-};
-Pdf.defaultProps = { page: 1, scale: 1.0 };
 
 export default Pdf;

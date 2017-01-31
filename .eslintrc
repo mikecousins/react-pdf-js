@@ -11,9 +11,11 @@
   },
   "rules": {
     "consistent-return": "off",
-    "react/forbid-prop-types": "off",
+    "linebreak-style": "off",
     "no-bitwise": "off",
-    "react/no-unused-prop-types": [2, { skipShapeProps: true }]
+    "react/forbid-prop-types": "off",
+    "react/no-unused-prop-types": [2, { skipShapeProps: true }],
+    "react/require-default-props": "off"
   },
 
 }
