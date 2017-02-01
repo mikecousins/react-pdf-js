@@ -1,5 +1,5 @@
 {
   "critics": {
-    "wc": { "limit": 500 }
+    "wc": { "limit": 50000 }
   }
 }
