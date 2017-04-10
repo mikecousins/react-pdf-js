@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 require('pdfjs-dist/build/pdf.combined');
 require('pdfjs-dist/web/compatibility');
@@ -26,25 +27,25 @@ const makeCancelable = (promise) => {
 class Pdf extends React.Component {
 
   static propTypes = {
-    content: React.PropTypes.string,
-    documentInitParameters: React.PropTypes.shape({
-      url: React.PropTypes.string,
+    content: PropTypes.string,
+    documentInitParameters: PropTypes.shape({
+      url: PropTypes.string,
     }),
-    binaryContent: React.PropTypes.shape({
-      data: React.PropTypes.any,
+    binaryContent: PropTypes.shape({
+      data: PropTypes.any,
     }),
-    file: React.PropTypes.any, // Could be File object or URL string.
-    loading: React.PropTypes.any,
-    page: React.PropTypes.number,
-    scale: React.PropTypes.number,
-    rotate: React.PropTypes.number,
-    onContentAvailable: React.PropTypes.func,
-    onBinaryContentAvailable: React.PropTypes.func,
-    binaryToBase64: React.PropTypes.func,
-    onDocumentComplete: React.PropTypes.func,
-    onPageComplete: React.PropTypes.func,
-    className: React.PropTypes.string,
-    style: React.PropTypes.object,
+    file: PropTypes.any, // Could be File object or URL string.
+    loading: PropTypes.any,
+    page: PropTypes.number,
+    scale: PropTypes.number,
+    rotate: PropTypes.number,
+    onContentAvailable: PropTypes.func,
+    onBinaryContentAvailable: PropTypes.func,
+    binaryToBase64: PropTypes.func,
+    onDocumentComplete: PropTypes.func,
+    onPageComplete: PropTypes.func,
+    className: PropTypes.string,
+    style: PropTypes.object,
   };
 
   static defaultProps = {
