@@ -34,7 +34,7 @@
     "react-dom": "^15.5.3 || ~0.14.0"
   },
   "dependencies": {
-    "pdfjs-dist": "1.8.177",
+    "pdfjs-dist": "^1.8.527",
     "prop-types": "^15.5.6"
   },
   "devDependencies": {
