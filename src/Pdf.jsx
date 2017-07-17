@@ -118,14 +118,7 @@ class Pdf extends React.Component {
     return base64;
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.onGetPdfRaw = this.onGetPdfRaw.bind(this);
-    this.onDocumentComplete = this.onDocumentComplete.bind(this);
-    this.onPageComplete = this.onPageComplete.bind(this);
-    this.getDocument = this.getDocument.bind(this);
-  }
+  state = {};
 
   componentDidMount() {
     this.loadPDFDocument(this.props);
@@ -172,7 +165,7 @@ class Pdf extends React.Component {
     }
   }
 
-  onGetPdfRaw(pdfRaw) {
+  onGetPdfRaw = (pdfRaw) => {
     const { onContentAvailable, onBinaryContentAvailable, binaryToBase64 } = this.props;
     if (typeof onBinaryContentAvailable === 'function') {
       onBinaryContentAvailable(pdfRaw);
@@ -186,7 +179,7 @@ class Pdf extends React.Component {
     }
   }
 
-  onDocumentComplete(pdf) {
+  onDocumentComplete = (pdf) => {
     this.setState({ pdf });
     const { onDocumentComplete, onContentAvailable, onBinaryContentAvailable } = this.props;
     if (typeof onDocumentComplete === 'function') {
@@ -198,7 +191,7 @@ class Pdf extends React.Component {
     pdf.getPage(this.props.page).then(this.onPageComplete);
   }
 
-  onPageComplete(page) {
+  onPageComplete = (page) => {
     this.setState({ page });
     this.renderPdf();
     const { onPageComplete } = this.props;
@@ -207,7 +200,7 @@ class Pdf extends React.Component {
     }
   }
 
-  getDocument(val) {
+  getDocument = (val) => {
     if (this.documentPromise) {
       this.documentPromise.cancel();
     }
@@ -220,11 +213,11 @@ class Pdf extends React.Component {
   }
 
 
-  loadByteArray(byteArray) {
+  loadByteArray = (byteArray) => {
     this.getDocument(byteArray);
   }
 
-  loadPDFDocument(props) {
+  loadPDFDocument = (props) => {
     if (props.file) {
       if (typeof props.file === 'string') {
         return this.getDocument(props.file);
@@ -251,7 +244,7 @@ class Pdf extends React.Component {
     }
   }
 
-  renderPdf() {
+  renderPdf = () => {
     const { page } = this.state;
     if (page) {
       const { canvas } = this;
