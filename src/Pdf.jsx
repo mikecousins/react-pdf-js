@@ -43,6 +43,7 @@ class Pdf extends React.Component {
     onBinaryContentAvailable: PropTypes.func,
     binaryToBase64: PropTypes.func,
     onDocumentComplete: PropTypes.func,
+    onDocumentError: PropTypes.func,
     onPageComplete: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
@@ -52,12 +53,6 @@ class Pdf extends React.Component {
     page: 1,
     scale: 1.0,
   };
-
-  static onDocumentError(err) {
-    if (err.isCanceled && err.pdf) {
-      err.pdf.destroy();
-    }
-  }
 
   // Converts an ArrayBuffer directly to base64, without any intermediate 'convert to string then
   // use window.btoa' step and without risking a blow of the stack. According to [Jon Leightons's]
@@ -189,6 +184,15 @@ class Pdf extends React.Component {
       pdf.getData().then(this.onGetPdfRaw);
     }
     pdf.getPage(this.props.page).then(this.onPageComplete);
+  }
+
+  onDocumentError = (err) => {
+    if (err.isCanceled && err.pdf) {
+      err.pdf.destroy();
+    }
+    if (typeof this.props.onDocumentError === 'function') {
+      this.props.onDocumentError(err);
+    }
   }
 
   onPageComplete = (page) => {
