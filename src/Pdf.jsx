@@ -25,7 +25,6 @@ const makeCancelable = (promise) => {
 };
 
 class Pdf extends React.Component {
-
   static propTypes = {
     content: PropTypes.string,
     documentInitParameters: PropTypes.shape({
@@ -80,9 +79,9 @@ class Pdf extends React.Component {
 
       // Use bitmasks to extract 6-bit segments from the triplet
       a = (chunk & 16515072) >> 18; // 16515072 = (2^6 - 1) << 18
-      b = (chunk & 258048) >> 12; // 258048   = (2^6 - 1) << 12
-      c = (chunk & 4032) >> 6; // 4032     = (2^6 - 1) << 6
-      d = chunk & 63;               // 63       = 2^6 - 1
+      b = (chunk & 258048) >> 12; // 258048 = (2^6 - 1) << 12
+      c = (chunk & 4032) >> 6; // 4032 = (2^6 - 1) << 6
+      d = chunk & 63; // 63 = 2^6 - 1
 
       // Convert the raw binary segments to the appropriate ASCII encoding
       base64 = [base64, encodings[a], encodings[b], encodings[c], encodings[d]].join('');

@@ -7,7 +7,7 @@
 [![devDependency Status](https://david-dm.org/mikecousins/react-pdf-js/dev-status.svg)](https://david-dm.org/mikecousins/react-pdf-js#info=devDependencies)
 [![bitHound Overall Score](https://www.bithound.io/github/mikecousins/react-pdf-js/badges/score.svg)](https://www.bithound.io/github/mikecousins/react-pdf-js)
 
-`react-pdf-js` provides a component for rendering PDF documents using [PDF.js](http://mozilla.github.io/pdf.js/). Written for React 15 and ES2015 using the Airbnb style guide.
+`react-pdf-js` provides a component for rendering PDF documents using [PDF.js](http://mozilla.github.io/pdf.js/). Written for React 15/16 and ES2015 using the Airbnb style guide.
 
 ---
 
