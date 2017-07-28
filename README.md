@@ -23,6 +23,8 @@ import React from 'react';
 import PDF from 'react-pdf-js';
 
 class MyPdfViewer extends React.Component {
+  state = {};
+  
   onDocumentComplete = (pages) => {
     this.setState({ page: 1, pages });
   }
