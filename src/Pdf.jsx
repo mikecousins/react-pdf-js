@@ -203,6 +203,8 @@ class Pdf extends React.Component {
     }
   }
 
+  getNumPages = pdf => pdf.numPages();
+
   getDocument = (val) => {
     if (this.documentPromise) {
       this.documentPromise.cancel();
@@ -252,13 +254,12 @@ class Pdf extends React.Component {
     if (page) {
       const { canvas } = this;
       const canvasContext = canvas.getContext('2d');
-      let DPIScale = 1;
-      DPIScale = window.devicePixelRatio;
+      const dpiScale = window.devicePixelRatio || 1;
       const { scale, rotate } = this.props;
-      const adjustedScale = scale * DPIScale;
+      const adjustedScale = scale * dpiScale;
       const viewport = page.getViewport(adjustedScale, rotate);
-      canvas.style.width = `${viewport.width / DPIScale}px`;
-      canvas.style.height = `${viewport.height / DPIScale}px`;
+      canvas.style.width = `${viewport.width / dpiScale}px`;
+      canvas.style.height = `${viewport.height / dpiScale}px`;
       canvas.height = viewport.height;
       canvas.width = viewport.width;
       page.render({ canvasContext, viewport });
