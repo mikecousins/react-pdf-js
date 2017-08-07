@@ -203,8 +203,6 @@ class Pdf extends React.Component {
     }
   }
 
-  getNumPages = pdf => pdf.numPages();
-
   getDocument = (val) => {
     if (this.documentPromise) {
       this.documentPromise.cancel();
