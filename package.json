@@ -34,7 +34,7 @@
     "react-dom": ">=15"
   },
   "dependencies": {
-    "pdfjs-dist": "^1.8.593",
+    "pdfjs-dist": "^1.8.618",
     "prop-types": "^15.5.10"
   },
   "devDependencies": {
@@ -53,12 +53,12 @@
     "eslint-config-airbnb": "15.1.0",
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-jsx-a11y": "5.1.1",
-    "eslint-plugin-react": "7.1.0",
-    "react": "16.0.0-beta.1",
-    "react-dom": "16.0.0-beta.1",
+    "eslint-plugin-react": "7.2.0",
+    "react": "16.0.0-beta.5",
+    "react-dom": "16.0.0-beta.5",
     "rifraf": "2.0.3",
     "rimraf": "2.6.1",
-    "webpack": "3.4.1"
+    "webpack": "3.5.2"
   },
   "npmName": "react-pdf-js",
   "npmFileMap": [
