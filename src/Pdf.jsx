@@ -122,8 +122,10 @@ class Pdf extends React.Component {
   componentWillReceiveProps(newProps) {
     const { pdf } = this.state;
 
-    const newDocInit = newProps.documentInitParameters;
-    const docInit = this.props.documentInitParameters;
+    const newDocInit = newProps.documentInitParameters.url ?
+      newProps.documentInitParameters.url : null;
+    const docInit = this.props.documentInitParameters.url ?
+      this.props.documentInitParameters.url : null;
 
     // Only reload if the most significant source has changed!
     let newSource = newProps.file;
@@ -132,14 +134,13 @@ class Pdf extends React.Component {
     oldSource = newSource && !oldSource ? this.props.binaryContent : oldSource;
     newSource = newSource || newProps.content;
     oldSource = newSource && !oldSource ? this.props.content : oldSource;
-    newSource = newSource || newProps.documentInitParameters;
-    oldSource = newSource && !oldSource ? this.props.documentInitParameters : oldSource;
+    newSource = newSource || newDocInit;
+    oldSource = newSource && !oldSource ? docInit : oldSource;
 
     if (newSource && newSource !== oldSource &&
       ((newProps.file && newProps.file !== this.props.file) ||
       (newProps.content && newProps.content !== this.props.content) ||
-      (newDocInit && newDocInit !== docInit) ||
-      (newDocInit && docInit && newDocInit.url !== docInit.url))) {
+      (newDocInit && JSON.stringify(newDocInit) !== JSON.stringify(docInit)))) {
       this.loadPDFDocument(newProps);
     }
 
