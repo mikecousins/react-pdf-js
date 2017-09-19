@@ -132,6 +132,8 @@ class Pdf extends React.Component {
     oldSource = newSource && !oldSource ? this.props.binaryContent : oldSource;
     newSource = newSource || newProps.content;
     oldSource = newSource && !oldSource ? this.props.content : oldSource;
+    newSource = newSource || newProps.documentInitParameters;
+    oldSource = newSource && !oldSource ? this.props.documentInitParameters : oldSource;
 
     if (newSource && newSource !== oldSource &&
       ((newProps.file && newProps.file !== this.props.file) ||
