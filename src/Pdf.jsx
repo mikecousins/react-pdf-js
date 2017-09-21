@@ -122,9 +122,9 @@ class Pdf extends React.Component {
   componentWillReceiveProps(newProps) {
     const { pdf } = this.state;
 
-    const newDocInit = newProps.documentInitParameters.url ?
+    const newDocInit = (newProps.documentInitParameters && newProps.documentInitParameters.url) ?
       newProps.documentInitParameters.url : null;
-    const docInit = this.props.documentInitParameters.url ?
+    const docInit = (this.props.documentInitParameters && this.props.documentInitParameters.url) ?
       this.props.documentInitParameters.url : null;
 
     // Only reload if the most significant source has changed!
