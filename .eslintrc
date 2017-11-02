@@ -10,10 +10,10 @@
     node: true
   },
   rules: {
-    consistent-return: "off",
-    linebreak-style: "off",
+    consistent-return: "warn",
     no-bitwise: "off",
-    react/forbid-prop-types: "off",
-    react/require-default-props: "off"
+    prefer-promise-reject-errors: "warn",
+    react/forbid-prop-types: "warn",
+    react/require-default-props: "warn"
   },
 }

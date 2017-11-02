@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 require('pdfjs-dist/build/pdf.combined');
-require('pdfjs-dist/web/compatibility');
 
 const makeCancelable = (promise) => {
   let hasCanceled = false;
@@ -62,7 +61,7 @@ class Pdf extends React.Component {
     const encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
     const bytes = new Uint8Array(arrayBuffer);
-    const byteLength = bytes.byteLength;
+    const { byteLength } = bytes;
     const byteRemainder = byteLength % 3;
     const mainLength = byteLength - byteRemainder;
 
