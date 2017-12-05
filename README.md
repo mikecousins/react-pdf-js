@@ -24,7 +24,7 @@ import PDF from 'react-pdf-js';
 
 class MyPdfViewer extends React.Component {
   state = {};
-  
+
   onDocumentComplete = (pages) => {
     this.setState({ page: 1, pages });
   }
@@ -77,6 +77,44 @@ class MyPdfViewer extends React.Component {
 module.exports = MyPdfViewer;
 ```
 
+## Scaling
+
+The PDF can be scaled in a couple of different ways.
+
+### Stretch to fill width/height
+
+Use the prop `fillWidth` to make the PDF stretch to the width of the parent element (generally speaking, this will be the enclosing `<div>`), or use `fillHeight` to do the same, but to the height of the PDF. The PDF will be scaled proportionately. Both `fillWidth` and `fillHeight` default to `false`.
+
+Note: `fillWidth` has precedence over `fillHeight`. So if you use both, the PDF will stretch to fill the width.
+
+Example:
+
+```js
+<div className="parentDivWhoseWidthAndHeightAreUsedToStretchThePdf">
+  <PDF
+    file="somefile.pdf"
+    fillWidth
+    fillHeight // this will be ignored because fillWidth is also passed
+  />
+</div>
+```
+
+### Set scale directly
+
+You can also set the scale manually by passing the `scale` prop. It defaults to `1`. A scale between `0` and `1` shrinks the PDF, and a scale greater than `1` enlarges.
+
+Note: if you use either `fillWidth` or `fillHeight` the value of `scale` will be ignored.
+
+Example:
+
+```js
+<div>
+  <PDF
+    file="somefile.pdf"
+    scale={1.5}
+  />
+</div>
+```
 
 ## Credit
 

@@ -48,8 +48,8 @@ class Pdf extends React.Component {
     loading: PropTypes.any,
     page: PropTypes.number,
     scale: PropTypes.number,
-    fillWidth: PropTypes.bool,
-    fillHeight: PropTypes.bool,
+    fillWidth: PropTypes.bool, // stretch to fill width, has precedence over fillHeight
+    fillHeight: PropTypes.bool, // stretch to fill height
     rotate: PropTypes.number,
     onContentAvailable: PropTypes.func,
     onBinaryContentAvailable: PropTypes.func,
