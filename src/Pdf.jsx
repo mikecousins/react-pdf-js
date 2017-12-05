@@ -23,14 +23,14 @@ const makeCancelable = (promise) => {
   };
 };
 
-const calculateScale = (scale, fillWidth, fillHeight, view) => {
+const calculateScale = (scale, fillWidth, fillHeight, view, parentElement) => {
   if (fillWidth) {
     const pageWidth = view[2] - view[0];
-    return window.innerWidth / pageWidth;
+    return parentElement.clientWidth / pageWidth;
   }
   if (fillHeight) {
     const pageHeight = view[3] - view[1];
-    return window.innerHeight / pageHeight;
+    return parentElement.clientHeight / pageHeight;
   }
   return scale;
 };
@@ -275,9 +275,10 @@ class Pdf extends React.Component {
         scale: pScale,
       } = this.props;
       const { canvas } = this;
+      const { parentElement } = canvas;
       const canvasContext = canvas.getContext('2d');
       const dpiScale = window.devicePixelRatio || 1;
-      const scale = calculateScale(pScale, fillWidth, fillHeight, page.view);
+      const scale = calculateScale(pScale, fillWidth, fillHeight, page.view, parentElement);
       const adjustedScale = scale * dpiScale;
       const viewport = page.getViewport(adjustedScale, rotate);
       canvas.style.width = `${viewport.width / dpiScale}px`;
