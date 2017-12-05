@@ -132,6 +132,10 @@ class Pdf extends React.Component {
   componentDidMount() {
     this.loadPDFDocument(this.props);
     this.renderPdf();
+
+    // re-scale PDF when size or orientation of window changes
+    window.addEventListener('resize', this.renderPdf);
+    window.addEventListener('orientationchange', this.renderPdf);
   }
 
   componentWillReceiveProps(newProps) {
@@ -175,6 +179,9 @@ class Pdf extends React.Component {
     if (this.documentPromise) {
       this.documentPromise.cancel();
     }
+
+    window.removeEventListener('resize', this.renderPdf);
+    window.removeEventListener('orientationchange', this.renderPdf);
   }
 
   onGetPdfRaw = (pdfRaw) => {
