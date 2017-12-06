@@ -23,6 +23,18 @@ const makeCancelable = (promise) => {
   };
 };
 
+const calculateScale = (scale, fillWidth, fillHeight, view, parentElement) => {
+  if (fillWidth) {
+    const pageWidth = view[2] - view[0];
+    return parentElement.clientWidth / pageWidth;
+  }
+  if (fillHeight) {
+    const pageHeight = view[3] - view[1];
+    return parentElement.clientHeight / pageHeight;
+  }
+  return scale;
+};
+
 class Pdf extends React.Component {
   static propTypes = {
     content: PropTypes.string,
@@ -36,6 +48,8 @@ class Pdf extends React.Component {
     loading: PropTypes.any,
     page: PropTypes.number,
     scale: PropTypes.number,
+    fillWidth: PropTypes.bool, // stretch to fill width, has precedence over fillHeight
+    fillHeight: PropTypes.bool, // stretch to fill height
     rotate: PropTypes.number,
     onContentAvailable: PropTypes.func,
     onBinaryContentAvailable: PropTypes.func,
@@ -50,6 +64,8 @@ class Pdf extends React.Component {
   static defaultProps = {
     page: 1,
     scale: 1.0,
+    fillWidth: false,
+    fillHeight: false,
   };
 
   // Converts an ArrayBuffer directly to base64, without any intermediate 'convert to string then
@@ -116,6 +132,10 @@ class Pdf extends React.Component {
   componentDidMount() {
     this.loadPDFDocument(this.props);
     this.renderPdf();
+
+    // re-scale PDF when size or orientation of window changes
+    window.addEventListener('resize', this.renderPdf);
+    window.addEventListener('orientationchange', this.renderPdf);
   }
 
   componentWillReceiveProps(newProps) {
@@ -159,6 +179,9 @@ class Pdf extends React.Component {
     if (this.documentPromise) {
       this.documentPromise.cancel();
     }
+
+    window.removeEventListener('resize', this.renderPdf);
+    window.removeEventListener('orientationchange', this.renderPdf);
   }
 
   onGetPdfRaw = (pdfRaw) => {
@@ -252,10 +275,17 @@ class Pdf extends React.Component {
   renderPdf = () => {
     const { page } = this.state;
     if (page) {
+      const {
+        fillWidth,
+        fillHeight,
+        rotate,
+        scale: pScale,
+      } = this.props;
       const { canvas } = this;
+      const { parentElement } = canvas;
       const canvasContext = canvas.getContext('2d');
       const dpiScale = window.devicePixelRatio || 1;
-      const { scale, rotate } = this.props;
+      const scale = calculateScale(pScale, fillWidth, fillHeight, page.view, parentElement);
       const adjustedScale = scale * dpiScale;
       const viewport = page.getViewport(adjustedScale, rotate);
       canvas.style.width = `${viewport.width / dpiScale}px`;
