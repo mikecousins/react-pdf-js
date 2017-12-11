@@ -31,10 +31,11 @@
   "homepage": "https://github.com/mikecousins/react-pdf-js",
   "peerDependencies": {
     "react": ">=15",
-    "react-dom": ">=15"
+    "react-dom": ">=15",
+    "webpack": "^2.0.0 || ^3.0.0"
   },
   "dependencies": {
-    "pdfjs-dist": "^2.0.185",
+    "pdfjs-dist": "^2.0.203",
     "prop-types": "^15.6.0"
   },
   "devDependencies": {
