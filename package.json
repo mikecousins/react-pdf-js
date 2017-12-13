@@ -30,8 +30,8 @@
   },
   "homepage": "https://github.com/mikecousins/react-pdf-js",
   "peerDependencies": {
-    "react": ">=15",
-    "react-dom": ">=15",
+    "react": ">=15.3",
+    "react-dom": ">=15.3",
     "webpack": "^2.0.0 || ^3.0.0"
   },
   "dependencies": {
