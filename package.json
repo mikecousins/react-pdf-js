@@ -1,12 +1,12 @@
 {
-  "name": "react-pdf-js",
-  "version": "3.0.3",
+  "name": "@andaleeb/react-pdf-js",
+  "version": "3.0.4",
   "description": "A React component to wrap PDF.js",
   "main": "./lib/index.js",
   "jsnext:main": "./src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mikecousins/react-pdf-js"
+    "url": "https://github.com/andaleebroomy/react-pdf-js"
   },
   "scripts": {
     "build": "npm run build:lib && npm run build:umd && npm run build:umd:min",
@@ -23,12 +23,12 @@
     "pdf",
     "pdfjs"
   ],
-  "author": "Mike Cousins <mike@mikecousins.com> (http://github.com/mikecousins)",
+  "author": "Syed Andaleeb Roomy <andaleebcse@gmail.com> (http://github.com/andaleebroomy)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mikecousins/react-pdf-js/issues"
+    "url": "https://github.com/andaleebroomy/react-pdf-js/issues"
   },
-  "homepage": "https://github.com/mikecousins/react-pdf-js",
+  "homepage": "https://github.com/andaleebroomy/react-pdf-js",
   "peerDependencies": {
     "react": ">=15.3",
     "react-dom": ">=15.3",
