@@ -127,5 +127,5 @@ Example:
 
 ## Credit
 
-This project is a fork of [react-pdf-js](https://github.com/mikecousins/react-pdf-js) which itself was a fork of [react-pdfjs](https://github.com/erikras/react-pdfjs) which itself was a port of [react-pdf](https://github.com/nnarhinen/react-pdf), so thank you to
+This project is a fork of [react-pdfjs](https://github.com/erikras/react-pdfjs) which itself was a port of [react-pdf](https://github.com/nnarhinen/react-pdf), so thank you to
 the original authours.
