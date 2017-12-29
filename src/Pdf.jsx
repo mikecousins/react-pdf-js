@@ -280,9 +280,25 @@ class Pdf extends React.Component {
         fillHeight,
         rotate,
         scale: pScale,
+        className,
+        style,
       } = this.props;
-      const { canvas } = this;
-      const { parentElement } = canvas;
+
+      // We need to create a new canvas every time in order to avoid concurrent rendering
+      // in the same canvas, which can lead to distorted or upside-down views.
+      const canvas = document.createElement('canvas');
+      canvas.style = style;
+      canvas.className = className;
+
+      // Replace or add the new canvas to the placehloder div set up in the render method.
+      const parentElement = this.canvasParent;
+      const previousCanvas = parentElement.firstChild;
+      if (previousCanvas) {
+        parentElement.replaceChild(canvas, previousCanvas);
+      } else {
+        parentElement.appendChild(canvas);
+      }
+
       const canvasContext = canvas.getContext('2d');
       const dpiScale = window.devicePixelRatio || 1;
       const scale = calculateScale(pScale, fillWidth, fillHeight, page.view, parentElement);
@@ -300,11 +316,8 @@ class Pdf extends React.Component {
     const { loading } = this.props;
     const { page } = this.state;
     return page ?
-      <canvas
-        ref={(c) => { this.canvas = c; }}
-        className={this.props.className}
-        style={this.props.style}
-      /> :
+      <div ref={(parentDiv) => { this.canvasParent = parentDiv; }} />
+      :
       loading || <div>Loading PDF...</div>;
   }
 }
