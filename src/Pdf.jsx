@@ -288,7 +288,10 @@ class Pdf extends React.Component {
       // We need to create a new canvas every time in order to avoid concurrent rendering
       // in the same canvas, which can lead to distorted or upside-down views.
       const canvas = document.createElement('canvas');
-      canvas.style = style;
+
+      Object.keys(style || {}).forEach((styleField) => {
+        canvas.style[styleField] = style[styleField];
+      });
       canvas.className = className;
 
       // Replace or add the new canvas to the placehloder div set up in the render method.
