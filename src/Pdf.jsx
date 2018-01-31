@@ -159,6 +159,7 @@ class Pdf extends React.Component {
     if (newSource && newSource !== oldSource &&
       ((newProps.file && newProps.file !== this.props.file) ||
       (newProps.content && newProps.content !== this.props.content) ||
+      (newProps.binaryContent && newProps.binaryContent !== this.props.binaryContent) ||
       (newDocInit && JSON.stringify(newDocInit) !== JSON.stringify(docInit)))) {
       this.loadPDFDocument(newProps);
     }
