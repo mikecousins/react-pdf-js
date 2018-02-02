@@ -35,7 +35,7 @@
     "webpack": "^2.0.0 || ^3.0.0"
   },
   "dependencies": {
-    "pdfjs-dist": "^2.0.303",
+    "pdfjs-dist": "^2.0.203",
     "prop-types": "^15.6.0"
   },
   "devDependencies": {
