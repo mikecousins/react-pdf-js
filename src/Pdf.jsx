@@ -158,9 +158,9 @@ class Pdf extends React.Component {
 
     if (newSource && newSource !== oldSource &&
       ((newProps.file && newProps.file !== this.props.file) ||
-      (newProps.content && newProps.content !== this.props.content) ||
-      (newProps.binaryContent && newProps.binaryContent !== this.props.binaryContent) ||
-      (newDocInit && JSON.stringify(newDocInit) !== JSON.stringify(docInit)))) {
+        (newProps.content && newProps.content !== this.props.content) ||
+        (newProps.binaryContent && newProps.binaryContent !== this.props.binaryContent) ||
+        (newDocInit && JSON.stringify(newDocInit) !== JSON.stringify(docInit)))) {
       this.loadPDFDocument(newProps);
     }
 
@@ -169,6 +169,11 @@ class Pdf extends React.Component {
       (newProps.rotate && newProps.rotate !== this.props.rotate))) {
       this.setState({ page: null });
       pdf.getPage(newProps.page).then(this.onPageComplete);
+    }
+
+    if ((newProps.className !== this.props.className) ||
+      (JSON.stringify(newProps.style) !== JSON.stringify(this.props.style))) {
+      this.loadPDFDocument(newProps);
     }
   }
 
