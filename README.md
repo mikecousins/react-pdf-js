@@ -14,7 +14,7 @@
 Usage
 -----
 
-Install with `npm install react-pdf-js`
+Install with `npm install --save react-pdf-js`
 
 Use in your app (showing some basic pagination as well):
 
