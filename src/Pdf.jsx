@@ -59,6 +59,7 @@ class Pdf extends React.Component {
     onPageComplete: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
+    withCredentials: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -66,6 +67,7 @@ class Pdf extends React.Component {
     scale: 1.0,
     fillWidth: false,
     fillHeight: false,
+    withCredentials: false,
   };
 
   // Converts an ArrayBuffer directly to base64, without any intermediate 'convert to string then
@@ -229,11 +231,19 @@ class Pdf extends React.Component {
     }
   }
 
-  getDocument = (val) => {
+  getDocument = (val, withCredentials) => {
     if (this.documentPromise) {
       this.documentPromise.cancel();
     }
-    this.documentPromise = makeCancelable(window.PDFJS.getDocument(val).promise);
+    if (withCredentials) {
+      this.documentPromise = makeCancelable(window.PDFJS.getDocument({
+        url: val,
+        withCredentials: true,
+      }).promise);  
+    } else {
+      this.documentPromise = makeCancelable(window.PDFJS.getDocument(val).promise);      
+    }
+
     this.documentPromise
       .promise
       .then(this.onDocumentComplete)
@@ -249,7 +259,7 @@ class Pdf extends React.Component {
   loadPDFDocument = (props) => {
     if (props.file) {
       if (typeof props.file === 'string') {
-        return this.getDocument(props.file);
+        return this.getDocument(props.file, props.withCredentials);
       }
       // Is a File object
       const reader = new FileReader();
