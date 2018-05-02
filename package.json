@@ -1,5 +1,5 @@
 {
-  "name": "react-pdf-js-credentials",
+  "name": "react-pdf-js",
   "version": "3.0.8",
   "description": "A React component to wrap PDF.js",
   "main": "./lib/index.js",
