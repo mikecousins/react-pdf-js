@@ -239,9 +239,9 @@ class Pdf extends React.Component {
       this.documentPromise = makeCancelable(window.PDFJS.getDocument({
         url: val,
         withCredentials: true,
-      }).promise);  
+      }).promise);
     } else {
-      this.documentPromise = makeCancelable(window.PDFJS.getDocument(val).promise);      
+      this.documentPromise = makeCancelable(window.PDFJS.getDocument(val).promise);
     }
 
     this.documentPromise
