@@ -125,6 +125,27 @@ Example:
 </div>
 ```
 
+### Authentication using withCredentials
+
+You can finally use this package with authenticated routes. The PDF component accepts a withCredentials prop, which sends the auth headers to the server.
+
+Default: false, headers arent sent
+
+Example:
+
+```js
+<div>
+  <PDF
+    file="somefile.pdf"
+    scale={1.5}
+    withCredentials
+    //or
+    withCredentials={true}
+  />
+</div>
+```
+
+
 ## Credit
 
 This project is a fork of [react-pdfjs](https://github.com/erikras/react-pdfjs) which itself was a port of [react-pdf](https://github.com/nnarhinen/react-pdf), so thank you to
