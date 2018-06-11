@@ -1,6 +1,6 @@
 {
   "name": "react-pdf-js",
-  "version": "3.0.8",
+  "version": "4.0.0",
   "description": "A React component to wrap PDF.js",
   "main": "./lib/index.js",
   "jsnext:main": "./src/index.js",
@@ -35,7 +35,7 @@
     "webpack": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "dependencies": {
-    "pdfjs-dist": "2.0.303",
+    "pdfjs-dist": "2.0.489",
     "prop-types": "^15.6.1"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-require('pdfjs-dist/build/pdf.combined');
+require('pdfjs-dist/build/pdf');
 
 const makeCancelable = (promise) => {
   let hasCanceled = false;
