@@ -1,29 +1,79 @@
 # react-pdf-js
+---
+[![NPM Version](https://img.shields.io/npm/v/react-pdf-js.svg?style=flat-square)](https://www.npmjs.com/package/react-pdf-js)
+[![NPM Downloads](https://img.shields.io/npm/dm/react-pdf-js.svg?style=flat-square)](https://www.npmjs.com/package/react-pdf-js)
+[![Build Status](https://img.shields.io/travis/mikecousins/react-pdf-js/master.svg?style=flat-square)](https://travis-ci.org/mikecousins/react-pdf-js)
+[![Dependency Status](https://david-dm.org/mikecousins/react-pdf-js.svg)](https://david-dm.org/mikecousins/react-pdf-js)
+[![devDependency Status](https://david-dm.org/mikecousins/react-pdf-js/dev-status.svg)](https://david-dm.org/mikecousins/react-pdf-js#info=devDependencies)
 
-> 
+`react-pdf-js` provides a component for rendering PDF documents using [PDF.js](http://mozilla.github.io/pdf.js/). Written for React 15/16 and ES2015 using the Airbnb style guide.
 
-[![NPM](https://img.shields.io/npm/v/react-pdf-js.svg)](https://www.npmjs.com/package/react-pdf-js) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+---
 
-## Install
+Usage
+-----
 
-```bash
-npm install --save react-pdf-js
-```
+Install with `yarn add react-pdf-js` or `npm install react-pdf-js`
 
-## Usage
+Use it in your app (showing some basic pagination as well):
 
-```jsx
-import React, { Component } from 'react'
+```js
+import React from 'react';
+import PDF from 'react-pdf-js';
 
-import MyComponent from 'react-pdf-js'
+class MyPdfViewer extends React.Component {
+  state = {};
 
-class Example extends Component {
-  render () {
+  onDocumentComplete = (pages) => {
+    this.setState({ page: 1, pages });
+  }
+
+  handlePrevious = () => {
+    this.setState({ page: this.state.page - 1 });
+  }
+
+  handleNext = () => {
+    this.setState({ page: this.state.page + 1 });
+  }
+
+  renderPagination = (page, pages) => {
+    let previousButton = <li className="previous" onClick={this.handlePrevious}><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
+    if (page === 1) {
+      previousButton = <li className="previous disabled"><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
+    }
+    let nextButton = <li className="next" onClick={this.handleNext}><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
+    if (page === pages) {
+      nextButton = <li className="next disabled"><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
+    }
     return (
-      <MyComponent />
+      <nav>
+        <ul className="pager">
+          {previousButton}
+          {nextButton}
+        </ul>
+      </nav>
+      );
+  }
+
+  render() {
+    let pagination = null;
+    if (this.state.pages) {
+      pagination = this.renderPagination(this.state.page, this.state.pages);
+    }
+    return (
+      <div>
+        <PDF
+          file="test.pdf"
+          onDocumentComplete={this.onDocumentComplete}
+          page={this.state.page}
+        />
+        {pagination}
+      </div>
     )
   }
 }
+
+module.exports = MyPdfViewer;
 ```
 
 ## License
