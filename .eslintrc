@@ -1,19 +1,27 @@
 {
-  parser: "babel-eslint",
-  extends: "airbnb",
-  plugins: [
+  "parser": "babel-eslint",
+  "extends": [
+    "standard",
+    "standard-react"
+  ],
+  "env": {
+    "es6": true
+  },
+  "plugins": [
     "react"
   ],
-  env: {
-    browser: true,
-    mocha: true,
-    node: true
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
   },
-  rules: {
-    consistent-return: "warn",
-    no-bitwise: "off",
-    prefer-promise-reject-errors: "warn",
-    react/forbid-prop-types: "warn",
-    react/require-default-props: "warn"
-  },
+  "rules": {
+    // don't force es6 functions to include space before paren
+    "space-before-function-paren": 0,
+
+    // allow specifying true explicitly for boolean props
+    "react/jsx-boolean-value": 0,
+
+    // allow imports mixed with non-import statements at top of file
+    "import/first": 0
+  }
 }
