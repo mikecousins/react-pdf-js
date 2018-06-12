@@ -36,40 +36,6 @@ const calculateScale = (scale, fillWidth, fillHeight, view, parentElement) => {
 };
 
 class Pdf extends React.Component {
-  static propTypes = {
-    content: PropTypes.string,
-    documentInitParameters: PropTypes.shape({
-      url: PropTypes.string,
-    }),
-    binaryContent: PropTypes.shape({
-      data: PropTypes.any,
-    }),
-    file: PropTypes.any, // Could be File object or URL string.
-    loading: PropTypes.any,
-    page: PropTypes.number,
-    scale: PropTypes.number,
-    fillWidth: PropTypes.bool, // stretch to fill width, has precedence over fillHeight
-    fillHeight: PropTypes.bool, // stretch to fill height
-    rotate: PropTypes.number,
-    onContentAvailable: PropTypes.func,
-    onBinaryContentAvailable: PropTypes.func,
-    binaryToBase64: PropTypes.func,
-    onDocumentComplete: PropTypes.func,
-    onDocumentError: PropTypes.func,
-    onPageComplete: PropTypes.func,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    withCredentials: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    page: 1,
-    scale: 1.0,
-    fillWidth: false,
-    fillHeight: false,
-    withCredentials: false,
-  };
-
   // Converts an ArrayBuffer directly to base64, without any intermediate 'convert to string then
   // use window.btoa' step and without risking a blow of the stack. According to [Jon Leightons's]
   // tests, this appears to be a faster approach: http://jsperf.com/encoding-xhr-image-data/5
@@ -152,6 +118,7 @@ class Pdf extends React.Component {
     onPageComplete: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
+    withCredentials: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -159,7 +126,9 @@ class Pdf extends React.Component {
     scale: 1.0,
     fillWidth: false,
     fillHeight: false,
+    withCredentials: false,
   };
+
 
   state = {};
 
