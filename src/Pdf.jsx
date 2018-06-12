@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-require('pdfjs-dist/build/pdf.combined');
+require('pdfjs-dist/build/pdf');
 
 const makeCancelable = (promise) => {
   let hasCanceled = false;
@@ -128,6 +128,38 @@ class Pdf extends React.Component {
 
     return base64;
   }
+
+  static propTypes = {
+    content: PropTypes.string,
+    documentInitParameters: PropTypes.shape({
+      url: PropTypes.string,
+    }),
+    binaryContent: PropTypes.shape({
+      data: PropTypes.any,
+    }),
+    file: PropTypes.any, // Could be File object or URL string.
+    loading: PropTypes.any,
+    page: PropTypes.number,
+    scale: PropTypes.number,
+    fillWidth: PropTypes.bool, // stretch to fill width, has precedence over fillHeight
+    fillHeight: PropTypes.bool, // stretch to fill height
+    rotate: PropTypes.number,
+    onContentAvailable: PropTypes.func,
+    onBinaryContentAvailable: PropTypes.func,
+    binaryToBase64: PropTypes.func,
+    onDocumentComplete: PropTypes.func,
+    onDocumentError: PropTypes.func,
+    onPageComplete: PropTypes.func,
+    className: PropTypes.string,
+    style: PropTypes.object,
+  };
+
+  static defaultProps = {
+    page: 1,
+    scale: 1.0,
+    fillWidth: false,
+    fillHeight: false,
+  };
 
   state = {};
 
