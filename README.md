@@ -73,7 +73,7 @@ class MyPdfViewer extends React.Component {
   }
 }
 
-module.exports = MyPdfViewer;
+export default MyPdfViewer;
 ```
 
 ## License
