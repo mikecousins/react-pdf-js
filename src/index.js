@@ -1,37 +1,74 @@
 /**
  * @class ReactPdfJs
  */
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import PdfJsLib from 'pdfjs-dist';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 export default class ReactPdfJs extends Component {
   static propTypes = {
-    file: PropTypes.string
+    file: PropTypes.string.isRequired,
+    page: PropTypes.number,
+    onDocumentCompleted: PropTypes.func,
+    onPageCompleted: PropTypes.func,
   }
+
+  static defaultProps = {
+    page: 1,
+    onDocumentCompleted: null,
+    onPageCompleted: null,
+  }
+
+  state = {
+    pdf: null,
+  };
 
   componentDidMount() {
     PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.550/pdf.worker.js';
     PdfJsLib.getDocument(this.props.file).then((pdf) => {
-      pdf.getPage(1).then((page) => {
-        var scale = 1.5;
-        var viewport = page.getViewport(scale);
-        
-        var canvas = document.getElementById('pdf-canvas');
-        var context = canvas.getContext('2d');
+      this.setState({ pdf });
+      this.props.onDocumentCompleted(pdf);
+      pdf.getPage(this.props.page).then((page) => {
+        this.props.onPageCompleted(page);
+        const scale = 1.5;
+        const viewport = page.getViewport(scale);
+
+        const { canvas } = this;
+        const canvasContext = canvas.getContext('2d');
         canvas.height = viewport.height;
         canvas.width = viewport.width;
-        
-        var renderContext = {
-          canvasContext: context,
-          viewport: viewport
+
+        const renderContext = {
+          canvasContext,
+          viewport,
         };
         page.render(renderContext);
       });
     });
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.page !== this.props.page) {
+      this.state.pdf.getPage(newProps.page).then((page) => {
+        this.props.onPageCompleted(page);
+        const scale = 1.5;
+        const viewport = page.getViewport(scale);
+
+        const { canvas } = this;
+        const canvasContext = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        const renderContext = {
+          canvasContext,
+          viewport,
+        };
+        page.render(renderContext);
+      });
+    }
+  }
+
   render() {
-    return <canvas id="pdf-canvas" />;
+    return <canvas ref={(canvas) => { this.canvas = canvas; }} />;
   }
 }
