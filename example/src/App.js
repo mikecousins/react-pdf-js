@@ -8,10 +8,6 @@ export default class App extends Component {
     this.setState({ page: 1, pages: pages.pdfInfo.numPages });
   }
 
-  onPageCompleted = (page) => {
-    this.setState({ page: page.pageIndex + 1 });
-  }
-
   handlePrevious = () => {
     this.setState({ page: this.state.page - 1 });
   }
@@ -70,7 +66,7 @@ export default class App extends Component {
     }
     return (
       <div>
-        <Pdf file="test.pdf" onDocumentCompleted={this.onDocumentCompleted} onPageCompleted={this.onPageCompleted} page={this.state.page} />
+        <Pdf file="test.pdf" onDocumentCompleted={this.onDocumentCompleted} page={this.state.page} />
         {pagination}
       </div>
     );

@@ -10,13 +10,11 @@ export default class ReactPdfJs extends Component {
     file: PropTypes.string.isRequired,
     page: PropTypes.number,
     onDocumentCompleted: PropTypes.func,
-    onPageCompleted: PropTypes.func,
   }
 
   static defaultProps = {
     page: 1,
     onDocumentCompleted: null,
-    onPageCompleted: null,
   }
 
   state = {
@@ -29,7 +27,6 @@ export default class ReactPdfJs extends Component {
       this.setState({ pdf });
       this.props.onDocumentCompleted(pdf);
       pdf.getPage(this.props.page).then((page) => {
-        this.props.onPageCompleted(page);
         const scale = 1.5;
         const viewport = page.getViewport(scale);
 
@@ -50,7 +47,6 @@ export default class ReactPdfJs extends Component {
   componentWillReceiveProps(newProps) {
     if (newProps.page !== this.props.page) {
       this.state.pdf.getPage(newProps.page).then((page) => {
-        this.props.onPageCompleted(page);
         const scale = 1.5;
         const viewport = page.getViewport(scale);
 
