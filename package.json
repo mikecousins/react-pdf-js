@@ -1,6 +1,6 @@
 {
   "name": "react-pdf-js",
-  "version": "4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
   "description": "",
   "author": "mikecousins",
   "license": "MIT",
@@ -17,9 +17,10 @@
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "pdfjs-dist": "2.0.550"
+  },
   "peerDependencies": {
-    "pdfjs-dist": "2.0.550",
     "prop-types": "^15.6.1",
     "react": "^15.0.0 || ^16.0.0",
     "react-dom": "^15.0.0 || ^16.0.0"

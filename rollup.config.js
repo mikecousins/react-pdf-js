@@ -11,20 +11,23 @@ export default {
   output: [
     {
       file: pkg.main,
-      format: 'cjs'
+      format: 'cjs',
     },
     {
       file: pkg.module,
-      format: 'es'
-    }
+      format: 'es',
+    },
   ],
   plugins: [
     external(),
     url(),
     babel({
-      exclude: 'node_modules/**'
+      exclude: 'node_modules/**',
     }),
-    resolve(),
-    commonjs()
-  ]
-}
+    resolve({
+      browser: true,
+    }),
+    commonjs(),
+  ],
+
+};
