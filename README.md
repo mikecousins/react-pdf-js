@@ -8,10 +8,11 @@
 
 `react-pdf-js` provides a component for rendering PDF documents using [PDF.js](http://mozilla.github.io/pdf.js/). Written for React 15/16 and ES2015 using the Airbnb style guide.
 
----
+## Demo
 
-Usage
------
+http://mikecousins.github.io/react-pdf-js/
+
+## Usage
 
 Install with `yarn add react-pdf-js` or `npm install react-pdf-js`
 
