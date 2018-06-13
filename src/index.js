@@ -26,7 +26,7 @@ export default class ReactPdfJs extends Component {
     PdfJsLib.getDocument(this.props.file).then((pdf) => {
       this.setState({ pdf });
       if (this.props.onDocumentComplete) {
-        this.props.onDocumentComplete(pdf);
+        this.props.onDocumentComplete(pdf.pdfInfo.numPages);
       }
       pdf.getPage(this.props.page).then((page) => {
         const scale = 1.5;

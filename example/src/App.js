@@ -5,7 +5,7 @@ export default class App extends Component {
   state = { page: 1 };
 
   onDocumentComplete = (pages) => {
-    this.setState({ page: 1, pages: pages.pdfInfo.numPages });
+    this.setState({ page: 1, pages });
   }
 
   handlePrevious = () => {
