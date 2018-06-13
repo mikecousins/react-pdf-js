@@ -9,12 +9,12 @@ export default class ReactPdfJs extends Component {
   static propTypes = {
     file: PropTypes.string.isRequired,
     page: PropTypes.number,
-    onDocumentCompleted: PropTypes.func,
+    onDocumentComplete: PropTypes.func,
   }
 
   static defaultProps = {
     page: 1,
-    onDocumentCompleted: null,
+    onDocumentComplete: null,
   }
 
   state = {
@@ -25,7 +25,9 @@ export default class ReactPdfJs extends Component {
     PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.550/pdf.worker.js';
     PdfJsLib.getDocument(this.props.file).then((pdf) => {
       this.setState({ pdf });
-      this.props.onDocumentCompleted(pdf);
+      if (this.props.onDocumentComplete) {
+        this.props.onDocumentComplete(pdf);
+      }
       pdf.getPage(this.props.page).then((page) => {
         const scale = 1.5;
         const viewport = page.getViewport(scale);

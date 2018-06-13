@@ -4,7 +4,7 @@ import Pdf from 'react-pdf-js';
 export default class App extends Component {
   state = { page: 1 };
 
-  onDocumentCompleted = (pages) => {
+  onDocumentComplete = (pages) => {
     this.setState({ page: 1, pages: pages.pdfInfo.numPages });
   }
 
@@ -66,7 +66,7 @@ export default class App extends Component {
     }
     return (
       <div>
-        <Pdf file="test.pdf" onDocumentCompleted={this.onDocumentCompleted} page={this.state.page} />
+        <Pdf file="test.pdf" onDocumentComplete={this.onDocumentComplete} page={this.state.page} />
         {pagination}
       </div>
     );
