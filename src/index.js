@@ -28,27 +28,14 @@ export default class ReactPdfJs extends Component {
       file,
       onDocumentComplete,
       page,
-      scale,
     } = this.props;
-    PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.550/pdf.worker.js';
+    PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js';
     PdfJsLib.getDocument(file).then((pdf) => {
       this.setState({ pdf });
       if (onDocumentComplete) {
         onDocumentComplete(pdf.pdfInfo.numPages);
       }
-      pdf.getPage(page).then((p) => {
-        const viewport = p.getViewport(scale);
-        const { canvas } = this;
-        const canvasContext = canvas.getContext('2d');
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-
-        const renderContext = {
-          canvasContext,
-          viewport,
-        };
-        page.render(renderContext);
-      });
+      pdf.getPage(page).then(p => this.drawPDF(p));
     });
   }
 

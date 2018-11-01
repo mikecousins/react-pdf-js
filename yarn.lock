@@ -5989,9 +5989,10 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-pdfjs-dist@2.0.550:
-  version "2.0.550"
-  resolved "https://registry.yarnpkg.com/pdfjs-dist/-/pdfjs-dist-2.0.550.tgz#52a5bd05d8b250206ccd2843209cfa3b8f1ea4ae"
+pdfjs-dist@2.0.943:
+  version "2.0.943"
+  resolved "https://registry.yarnpkg.com/pdfjs-dist/-/pdfjs-dist-2.0.943.tgz#32fb9a2d863df5a1d89521a0b3cd900c16e7edde"
+  integrity sha512-iLhNcm4XceTHRaSU5o22ZGCm4YpuW5+rf4+BJFH/feBhMQLbCGBry+Jet8Q419QDI4qgARaIQzXuiNrsNWS8Yw==
   dependencies:
     node-ensure "^0.0.0"
     worker-loader "^2.0.0"
@@ -6987,7 +6988,7 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
-rollup-plugin-babel@^3.0.3:
+rollup-plugin-babel@^3.0.7:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/rollup-plugin-babel/-/rollup-plugin-babel-3.0.7.tgz#5b13611f1ab8922497e9d15197ae5d8a23fe3b1e"
   integrity sha512-bVe2y0z/V5Ax1qU8NX/0idmzIwJPdUGu8Xx3vXH73h0yGjxfv2gkFI82MBVg49SlsFlLTBadBHb67zy4TWM3hA==
