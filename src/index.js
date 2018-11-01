@@ -24,14 +24,20 @@ export default class ReactPdfJs extends Component {
   };
 
   componentDidMount() {
+    const {
+      file,
+      onDocumentComplete,
+      page,
+      scale,
+    } = this.props;
     PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.550/pdf.worker.js';
-    PdfJsLib.getDocument(this.props.file).then((pdf) => {
+    PdfJsLib.getDocument(file).then((pdf) => {
       this.setState({ pdf });
-      if (this.props.onDocumentComplete) {
-        this.props.onDocumentComplete(pdf.pdfInfo.numPages);
+      if (onDocumentComplete) {
+        onDocumentComplete(pdf.pdfInfo.numPages);
       }
-      pdf.getPage(this.props.page).then((page) => {
-        const viewport = page.getViewport(this.props.scale);
+      pdf.getPage(page).then((p) => {
+        const viewport = p.getViewport(scale);
         const { canvas } = this;
         const canvasContext = canvas.getContext('2d');
         canvas.height = viewport.height;
@@ -47,16 +53,19 @@ export default class ReactPdfJs extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.page !== this.props.page) {
-      this.state.pdf.getPage(newProps.page).then(page => this.drawPDF(page));
+    const { page, scale } = this.props;
+    const { pdf } = this.state;
+    if (newProps.page !== page) {
+      pdf.getPage(newProps.page).then(p => this.drawPDF(p));
     }
-    if (newProps.scale !== this.props.scale) {
-        this.state.pdf.getPage(newProps.page).then(page => this.drawPDF(page));
+    if (newProps.scale !== scale) {
+      pdf.getPage(newProps.page).then(p => this.drawPDF(p));
     }
   }
 
-  drawPDF = page => {
-    const viewport = page.getViewport(this.props.scale);
+  drawPDF = (page) => {
+    const { scale } = this.props;
+    const viewport = page.getViewport(scale);
     const { canvas } = this;
     const canvasContext = canvas.getContext('2d');
     canvas.height = viewport.height;
