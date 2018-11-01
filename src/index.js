@@ -33,7 +33,7 @@ export default class ReactPdfJs extends Component {
     PdfJsLib.getDocument(file).then((pdf) => {
       this.setState({ pdf });
       if (onDocumentComplete) {
-        onDocumentComplete(pdf.pdfInfo.numPages);
+        onDocumentComplete(pdf._pdfInfo.numPages); // eslint-disable-line
       }
       pdf.getPage(page).then(p => this.drawPDF(p));
     });
