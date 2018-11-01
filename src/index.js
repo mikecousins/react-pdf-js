@@ -14,6 +14,7 @@ export default class ReactPdfJs extends Component {
     page: PropTypes.number,
     onDocumentComplete: PropTypes.func,
     scale: PropTypes.number,
+    className: PropTypes.string,
   }
 
   static defaultProps = {
@@ -68,6 +69,7 @@ export default class ReactPdfJs extends Component {
   }
 
   render() {
-    return <canvas ref={(canvas) => { this.canvas = canvas; }} />;
+    const { className } = this.props;
+    return <canvas ref={(canvas) => { this.canvas = canvas; }} className={className} />;
   }
 }
