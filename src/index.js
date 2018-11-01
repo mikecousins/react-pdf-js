@@ -10,11 +10,13 @@ export default class ReactPdfJs extends Component {
     file: PropTypes.string.isRequired,
     page: PropTypes.number,
     onDocumentComplete: PropTypes.func,
+    scale: PropTypes.number,
   }
 
   static defaultProps = {
     page: 1,
     onDocumentComplete: null,
+    scale: 1,
   }
 
   state = {
@@ -29,9 +31,7 @@ export default class ReactPdfJs extends Component {
         this.props.onDocumentComplete(pdf.pdfInfo.numPages);
       }
       pdf.getPage(this.props.page).then((page) => {
-        const scale = 1.5;
-        const viewport = page.getViewport(scale);
-
+        const viewport = page.getViewport(this.props.scale);
         const { canvas } = this;
         const canvasContext = canvas.getContext('2d');
         canvas.height = viewport.height;
@@ -48,22 +48,24 @@ export default class ReactPdfJs extends Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.page !== this.props.page) {
-      this.state.pdf.getPage(newProps.page).then((page) => {
-        const scale = 1.5;
-        const viewport = page.getViewport(scale);
-
-        const { canvas } = this;
-        const canvasContext = canvas.getContext('2d');
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-
-        const renderContext = {
-          canvasContext,
-          viewport,
-        };
-        page.render(renderContext);
-      });
+      this.state.pdf.getPage(newProps.page).then(page => this.drawPDF(page));
     }
+    if (newProps.scale !== this.props.scale) {
+        this.state.pdf.getPage(newProps.page).then(page => this.drawPDF(page));
+    }
+  }
+
+  drawPDF = page => {
+    const viewport = page.getViewport(this.props.scale);
+    const { canvas } = this;
+    const canvasContext = canvas.getContext('2d');
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+    const renderContext = {
+      canvasContext,
+      viewport,
+    };
+    page.render(renderContext);
   }
 
   render() {
