@@ -7,7 +7,10 @@ import React, { Component } from 'react';
 
 export default class ReactPdfJs extends Component {
   static propTypes = {
-    file: PropTypes.string.isRequired,
+    file: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+    ]).isRequired,
     page: PropTypes.number,
     onDocumentComplete: PropTypes.func,
     scale: PropTypes.number,
