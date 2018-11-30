@@ -14,6 +14,8 @@ export default class ReactPdfJs extends Component {
     page: PropTypes.number,
     onDocumentComplete: PropTypes.func,
     scale: PropTypes.number,
+    cMapUrl: PropTypes.string,
+    cMapPacked: PropTypes.bool,
     className: PropTypes.string,
   }
 
@@ -21,6 +23,8 @@ export default class ReactPdfJs extends Component {
     page: 1,
     onDocumentComplete: null,
     scale: 1,
+    cMapUrl: '../node_modules/pdfjs-dist/cmaps/',
+    cMapPacked: false,
   }
 
   state = {
@@ -32,9 +36,11 @@ export default class ReactPdfJs extends Component {
       file,
       onDocumentComplete,
       page,
+      cMapUrl,
+      cMapPacked,
     } = this.props;
     PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js';
-    PdfJsLib.getDocument(file).then((pdf) => {
+    PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked }).then((pdf) => {
       this.setState({ pdf });
       if (onDocumentComplete) {
         onDocumentComplete(pdf._pdfInfo.numPages); // eslint-disable-line
