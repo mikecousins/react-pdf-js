@@ -17,6 +17,7 @@ export default class ReactPdfJs extends Component {
     cMapUrl: PropTypes.string,
     cMapPacked: PropTypes.bool,
     className: PropTypes.string,
+    withCredentials: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -24,7 +25,8 @@ export default class ReactPdfJs extends Component {
     onDocumentComplete: null,
     scale: 1,
     cMapUrl: '../node_modules/pdfjs-dist/cmaps/',
-    cMapPacked: false,
+	cMapPacked: false,
+	withCredentials: false,
   }
 
   state = {
@@ -37,10 +39,11 @@ export default class ReactPdfJs extends Component {
       onDocumentComplete,
       page,
       cMapUrl,
-      cMapPacked,
+	  cMapPacked,
+	  withCredentials,
     } = this.props;
     PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js';
-    PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked }).then((pdf) => {
+    PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked, withCredentials }).then((pdf) => {
       this.setState({ pdf });
       if (onDocumentComplete) {
         onDocumentComplete(pdf._pdfInfo.numPages); // eslint-disable-line
