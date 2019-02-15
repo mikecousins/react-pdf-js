@@ -29,6 +29,7 @@ export default class ReactPdfJs extends Component {
 
   state = {
     pdf: null,
+    numPages: 0,
   };
 
   componentDidMount() {
@@ -40,7 +41,7 @@ export default class ReactPdfJs extends Component {
     } = this.props;
     PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js';
     PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked }).then((pdf) => {
-      this.setState({ pdf });
+      this.setState({ pdf, numPages: pdf._pdfInfo.numPages }); // eslint-disable-line
 
       pdf.getPage(page).then(p => this.drawPDF(p));
     });
