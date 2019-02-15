@@ -34,7 +34,6 @@ export default class ReactPdfJs extends Component {
   componentDidMount() {
     const {
       file,
-      onDocumentComplete,
       page,
       cMapUrl,
       cMapPacked,
@@ -42,9 +41,7 @@ export default class ReactPdfJs extends Component {
     PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js';
     PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked }).then((pdf) => {
       this.setState({ pdf });
-      if (onDocumentComplete) {
-        onDocumentComplete(pdf._pdfInfo.numPages); // eslint-disable-line
-      }
+
       pdf.getPage(page).then(p => this.drawPDF(p));
     });
   }
@@ -61,7 +58,8 @@ export default class ReactPdfJs extends Component {
   }
 
   drawPDF = (page) => {
-    const { scale } = this.props;
+    const { scale, onDocumentComplete } = this.props;
+    const { numPages } = this.state;
     const viewport = page.getViewport(scale);
     const { canvas } = this;
     const canvasContext = canvas.getContext('2d');
@@ -71,7 +69,13 @@ export default class ReactPdfJs extends Component {
       canvasContext,
       viewport,
     };
-    page.render(renderContext);
+
+    const renderTask = page.render(renderContext);
+    renderTask.promise.then(() => {
+      if (onDocumentComplete) {
+        onDocumentComplete(numPages, page.pageNumber);
+      }
+    });
   }
 
   render() {
