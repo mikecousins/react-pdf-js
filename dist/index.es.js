@@ -65751,7 +65751,8 @@ var ReactPdfJs = function (_Component) {
     }
 
     return _ret = (_temp = (_this = possibleConstructorReturn(this, (_ref = ReactPdfJs.__proto__ || Object.getPrototypeOf(ReactPdfJs)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      pdf: null
+      pdf: null,
+      numPages: 0
     }, _this.drawPDF = function (page) {
       var _this$props = _this.props,
           scale = _this$props.scale,
@@ -65792,7 +65793,7 @@ var ReactPdfJs = function (_Component) {
 
       PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js';
       PdfJsLib.getDocument({ url: file, cMapUrl: cMapUrl, cMapPacked: cMapPacked }).then(function (pdf$$1) {
-        _this3.setState({ pdf: pdf$$1 });
+        _this3.setState({ pdf: pdf$$1, numPages: pdf$$1._pdfInfo.numPages }); // eslint-disable-line
 
         pdf$$1.getPage(page).then(function (p) {
           return _this3.drawPDF(p);
