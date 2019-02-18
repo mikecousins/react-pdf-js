@@ -65758,10 +65758,11 @@ var ReactPdfJs = function (_Component) {
     return _ret = (_temp = (_this = possibleConstructorReturn(this, (_ref = ReactPdfJs.__proto__ || Object.getPrototypeOf(ReactPdfJs)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       pdf: null,
       numPages: 0
-    }, _this.drawPDF = function (page) {
+    }, _this.drawPDF = function (page, isMounting) {
       var _this$props = _this.props,
           scale = _this$props.scale,
-          onDocumentComplete = _this$props.onDocumentComplete;
+          onDocumentComplete = _this$props.onDocumentComplete,
+          onChangePage = _this$props.onChangePage;
       var numPages = _this.state.numPages;
 
       var viewport = page.getViewport(scale);
@@ -65778,8 +65779,10 @@ var ReactPdfJs = function (_Component) {
 
       var renderTask = page.render(renderContext);
       renderTask.promise.then(function () {
-        if (onDocumentComplete) {
+        if (onDocumentComplete && isMounting) {
           onDocumentComplete(numPages, page.pageNumber);
+        } else if (onChangePage) {
+          onChangePage(page.pageNumber);
         }
       });
     }, _temp), possibleConstructorReturn(_this, _ret);
@@ -65801,7 +65804,7 @@ var ReactPdfJs = function (_Component) {
         _this3.setState({ pdf: pdf$$1, numPages: pdf$$1._pdfInfo.numPages }); // eslint-disable-line
 
         pdf$$1.getPage(page).then(function (p) {
-          return _this3.drawPDF(p);
+          return _this3.drawPDF(p, true);
         });
       });
     }
@@ -65845,6 +65848,7 @@ ReactPdfJs.propTypes = {
   file: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   page: PropTypes.number,
   onDocumentComplete: PropTypes.func,
+  onChangePage: PropTypes.func,
   scale: PropTypes.number,
   cMapUrl: PropTypes.string,
   cMapPacked: PropTypes.bool,
@@ -65853,9 +65857,11 @@ ReactPdfJs.propTypes = {
 ReactPdfJs.defaultProps = {
   page: 1,
   onDocumentComplete: null,
+  onChangePage: null,
   scale: 1,
   cMapUrl: '../node_modules/pdfjs-dist/cmaps/',
-  cMapPacked: false
+  cMapPacked: false,
+  className: ''
 };
 
 module.exports = ReactPdfJs;
