@@ -65758,11 +65758,10 @@ var ReactPdfJs = function (_Component) {
     return _ret = (_temp = (_this = possibleConstructorReturn(this, (_ref = ReactPdfJs.__proto__ || Object.getPrototypeOf(ReactPdfJs)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       pdf: null,
       numPages: 0
-    }, _this.drawPDF = function (page, isMounting) {
+    }, _this.drawPDF = function (page) {
       var _this$props = _this.props,
           scale = _this$props.scale,
-          onDocumentComplete = _this$props.onDocumentComplete,
-          onChangePage = _this$props.onChangePage;
+          onDocumentComplete = _this$props.onDocumentComplete;
       var numPages = _this.state.numPages;
 
       var viewport = page.getViewport(scale);
@@ -65779,10 +65778,8 @@ var ReactPdfJs = function (_Component) {
 
       var renderTask = page.render(renderContext);
       renderTask.promise.then(function () {
-        if (onDocumentComplete && isMounting) {
+        if (onDocumentComplete) {
           onDocumentComplete(numPages, page.pageNumber);
-        } else if (onChangePage) {
-          onChangePage(page.pageNumber);
         }
       });
     }, _temp), possibleConstructorReturn(_this, _ret);
@@ -65804,7 +65801,7 @@ var ReactPdfJs = function (_Component) {
         _this3.setState({ pdf: pdf$$1, numPages: pdf$$1._pdfInfo.numPages }); // eslint-disable-line
 
         pdf$$1.getPage(page).then(function (p) {
-          return _this3.drawPDF(p, true);
+          return _this3.drawPDF(p);
         });
       });
     }
@@ -65815,17 +65812,22 @@ var ReactPdfJs = function (_Component) {
 
       var _props2 = this.props,
           page = _props2.page,
-          scale = _props2.scale;
+          scale = _props2.scale,
+          onChangePage = _props2.onChangePage;
       var pdf$$1 = this.state.pdf;
 
       if (newProps.page !== page) {
         pdf$$1.getPage(newProps.page).then(function (p) {
-          return _this4.drawPDF(p);
+          _this4.drawPDF(p);
+
+          if (onChangePage) onChangePage(p.pageNumber);
         });
       }
       if (newProps.scale !== scale) {
         pdf$$1.getPage(newProps.page).then(function (p) {
-          return _this4.drawPDF(p);
+          _this4.drawPDF(p);
+
+          if (onChangePage) onChangePage(p.pageNumber);
         });
       }
     }

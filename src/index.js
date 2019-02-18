@@ -46,23 +46,31 @@ export default class ReactPdfJs extends Component {
     PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked }).then((pdf) => {
       this.setState({ pdf, numPages: pdf._pdfInfo.numPages }); // eslint-disable-line
 
-      pdf.getPage(page).then(p => this.drawPDF(p, true));
+      pdf.getPage(page).then(p => this.drawPDF(p));
     });
   }
 
   componentWillReceiveProps(newProps) {
-    const { page, scale } = this.props;
+    const { page, scale, onChangePage } = this.props;
     const { pdf } = this.state;
     if (newProps.page !== page) {
-      pdf.getPage(newProps.page).then(p => this.drawPDF(p));
+      pdf.getPage(newProps.page).then((p) => {
+        this.drawPDF(p);
+
+        if (onChangePage) onChangePage(p.pageNumber);
+      });
     }
     if (newProps.scale !== scale) {
-      pdf.getPage(newProps.page).then(p => this.drawPDF(p));
+      pdf.getPage(newProps.page).then((p) => {
+        this.drawPDF(p);
+
+        if (onChangePage) onChangePage(p.pageNumber);
+      });
     }
   }
 
-  drawPDF = (page, isMounting) => {
-    const { scale, onDocumentComplete, onChangePage } = this.props;
+  drawPDF = (page) => {
+    const { scale, onDocumentComplete } = this.props;
     const { numPages } = this.state;
     const viewport = page.getViewport(scale);
     const { canvas } = this;
@@ -76,10 +84,8 @@ export default class ReactPdfJs extends Component {
 
     const renderTask = page.render(renderContext);
     renderTask.promise.then(() => {
-      if (onDocumentComplete && isMounting) {
+      if (onDocumentComplete) {
         onDocumentComplete(numPages, page.pageNumber);
-      } else if (onChangePage) {
-        onChangePage(page.pageNumber);
       }
     });
   }
