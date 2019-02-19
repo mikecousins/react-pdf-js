@@ -62258,7 +62258,7 @@ var ReactPdfJs = function (_Component) {
           cMapUrl = _props.cMapUrl,
           cMapPacked = _props.cMapPacked;
 
-      PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js';
+      PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.550/pdf.worker.js';
       PdfJsLib.getDocument({ url: file, cMapUrl: cMapUrl, cMapPacked: cMapPacked }).then(function (pdf$$1) {
         _this3.setState({ pdf: pdf$$1, numPages: pdf$$1._pdfInfo.numPages }); // eslint-disable-line
 
