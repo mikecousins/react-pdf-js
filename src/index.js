@@ -44,7 +44,7 @@ export default class ReactPdfJs extends Component {
     } = this.props;
     PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.550/pdf.worker.js';
     PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked }).then((pdf) => {
-      this.setState({ pdf, numPages: pdf._pdfInfo.numPages }); // eslint-disable-line
+      this.setState({ pdf, numPages: pdf.pdfInfo.numPages });
 
       pdf.getPage(page).then(p => this.drawPDF(p));
     });
