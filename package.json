@@ -14,7 +14,7 @@
     "build": "rollup -c"
   },
   "dependencies": {
-    "pdfjs-dist": "2.0.550"
+    "pdfjs-dist": "2.0.943"
   },
   "peerDependencies": {
     "prop-types": "^15.6.2",
