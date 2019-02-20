@@ -4,6 +4,7 @@
 import PdfJsLib from 'pdfjs-dist';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
 export default class ReactPdfJs extends Component {
   static propTypes = {
@@ -34,7 +35,6 @@ export default class ReactPdfJs extends Component {
 
   state = {
     pdf: null,
-    forceRerender: false,
     numPages: 0,
   };
 
@@ -68,7 +68,7 @@ export default class ReactPdfJs extends Component {
     }
   }
 
-  renderPDF = () => {
+  renderPDF = AwesomeDebouncePromise(() => {
     const {
       file,
       page,
@@ -81,7 +81,7 @@ export default class ReactPdfJs extends Component {
 
       pdf.getPage(page).then(p => this.drawPDF(p));
     });
-  }
+  }, 500)
 
   drawPDF = (page) => {
     const { scale, onDocumentComplete } = this.props;
