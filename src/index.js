@@ -4,7 +4,6 @@
 import PdfJsLib from 'pdfjs-dist';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
 export default class ReactPdfJs extends Component {
   static propTypes = {

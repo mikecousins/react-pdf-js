@@ -1,7 +1,6 @@
 import url from 'url';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import 'awesome-debounce-promise';
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
