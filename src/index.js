@@ -63,12 +63,12 @@ export default class ReactPdfJs extends Component {
       });
     }
 
-    if ((newProps.forceRerender !== forceRerender) && pdf) {
+    if (newProps.forceRerender && newProps.forceRerender !== forceRerender && pdf) {
       this.renderPDF();
     }
   }
 
-  renderPDF = AwesomeDebouncePromise(() => {
+  renderPDF = () => {
     const {
       file,
       page,
@@ -81,7 +81,7 @@ export default class ReactPdfJs extends Component {
 
       pdf.getPage(page).then(p => this.drawPDF(p));
     });
-  }, 2000)
+  }
 
   drawPDF = (page) => {
     const { scale, onDocumentComplete } = this.props;

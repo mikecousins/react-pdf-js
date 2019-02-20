@@ -13,7 +13,6 @@
     "test:watch": "react-scripts test --env=jsdom"
   },
   "dependencies": {
-    "awesome-debounce-promise": "^1.0.0",
     "pdfjs-dist": "2.0.943"
   },
   "peerDependencies": {
