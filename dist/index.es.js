@@ -1,6 +1,7 @@
 import url from 'url';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import 'awesome-debounce-promise';
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -65684,211 +65685,6 @@ exports.NetworkManager = NetworkManager;
 
 var PdfJsLib = unwrapExports(pdf);
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-/* global setTimeout, clearTimeout */
-
-var dist = function debounce(fn) {
-  var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-  var lastCallAt = void 0;
-  var deferred = void 0;
-  var timer = void 0;
-  var pendingArgs = [];
-  return function debounced() {
-    var currentWait = getWait(wait);
-    var currentTime = new Date().getTime();
-
-    var isCold = !lastCallAt || currentTime - lastCallAt > currentWait;
-
-    lastCallAt = currentTime;
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    if (isCold && options.leading) {
-      return options.accumulate ? Promise.resolve(fn.call(this, [args])).then(function (result) {
-        return result[0];
-      }) : Promise.resolve(fn.call.apply(fn, [this].concat(args)));
-    }
-
-    if (deferred) {
-      clearTimeout(timer);
-    } else {
-      deferred = defer();
-    }
-
-    pendingArgs.push(args);
-    timer = setTimeout(flush.bind(this), currentWait);
-
-    if (options.accumulate) {
-      var _ret = function () {
-        var argsIndex = pendingArgs.length - 1;
-        return {
-          v: deferred.promise.then(function (results) {
-            return results[argsIndex];
-          })
-        };
-      }();
-
-      if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
-    }
-
-    return deferred.promise;
-  };
-
-  function flush() {
-    var thisDeferred = deferred;
-    clearTimeout(timer);
-
-    Promise.resolve(options.accumulate ? fn.call(this, pendingArgs) : fn.apply(this, pendingArgs[pendingArgs.length - 1])).then(thisDeferred.resolve, thisDeferred.reject);
-
-    pendingArgs = [];
-    deferred = null;
-  }
-};
-
-function getWait(wait) {
-  return typeof wait === 'function' ? wait() : wait;
-}
-
-function defer() {
-  var deferred = {};
-  deferred.promise = new Promise(function (resolve, reject) {
-    deferred.resolve = resolve;
-    deferred.reject = reject;
-  });
-  return deferred;
-}
-
-var awesomeDebouncePromise = createCommonjsModule(function (module, exports) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.DebounceCache = exports.onlyResolvesLast = exports.debounce = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-
-
-var _debouncePromise2 = _interopRequireDefault(dist);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-// We use DebouncePromise as a dependency as it does a great low-level job
-// The behavior of the lib is to return the same promise for all function calls
-var debounce = exports.debounce = function debounce(func, wait, options) {
-  return (0, _debouncePromise2.default)(func, wait, options);
-};
-
-// Given a function returning promises, wrap it so that only the promise returned from last call will actually resolve
-// This is useful to ignore former async results and handle concurrency issues
-var onlyResolvesLast = exports.onlyResolvesLast = function onlyResolvesLast(asyncFunction) {
-  // Inspired from https://reactjs.org/blog/2015/12/16/ismounted-antipattern.html
-  var makeCancelable = function makeCancelable(promise) {
-    var hasCanceled_ = false;
-    var wrappedPromise = new Promise(function (resolve, reject) {
-      promise.then(function (val) {
-        return hasCanceled_ ? undefined : resolve(val);
-      }, function (error) {
-        return hasCanceled_ ? undefined : reject(error);
-      });
-    });
-    return {
-      promise: wrappedPromise,
-      cancel: function cancel() {
-        hasCanceled_ = true;
-      }
-    };
-  };
-
-  var cancelPrevious = void 0;
-  return function () {
-    cancelPrevious && cancelPrevious();
-
-    var _makeCancelable = makeCancelable(asyncFunction.apply(undefined, arguments)),
-        promise = _makeCancelable.promise,
-        cancel = _makeCancelable.cancel;
-
-    cancelPrevious = cancel;
-    return promise;
-  };
-};
-
-// We create a debouncing function cache, because when wrapping the original function,
-// we may actually want to route the function call to different debounced functions depending function paameters
-
-var DebounceCache = exports.DebounceCache = function DebounceCache() {
-  var _this = this;
-
-  _classCallCheck(this, DebounceCache);
-
-  this.getDebouncedFunction = function (func, wait, options, args) {
-    var keyOptions = options.key,
-        onlyResolvesLastOption = options.onlyResolvesLast,
-        otherOptions = _objectWithoutProperties(options, ['key', 'onlyResolvesLast']);
-
-    var key = keyOptions.apply(undefined, _toConsumableArray(args));
-    // If the debounced function does not exist for this key, we create one on the fly and return it
-    if (!_this.debounceCache[key]) {
-      var debouncedFunc = debounce(func, wait, otherOptions);
-      if (onlyResolvesLastOption) {
-        debouncedFunc = onlyResolvesLast(debouncedFunc);
-      }
-      _this.debounceCache[key] = debouncedFunc;
-    }
-    return _this.debounceCache[key];
-  };
-
-  this.debounceCache = {};
-};
-
-var DefaultOptions = {
-  // By default, the key is null, which means that all the function calls
-  // will share the same debounced function
-  // Providing a key function permit to use the call arguments
-  // and route to a distinct debounced function
-  key: function key() {
-    return null;
-  },
-
-  // By default, a debounced function will only resolve
-  // the last promise it returned
-  // Former calls will stay unresolved, so that you don't have
-  // to handle concurrency issues in your code
-  onlyResolvesLast: true
-};
-
-function AwesomeDebouncePromise(func, wait, options) {
-  var finalOptions = _extends({}, DefaultOptions, options);
-  var debounceCache = new DebounceCache();
-  return function AwesomeDebouncePromiseWrapper() {
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    var debouncedFn = debounceCache.getDebouncedFunction(func, wait, finalOptions, args);
-    return debouncedFn.apply(undefined, args);
-  };
-}
-
-exports.default = AwesomeDebouncePromise;
-});
-
-var AwesomeDebouncePromise = unwrapExports(awesomeDebouncePromise);
-var awesomeDebouncePromise_1 = awesomeDebouncePromise.DebounceCache;
-var awesomeDebouncePromise_2 = awesomeDebouncePromise.onlyResolvesLast;
-var awesomeDebouncePromise_3 = awesomeDebouncePromise.debounce;
-
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -65958,7 +65754,7 @@ var ReactPdfJs = function (_Component) {
     return _ret = (_temp = (_this = possibleConstructorReturn(this, (_ref = ReactPdfJs.__proto__ || Object.getPrototypeOf(ReactPdfJs)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       pdf: null,
       numPages: 0
-    }, _this.renderPDF = AwesomeDebouncePromise(function () {
+    }, _this.renderPDF = function () {
       var _this$props = _this.props,
           file = _this$props.file,
           page = _this$props.page,
@@ -65973,7 +65769,7 @@ var ReactPdfJs = function (_Component) {
           return _this.drawPDF(p);
         });
       });
-    }, 2000), _this.drawPDF = function (page) {
+    }, _this.drawPDF = function (page) {
       var _this$props2 = _this.props,
           scale = _this$props2.scale,
           onDocumentComplete = _this$props2.onDocumentComplete;
@@ -66026,7 +65822,7 @@ var ReactPdfJs = function (_Component) {
         });
       }
 
-      if (newProps.forceRerender !== forceRerender && pdf$$1) {
+      if (newProps.forceRerender && newProps.forceRerender !== forceRerender && pdf$$1) {
         this.renderPDF();
       }
     }
