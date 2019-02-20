@@ -65752,11 +65752,27 @@ var ReactPdfJs = function (_Component) {
 
     return _ret = (_temp = (_this = possibleConstructorReturn(this, (_ref = ReactPdfJs.__proto__ || Object.getPrototypeOf(ReactPdfJs)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       pdf: null,
+      forceRerender: false,
       numPages: 0
-    }, _this.drawPDF = function (page) {
+    }, _this.renderPDF = function () {
       var _this$props = _this.props,
-          scale = _this$props.scale,
-          onDocumentComplete = _this$props.onDocumentComplete;
+          file = _this$props.file,
+          page = _this$props.page,
+          cMapUrl = _this$props.cMapUrl,
+          cMapPacked = _this$props.cMapPacked;
+
+      PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js';
+      PdfJsLib.getDocument({ url: file, cMapUrl: cMapUrl, cMapPacked: cMapPacked }).then(function (pdf$$1) {
+        _this.setState({ pdf: pdf$$1, numPages: pdf$$1._pdfInfo.numPages }); // eslint-disable-line
+
+        pdf$$1.getPage(page).then(function (p) {
+          return _this.drawPDF(p);
+        });
+      });
+    }, _this.drawPDF = function (page) {
+      var _this$props2 = _this.props,
+          scale = _this$props2.scale,
+          onDocumentComplete = _this$props2.onDocumentComplete;
       var numPages = _this.state.numPages;
 
       var viewport = page.getViewport(scale);
@@ -65783,53 +65799,42 @@ var ReactPdfJs = function (_Component) {
   createClass(ReactPdfJs, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this3 = this;
-
-      var _props = this.props,
-          file = _props.file,
-          page = _props.page,
-          cMapUrl = _props.cMapUrl,
-          cMapPacked = _props.cMapPacked;
-
-      PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js';
-      PdfJsLib.getDocument({ url: file, cMapUrl: cMapUrl, cMapPacked: cMapPacked }).then(function (pdf$$1) {
-        _this3.setState({ pdf: pdf$$1, numPages: pdf$$1._pdfInfo.numPages }); // eslint-disable-line
-
-        pdf$$1.getPage(page).then(function (p) {
-          return _this3.drawPDF(p);
-        });
-      });
+      this.renderPDF();
     }
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(newProps) {
-      var _this4 = this;
+      var _this3 = this;
 
-      var _props2 = this.props,
-          page = _props2.page,
-          scale = _props2.scale,
-          forceRerender = _props2.forceRerender,
-          onChangePage = _props2.onChangePage;
+      var _props = this.props,
+          page = _props.page,
+          scale = _props.scale,
+          forceRerender = _props.forceRerender,
+          onChangePage = _props.onChangePage;
       var pdf$$1 = this.state.pdf;
 
 
-      if ((newProps.page !== page || newProps.scale !== scale || newProps.forceRerender !== forceRerender) && pdf$$1) {
+      if ((newProps.page !== page || newProps.scale !== scale) && pdf$$1) {
         pdf$$1.getPage(newProps.page).then(function (p) {
-          _this4.drawPDF(p);
+          _this3.drawPDF(p);
 
           if (onChangePage) onChangePage(p.pageNumber);
         });
+      }
+
+      if (newProps.forceRerender !== forceRerender && pdf$$1) {
+        this.renderPDF();
       }
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this5 = this;
+      var _this4 = this;
 
       var className = this.props.className;
 
       return React.createElement('canvas', { ref: function ref(canvas) {
-          _this5.canvas = canvas;
+          _this4.canvas = canvas;
         }, className: className });
     }
   }]);
