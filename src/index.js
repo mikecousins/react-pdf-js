@@ -81,7 +81,7 @@ export default class ReactPdfJs extends Component {
 
       pdf.getPage(page).then(p => this.drawPDF(p));
     });
-  }, 500)
+  }, 2000)
 
   drawPDF = (page) => {
     const { scale, onDocumentComplete } = this.props;
