@@ -65813,17 +65813,12 @@ var ReactPdfJs = function (_Component) {
       var _props2 = this.props,
           page = _props2.page,
           scale = _props2.scale,
+          forceRerender = _props2.forceRerender,
           onChangePage = _props2.onChangePage;
       var pdf$$1 = this.state.pdf;
 
-      if (newProps.page !== page) {
-        pdf$$1.getPage(newProps.page).then(function (p) {
-          _this4.drawPDF(p);
 
-          if (onChangePage) onChangePage(p.pageNumber);
-        });
-      }
-      if (newProps.scale !== scale) {
+      if ((newProps.page !== page || newProps.scale !== scale || newProps.forceRerender !== forceRerender) && pdf$$1) {
         pdf$$1.getPage(newProps.page).then(function (p) {
           _this4.drawPDF(p);
 
@@ -65851,6 +65846,7 @@ ReactPdfJs.propTypes = {
   page: PropTypes.number,
   onDocumentComplete: PropTypes.func,
   onChangePage: PropTypes.func,
+  forceRerender: PropTypes.bool,
   scale: PropTypes.number,
   cMapUrl: PropTypes.string,
   cMapPacked: PropTypes.bool,
@@ -65860,6 +65856,7 @@ ReactPdfJs.defaultProps = {
   page: 1,
   onDocumentComplete: null,
   onChangePage: null,
+  forceRerender: false,
   scale: 1,
   cMapUrl: '../node_modules/pdfjs-dist/cmaps/',
   cMapPacked: false,

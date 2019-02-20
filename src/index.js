@@ -14,6 +14,7 @@ export default class ReactPdfJs extends Component {
     page: PropTypes.number,
     onDocumentComplete: PropTypes.func,
     onChangePage: PropTypes.func,
+    forceRerender: PropTypes.bool,
     scale: PropTypes.number,
     cMapUrl: PropTypes.string,
     cMapPacked: PropTypes.bool,
@@ -24,6 +25,7 @@ export default class ReactPdfJs extends Component {
     page: 1,
     onDocumentComplete: null,
     onChangePage: null,
+    forceRerender: false,
     scale: 1,
     cMapUrl: '../node_modules/pdfjs-dist/cmaps/',
     cMapPacked: false,
@@ -51,16 +53,20 @@ export default class ReactPdfJs extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const { page, scale, onChangePage } = this.props;
+    const {
+      page,
+      scale,
+      forceRerender,
+      onChangePage,
+    } = this.props;
     const { pdf } = this.state;
-    if (newProps.page !== page && pdf) {
-      pdf.getPage(newProps.page).then((p) => {
-        this.drawPDF(p);
 
-        if (onChangePage) onChangePage(p.pageNumber);
-      });
-    }
-    if (newProps.scale !== scale && pdf) {
+    if (
+      ((newProps.page !== page)
+      || (newProps.scale !== scale)
+      || (newProps.forceRerender !== forceRerender))
+        && pdf
+    ) {
       pdf.getPage(newProps.page).then((p) => {
         this.drawPDF(p);
 
