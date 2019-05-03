@@ -3,72 +3,60 @@
  */
 import PdfJsLib from 'pdfjs-dist';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-export default class ReactPdfJs extends Component {
-  static propTypes = {
-    file: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object,
-    ]).isRequired,
-    page: PropTypes.number,
-    onDocumentComplete: PropTypes.func,
-    scale: PropTypes.number,
-    rotate: PropTypes.oneOf([0, 90, 180, 270]),
-    cMapUrl: PropTypes.string,
-    cMapPacked: PropTypes.bool,
-    className: PropTypes.string,
-    workerSrc: PropTypes.string,
-  }
+const usePrevious = (value) => {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};
 
-  static defaultProps = {
-    page: 1,
-    onDocumentComplete: null,
-    scale: 1,
-    rotate: 0,
-    cMapUrl: '../node_modules/pdfjs-dist/cmaps/',
-    cMapPacked: false,
-    workerSrc: '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js',
-  }
+export const ReactPdfJs = ({
+  file,
+  onDocumentComplete,
+  scale,
+  rotate,
+  page,
+  cMapUrl,
+  cMapPacked,
+  className,
+  workerSrc,
+}) => {
+  const [pdf, setPdf] = useState(null);
 
-  state = {
-    pdf: null,
-  };
+  const canvasEl = useRef(null);
 
-  componentDidMount() {
-    const {
-      file,
-      onDocumentComplete,
-      page,
-      cMapUrl,
-      cMapPacked,
-      workerSrc,
-    } = this.props;
+  // do our initial setup
+  useEffect(() => {
     PdfJsLib.GlobalWorkerOptions.workerSrc = workerSrc;
-    PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked }).then((pdf) => {
-      this.setState({ pdf });
+    PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked }).then((document) => {
+      setPdf(document);
       if (onDocumentComplete) {
-        onDocumentComplete(pdf._pdfInfo.numPages); // eslint-disable-line
+        onDocumentComplete(document._pdfInfo.numPages); // eslint-disable-line
       }
-      pdf.getPage(page).then(p => this.drawPDF(p));
+      document.getPage(page).then(p => drawPDF(p));
     });
-  }
+  }, []);
 
-  componentWillReceiveProps(newProps) {
-    const { page, scale, rotate } = this.props;
-    const { pdf } = this.state;
-    if (newProps.page !== page || newProps.scale !== scale || newProps.rotate !== rotate) {
-      pdf.getPage(newProps.page).then(p => this.drawPDF(p));
+  // see if anything has changed
+  const oldPage = usePrevious(page);
+  const oldScale= usePrevious(scale);
+  const oldRotate = usePrevious(rotate);
+  useEffect(() => {
+    if (pdf && (oldPage !== page || oldScale !== scale || oldRotate !== rotate)) {
+      pdf.getPage(page).then(p => drawPDF(p));
     }
-  }
+  }, [page, scale, rotate]);
 
-  drawPDF = (page) => {
-    const { scale, rotate } = this.props;
+  // draw a page of the pdf
+  const drawPDF = (page) => {
     // Because this page's rotation option overwrites pdf default rotation value,
     // calculating page rotation option value from pdf default and this component prop rotate.
     const rotation = rotate === 0 ? page.rotate : page.rotate + rotate;
     const viewport = page.getViewport(scale, rotation);
-    const { canvas } = this;
+    const canvas = canvasEl.current;
     const canvasContext = canvas.getContext('2d');
     canvas.height = viewport.height;
     canvas.width = viewport.width;
@@ -79,8 +67,33 @@ export default class ReactPdfJs extends Component {
     page.render(renderContext);
   }
 
-  render() {
-    const { className } = this.props;
-    return <canvas ref={(canvas) => { this.canvas = canvas; }} className={className} />;
-  }
+  return <canvas ref={canvasEl} className={className} />;
 }
+
+ReactPdfJs.propTypes = {
+  file: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  page: PropTypes.number,
+  onDocumentComplete: PropTypes.func,
+  scale: PropTypes.number,
+  rotate: PropTypes.oneOf([0, 90, 180, 270]),
+  cMapUrl: PropTypes.string,
+  cMapPacked: PropTypes.bool,
+  className: PropTypes.string,
+  workerSrc: PropTypes.string,
+}
+
+ReactPdfJs.defaultProps = {
+  page: 1,
+  onDocumentComplete: null,
+  scale: 1,
+  rotate: 0,
+  cMapUrl: '../node_modules/pdfjs-dist/cmaps/',
+  cMapPacked: false,
+  className: '',
+  workerSrc: '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js',
+}
+
+export default ReactPdfJs;
