@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Pdf from 'react-pdf-js';
+import { render } from 'react-dom'
+import Pdf from '../../src';
 
 export default class App extends Component {
   state = { page: 1, rotate: 0 };
@@ -107,3 +108,5 @@ export default class App extends Component {
     );
   }
 }
+
+render(<App />, document.querySelector('#demo'));
