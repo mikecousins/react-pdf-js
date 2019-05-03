@@ -1,15 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { render } from 'react-dom'
-import usePdf from '../../src';
+import { usePdf } from '../../src';
 
 const App = () => {
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(null);
-
-  const onDocumentComplete = (pages) => {
-    setPage(1);
-    setPages(pages);
-  }
 
   const renderPagination = (page, pages) => {
     if (!pages) {
@@ -59,15 +54,19 @@ const App = () => {
 
   const canvasEl = useRef(null);
 
-  usePdf({
+  const [loading, numPages] = usePdf({
     file: 'test.pdf',
-    onDocumentComplete,
     page,
     canvasEl
   });
 
+  useEffect(() => {
+    setPages(numPages);
+  }, [numPages]);
+
   return (
     <div>
+      {loading && <span>Loading...</span>}
       <canvas ref={canvasEl} />
       {renderPagination(page, pages)}
     </div>

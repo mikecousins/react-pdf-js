@@ -1,10 +1,24 @@
 import PdfJsLib from 'pdfjs-dist';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 
-const usePdf = ({
+const Pdf = ({ file, onDocumentComplete }) => {
+  const canvasEl = useRef();
+  const [numPages] = usePdf({ canvasEl, file });
+
+  useEffect(() => {
+    onDocumentComplete(numPages)
+  }, [numPages]);
+
+  return <canvas ref={canvasEl} />;
+};
+
+Pdf.defaultProps = {
+  onDocumentComplete: () => {},
+};
+
+export const usePdf = ({
   canvasEl,
   file,
-  onDocumentComplete = () => {},
   scale = 1,
   rotate = 0,
   page = 1,
@@ -14,22 +28,20 @@ const usePdf = ({
 }) => {
   const [pdf, setPdf] = useState(null);
 
-  // do our initial setup
   useEffect(() => {
     PdfJsLib.GlobalWorkerOptions.workerSrc = workerSrc;
-    const loadingTask = PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked });
-    loadingTask.promise.then((doc) => {
-      setPdf(doc);
-      onDocumentComplete(doc._pdfInfo.numPages);
-    });
-  }, [file, cMapUrl, cMapPacked, workerSrc]);
+  }, []);
+
+  useEffect(() => {
+    PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked }).promise.then(setPdf);
+  }, [file, cMapUrl, cMapPacked]);
 
   // handle changes
   useEffect(() => {
     if (pdf) {
       pdf.getPage(page).then(p => drawPDF(p));
     }
-  }, [pdf, page, scale, rotate]);
+  }, [pdf, page, scale, rotate, canvasEl]);
 
   // draw a page of the pdf
   const drawPDF = (page) => {
@@ -48,7 +60,10 @@ const usePdf = ({
     page.render(renderContext);
   }
 
-  return null;
+  const loading = useMemo(() => !pdf, [pdf]);
+  const numPages = useMemo(() => pdf ? pdf._pdfInfo.numPages : null, [pdf]);
+
+  return [loading, numPages];
 };
 
-export default usePdf;
+export default Pdf;

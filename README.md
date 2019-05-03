@@ -21,17 +21,12 @@ Install with `yarn add react-pdf-js` or `npm install react-pdf-js`
 Use it in your app (showing some basic pagination as well):
 
 ```js
-import React from 'react';
-import usePdf from 'react-pdf-js';
+import React, { useState, useEffect, useRef } from 'react';
+import { usePdf } from 'react-pdf-js';
 
 const MyPdfViewer = () => {
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(null);
-
-  const onDocumentComplete = (pages) => {
-    setPage(1);
-    setPages(pages);
-  }
 
   const renderPagination = (page, pages) => {
     if (!pages) {
@@ -57,15 +52,20 @@ const MyPdfViewer = () => {
 
   const canvasEl = useRef(null);
 
-  usePdf({
+  const [loading, numPages] = usePdf({
     file: 'test.pdf',
     onDocumentComplete,
     page,
     canvasEl
   });
 
+  useEffect(() => {
+    setPages(numPages);
+  }, [numPages]);
+
   return (
     <div>
+      {loading && <span>Loading...</span>}
       <canvas ref={canvasEl} />
       {renderPagination(page, pages)}
     </div>
