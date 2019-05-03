@@ -22,29 +22,26 @@ Use it in your app (showing some basic pagination as well):
 
 ```js
 import React from 'react';
-import PDF from 'react-pdf-js';
+import usePdf from 'react-pdf-js';
 
-class MyPdfViewer extends React.Component {
-  state = {};
+const MyPdfViewer = () => {
+  const [page, setPage] = useState(1);
+  const [pages, setPages] = useState(null);
 
-  onDocumentComplete = (pages) => {
-    this.setState({ page: 1, pages });
+  const onDocumentComplete = (pages) => {
+    setPage(1);
+    setPages(pages);
   }
 
-  handlePrevious = () => {
-    this.setState({ page: this.state.page - 1 });
-  }
-
-  handleNext = () => {
-    this.setState({ page: this.state.page + 1 });
-  }
-
-  renderPagination = (page, pages) => {
-    let previousButton = <li className="previous" onClick={this.handlePrevious}><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
+  const renderPagination = (page, pages) => {
+    if (!pages) {
+      return null;
+    }
+    let previousButton = <li className="previous" onClick={() => setPage(page - 1))}><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
     if (page === 1) {
       previousButton = <li className="previous disabled"><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
     }
-    let nextButton = <li className="next" onClick={this.handleNext}><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
+    let nextButton = <li className="next" onClick={() => setPage(page + 1))}><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
     if (page === pages) {
       nextButton = <li className="next disabled"><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
     }
@@ -58,22 +55,21 @@ class MyPdfViewer extends React.Component {
     );
   }
 
-  render() {
-    let pagination = null;
-    if (this.state.pages) {
-      pagination = this.renderPagination(this.state.page, this.state.pages);
-    }
-    return (
-      <div>
-        <PDF
-          file="test.pdf"
-          onDocumentComplete={this.onDocumentComplete}
-          page={this.state.page}
-        />
-        {pagination}
-      </div>
-    );
-  }
+  const canvasEl = useRef(null);
+
+  usePdf({
+    file: 'test.pdf',
+    onDocumentComplete,
+    page,
+    canvasEl
+  });
+
+  return (
+    <div>
+      <canvas ref={canvasEl} />
+      {renderPagination(page, pages)}
+    </div>
+  );
 }
 
 export default MyPdfViewer;
