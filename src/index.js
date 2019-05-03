@@ -55,7 +55,7 @@ export const ReactPdfJs = ({
     // Because this page's rotation option overwrites pdf default rotation value,
     // calculating page rotation option value from pdf default and this component prop rotate.
     const rotation = rotate === 0 ? page.rotate : page.rotate + rotate;
-    const viewport = page.getViewport(scale, rotation);
+    const viewport = page.getViewport({ scale, rotation });
     const canvas = canvasEl.current;
     const canvasContext = canvas.getContext('2d');
     canvas.height = viewport.height;
