@@ -1,9 +1,9 @@
 import PdfJsLib from 'pdfjs-dist';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 
-const Pdf = ({ file, onDocumentComplete }) => {
+const Pdf = ({ file, onDocumentComplete, page, scale, rotate, cMapUrl, cMapPackged, workerSrc }) => {
   const canvasEl = useRef();
-  const [loading, numPages] = usePdf({ canvasEl, file });
+  const [loading, numPages] = usePdf({ canvasEl, file, page, scale, rotate, cMapUrl, cMapPackged, workerSrc });
 
   useEffect(() => {
     onDocumentComplete(numPages);
