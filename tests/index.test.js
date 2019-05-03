@@ -16,6 +16,6 @@ describe('Pdf', () => {
   })
 
   it('renders without issue', () => {
-    render(<Pdf file="test.pdf" />, node, () => expect(node.innerHTML).toContain('<canvas></canvas>'));
+    render(<Pdf file="test.pdf" />, node, () => expect(node.innerHTML).toContain('<canvas'));
   })
 })
