@@ -1,6 +1,6 @@
 # react-pdf-js
 
-`react-pdf-js` provides a component for rendering PDF documents using [PDF.js](http://mozilla.github.io/pdf.js/). Written for React 15/16 and ES2015 using the Airbnb style guide.
+`react-pdf-js` provides a component for rendering PDF documents using [PDF.js](http://mozilla.github.io/pdf.js/).
 
 ---
 [![NPM Version](https://img.shields.io/npm/v/react-pdf-js.svg?style=flat-square)](https://www.npmjs.com/package/react-pdf-js)
@@ -78,6 +78,14 @@ class MyPdfViewer extends React.Component {
 
 export default MyPdfViewer;
 ```
+
+## Known Issues
+
+When using Create React App 3.0 you'll get some warnings about:
+> ./node_modules/pdfjs-dist/build/pdf.js
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+
+Issues have been logged with create-react-app and pdf.js about this issue.
 
 ## License
 
