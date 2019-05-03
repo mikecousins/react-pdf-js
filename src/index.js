@@ -18,6 +18,7 @@ export default class ReactPdfJs extends Component {
     cMapUrl: PropTypes.string,
     cMapPacked: PropTypes.bool,
     className: PropTypes.string,
+    workerSrc: PropTypes.string,
   }
 
   static defaultProps = {
@@ -27,6 +28,7 @@ export default class ReactPdfJs extends Component {
     rotate: 0,
     cMapUrl: '../node_modules/pdfjs-dist/cmaps/',
     cMapPacked: false,
+    workerSrc: '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js',
   }
 
   state = {
@@ -40,8 +42,9 @@ export default class ReactPdfJs extends Component {
       page,
       cMapUrl,
       cMapPacked,
+      workerSrc,
     } = this.props;
-    PdfJsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js';
+    PdfJsLib.GlobalWorkerOptions.workerSrc = workerSrc;
     PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked }).then((pdf) => {
       this.setState({ pdf });
       if (onDocumentComplete) {
