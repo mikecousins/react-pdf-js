@@ -3,10 +3,10 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 const Pdf = ({ file, onDocumentComplete }) => {
   const canvasEl = useRef();
-  const [numPages] = usePdf({ canvasEl, file });
+  const [loading, numPages] = usePdf({ canvasEl, file });
 
   useEffect(() => {
-    onDocumentComplete(numPages)
+    onDocumentComplete(numPages);
   }, [numPages]);
 
   return <canvas ref={canvasEl} />;
