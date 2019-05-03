@@ -12,7 +12,7 @@
 
 ## Demo
 
-http://mikecousins.github.io/react-pdf-js/
+https://pdf.netlify.com
 
 ## Usage
 
