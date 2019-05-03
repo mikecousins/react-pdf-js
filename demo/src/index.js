@@ -1,34 +1,29 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { render } from 'react-dom'
 import Pdf from '../../src';
 
-export default class App extends Component {
-  state = { page: 1, rotate: 0 };
+const App = () => {
+  const [page, setPage] = useState(1);
+  const [pages, setPages] = useState(null);
+  const [rotate, setRotate] = useState(0);
 
-  onDocumentComplete = (pages) => {
-    this.setState({ page: 1, pages });
+  const onDocumentComplete = (pages) => {
+    setPage(1);
+    setPages(pages);
   }
 
-  handlePrevious = () => {
-    this.setState({ page: this.state.page - 1 });
-  }
-
-  handleNext = () => {
-    this.setState({ page: this.state.page + 1 });
-  }
-
-  renderPagination = (page, pages) => {
+  const renderPagination = (page, pages) => {
     let previousButton = (
       <li className="previous">
-        <button onClick={this.handlePrevious} className="btn btn-link">
+        <button onClick={() => setPage(page - 1)}>
           Previous
         </button>
       </li>
     );
     if (page === 1) {
       previousButton = (
-        <li className="previous disabled">
-          <button className="btn btn-link">
+        <li className="disabled">
+          <button>
             Previous
           </button>
         </li>
@@ -36,15 +31,15 @@ export default class App extends Component {
     }
     let nextButton = (
       <li className="next">
-        <button onClick={this.handleNext} className="btn btn-link">
+        <button onClick={() => setPage(page + 1)}>
           Next
         </button>
       </li>
     );
     if (page === pages) {
       nextButton = (
-        <li className="next disabled">
-          <button className="btn btn-link">
+        <li>
+          <button>
             Next
           </button>
         </li>
@@ -60,53 +55,43 @@ export default class App extends Component {
     );
   }
 
-  render () {
-    let pagination = null;
-    if (this.state.pages) {
-      pagination = this.renderPagination(this.state.page, this.state.pages);
-    }
-    return (
-      <div>
-        <div className="pdf-preview">
-          <Pdf
-            file="test.pdf"
-            onDocumentComplete={this.onDocumentComplete}
-            page={this.state.page}
-            scale={0.5}
-            rotate={this.state.rotate}
-          />
-        </div>
-        {pagination}
-        <nav>
-          <span>rotate</span>
-          <button
-            onClick={
-              (e) => { this.setState({ rotate: 0 }); }
-            }
-            disabled={this.state.rotate === 0}
-          >0</button>
-          <button
-            onClick={
-              (e) => { this.setState({ rotate: 90 }); }
-            }
-            disabled={this.state.rotate === 90}
-          >90</button>
-          <button
-            onClick={
-              (e) => { this.setState({ rotate: 180 }); }
-            }
-            disabled={this.state.rotate === 180}
-          >180</button>
-          <button
-            onClick={
-              (e) => { this.setState({ rotate: 270 }); }
-            }
-            disabled={this.state.rotate === 270}
-          >270</button>
-        </nav>
-      </div>
-    );
+  let pagination = null;
+  if (pages) {
+    pagination = renderPagination(page, pages);
   }
-}
+  return (
+    <div>
+      <div className="pdf-preview">
+        <Pdf
+          file="test.pdf"
+          onDocumentComplete={onDocumentComplete}
+          page={page}
+          scale={1}
+          rotate={rotate}
+        />
+      </div>
+      {pagination}
+      <nav>
+        <span>rotate</span>
+        <button
+          onClick={() => setRotate(0)}
+          disabled={rotate === 0}
+        >0</button>
+        <button
+          onClick={() => setRotate(90)}
+          disabled={rotate === 90}
+        >90</button>
+        <button
+          onClick={() => setRotate(180)}
+          disabled={rotate === 180}
+        >180</button>
+        <button
+          onClick={() => setRotate(270)}
+          disabled={rotate === 270}
+        >270</button>
+      </nav>
+    </div>
+  );
+};
 
 render(<App />, document.querySelector('#demo'));
