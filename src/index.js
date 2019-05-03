@@ -14,6 +14,7 @@ export default class ReactPdfJs extends Component {
     page: PropTypes.number,
     onDocumentComplete: PropTypes.func,
     scale: PropTypes.number,
+    rotate: PropTypes.oneOf([0, 90, 180, 270]),
     cMapUrl: PropTypes.string,
     cMapPacked: PropTypes.bool,
     className: PropTypes.string,
@@ -23,6 +24,7 @@ export default class ReactPdfJs extends Component {
     page: 1,
     onDocumentComplete: null,
     scale: 1,
+    rotate: 0,
     cMapUrl: '../node_modules/pdfjs-dist/cmaps/',
     cMapPacked: false,
   }
@@ -50,19 +52,19 @@ export default class ReactPdfJs extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const { page, scale } = this.props;
+    const { page, scale, rotate } = this.props;
     const { pdf } = this.state;
-    if (newProps.page !== page) {
-      pdf.getPage(newProps.page).then(p => this.drawPDF(p));
-    }
-    if (newProps.scale !== scale) {
+    if (newProps.page !== page || newProps.scale !== scale || newProps.rotate !== rotate) {
       pdf.getPage(newProps.page).then(p => this.drawPDF(p));
     }
   }
 
   drawPDF = (page) => {
-    const { scale } = this.props;
-    const viewport = page.getViewport(scale);
+    const { scale, rotate } = this.props;
+    // Because this page's rotation option overwrites pdf default rotation value,
+    // calculating page rotation option value from pdf default and this component prop rotate.
+    const rotation = rotate === 0 ? page.rotate : page.rotate + rotate;
+    const viewport = page.getViewport(scale, rotation);
     const { canvas } = this;
     const canvasContext = canvas.getContext('2d');
     canvas.height = viewport.height;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Pdf from 'react-pdf-js';
 
 export default class App extends Component {
-  state = { page: 1 };
+  state = { page: 1, rotate: 0 };
 
   onDocumentComplete = (pages) => {
     this.setState({ page: 1, pages });
@@ -66,8 +66,43 @@ export default class App extends Component {
     }
     return (
       <div>
-        <Pdf file="test.pdf" onDocumentComplete={this.onDocumentComplete} page={this.state.page} />
+        <div className="pdf-preview">
+          <Pdf
+            file="test.pdf"
+            onDocumentComplete={this.onDocumentComplete}
+            page={this.state.page}
+            scale={0.5}
+            rotate={this.state.rotate}
+          />
+        </div>
         {pagination}
+        <nav>
+          <span>rotate</span>
+          <button
+            onClick={
+              (e) => { this.setState({ rotate: 0 }); }
+            }
+            disabled={this.state.rotate === 0}
+          >0</button>
+          <button
+            onClick={
+              (e) => { this.setState({ rotate: 90 }); }
+            }
+            disabled={this.state.rotate === 90}
+          >90</button>
+          <button
+            onClick={
+              (e) => { this.setState({ rotate: 180 }); }
+            }
+            disabled={this.state.rotate === 180}
+          >180</button>
+          <button
+            onClick={
+              (e) => { this.setState({ rotate: 270 }); }
+            }
+            disabled={this.state.rotate === 270}
+          >270</button>
+        </nav>
       </div>
     );
   }
