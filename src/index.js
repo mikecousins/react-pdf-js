@@ -93,7 +93,7 @@ ReactPdfJs.defaultProps = {
   cMapUrl: '../node_modules/pdfjs-dist/cmaps/',
   cMapPacked: false,
   className: '',
-  workerSrc: '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.js',
+  workerSrc: '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.1.266/pdf.worker.js',
 }
 
 export default ReactPdfJs;
