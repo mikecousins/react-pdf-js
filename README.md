@@ -54,7 +54,7 @@ class MyPdfViewer extends React.Component {
           {nextButton}
         </ul>
       </nav>
-      );
+    );
   }
 
   render() {
@@ -71,7 +71,7 @@ class MyPdfViewer extends React.Component {
         />
         {pagination}
       </div>
-    )
+    );
   }
 }
 
