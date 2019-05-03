@@ -31,7 +31,8 @@ export const ReactPdfJs = ({
   // do our initial setup
   useEffect(() => {
     PdfJsLib.GlobalWorkerOptions.workerSrc = workerSrc;
-    PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked }).then((document) => {
+    const loadingTask = PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked });
+    loadingTask.promise.then((document) => {
       setPdf(document);
       if (onDocumentComplete) {
         onDocumentComplete(document._pdfInfo.numPages); // eslint-disable-line
