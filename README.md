@@ -75,6 +75,55 @@ const MyPdfViewer = () => {
 export default MyPdfViewer;
 ```
 
+## Props
+
+When you call usePdf you'll want to pass in a subset of these props, like this:
+
+> `const [loading, numPages] = usePdf({ canvasEl, file: 'https://example.com/test.pdf', page });`
+
+# canvasEl
+
+A reference to the canvas element. Create with:
+
+> `const canvasEl = useRef(null);`
+
+and then render it like:
+
+> `<canvas ref={canvasEl} />`
+
+and then pass it into usePdf.
+
+# file
+
+URL of the PDF file.
+
+# page
+Specify the page that you want to display. Default = 1,
+
+# scale
+
+Allows you to scale the PDF. Default = 1.
+
+# rotate
+
+Allows you to rotate the PDF. Number is in degrees. Default = 0.
+
+# cMapUrl
+
+Allows you to specify a cmap url. Default = '../node_modules/pdfjs-dist/cmaps/'.
+
+# cMapPacked
+
+Allows you to specify  whether the cmaps are packed or not. Default = false.
+
+# workerSrc
+
+Allows you to specify a custom pdf worker url. Default = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.1.266/pdf.worker.js'.
+
+# withCredentials
+
+Allows you to add the withCredentials flag. Default = false.
+
 ## Known Issues
 
 When using Create React App 3.0 you'll get some warnings about:
