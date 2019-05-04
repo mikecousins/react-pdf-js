@@ -1,9 +1,29 @@
 import PdfJsLib from 'pdfjs-dist';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 
-const Pdf = ({ file, onDocumentComplete, page, scale, rotate, cMapUrl, cMapPackged, workerSrc }) => {
+const Pdf = ({
+  file,
+  onDocumentComplete,
+  page,
+  scale,
+  rotate,
+  cMapUrl,
+  cMapPackged,
+  workerSrc,
+  withCredentials,
+}) => {
   const canvasEl = useRef();
-  const [loading, numPages] = usePdf({ canvasEl, file, page, scale, rotate, cMapUrl, cMapPackged, workerSrc });
+  const [loading, numPages] = usePdf({
+    canvasEl,
+    file,
+    page,
+    scale,
+    rotate,
+    cMapUrl,
+    cMapPackged,
+    workerSrc,
+    withCredentials,
+  });
 
   useEffect(() => {
     onDocumentComplete(numPages);
@@ -25,6 +45,7 @@ export const usePdf = ({
   cMapUrl = '../node_modules/pdfjs-dist/cmaps/',
   cMapPacked = false,
   workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.1.266/pdf.worker.js',
+  withCredentials = false,
 }) => {
   const [pdf, setPdf] = useState(null);
 
@@ -33,7 +54,7 @@ export const usePdf = ({
   }, []);
 
   useEffect(() => {
-    PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked }).promise.then(setPdf);
+    PdfJsLib.getDocument({ url: file, cMapUrl, cMapPacked, withCredentials }).promise.then(setPdf);
   }, [file, cMapUrl, cMapPacked]);
 
   // handle changes
