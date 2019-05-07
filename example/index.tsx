@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { render } from 'react-dom'
-import { usePdf } from '../../src';
+import 'react-app-polyfill/ie11';
+import React, { useRef, useState, useEffect } from 'react';
+import { render } from 'react-dom';
+import { usePdf } from '../.';
+import './pdfs/basic.pdf';
 
 const App = () => {
   const [page, setPage] = useState(1);
@@ -12,33 +14,25 @@ const App = () => {
     }
     let previousButton = (
       <li className="previous">
-        <button onClick={() => setPage(page - 1)}>
-          Previous
-        </button>
+        <button onClick={() => setPage(page - 1)}>Previous</button>
       </li>
     );
     if (page === 1) {
       previousButton = (
         <li className="disabled">
-          <button>
-            Previous
-          </button>
+          <button>Previous</button>
         </li>
       );
     }
     let nextButton = (
       <li className="next">
-        <button onClick={() => setPage(page + 1)}>
-          Next
-        </button>
+        <button onClick={() => setPage(page + 1)}>Next</button>
       </li>
     );
     if (page === pages) {
       nextButton = (
         <li>
-          <button>
-            Next
-          </button>
+          <button>Next</button>
         </li>
       );
     }
@@ -50,14 +44,14 @@ const App = () => {
         </ul>
       </nav>
     );
-  }
+  };
 
   const canvasEl = useRef(null);
 
   const [loading, numPages] = usePdf({
-    file: 'test.pdf',
+    file: 'basic.0dbc8f27.pdf',
     page,
-    canvasEl
+    canvasEl,
   });
 
   useEffect(() => {
@@ -73,4 +67,4 @@ const App = () => {
   );
 };
 
-render(<App />, document.querySelector('#demo'));
+render(<App />, document.getElementById('root'));
