@@ -5,36 +5,47 @@
   "author": "mikecousins",
   "license": "MIT",
   "repository": "mikecousins/react-pdf-js",
-  "main": "build/index.js",
-  "module": "build/index.es.js",
-  "jsnext:main": "build/index.es.js",
+  "main": "dist/index.js",
+  "umd:main": "dist/react-pdf-js.umd.production.js",
+  "module": "dist/react-pdf-js.es.production.js",
+  "typings": "dist/index.d.ts",
   "files": [
-    "build"
+    "dist"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "test": "jest"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --env=jsdom"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.12",
+    "@types/react": "^16.8.16",
+    "@types/react-dom": "^16.8.4",
+    "husky": "^2.2.0",
+    "prettier": "^1.17.0",
+    "pretty-quick": "^1.10.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "tsdx": "^0.5.7",
+    "tslib": "^1.9.3",
+    "typescript": "^3.4.5",
+    "webpack": "^3.0.0 || ^4.0.0-alpha.0 || ^4.0.0"
   },
   "dependencies": {
     "pdfjs-dist": "2.1.266"
-  },
-  "peerDependencies": {
-    "react": ">16.8.0"
-  },
-  "devDependencies": {
-    "@types/react": "^16.8.16",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "rollup": "^1.11.3",
-    "rollup-plugin-commonjs": "^9.3.4",
-    "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-node-resolve": "^4.2.3",
-    "rollup-plugin-peer-deps-external": "^2.2.0",
-    "rollup-plugin-typescript2": "^0.21.0",
-    "typescript": "3.4.5"
-  },
-  "homepage": "https://github.com/mikecousins/react-pdf-js",
-  "keywords": [
-    "react-component"
-  ]
+  }
 }

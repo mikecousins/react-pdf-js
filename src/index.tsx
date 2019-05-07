@@ -1,16 +1,16 @@
 import PdfJsLib from 'pdfjs-dist';
-import React, { useState, useEffect, useRef, useMemo, ReactElement } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 type ComponentProps = {
-  file: string,
-  onDocumentComplete: (numPages: number) => void,
-  page: number,
-  scale: number,
-  rotate: number,
-  cMapUrl: string,
-  cMapPacked: boolean,
-  workerSrc: string,
-  withCredentials: boolean
+  file: string;
+  onDocumentComplete: (numPages: number) => void;
+  page: number;
+  scale: number;
+  rotate: number;
+  cMapUrl: string;
+  cMapPacked: boolean;
+  workerSrc: string;
+  withCredentials: boolean;
 };
 
 const Pdf = ({
@@ -25,7 +25,7 @@ const Pdf = ({
   withCredentials,
 }: ComponentProps) => {
   const canvasEl = useRef<HTMLCanvasElement>(null);
-  const [loading, numPages] = usePdf({
+  const [, numPages] = usePdf({
     canvasEl,
     file,
     page,
@@ -49,15 +49,15 @@ Pdf.defaultProps = {
 };
 
 type HookProps = {
-  canvasEl: React.RefObject<HTMLCanvasElement>,
-  file: string,
-  scale: number,
-  rotate: number,
-  page: number,
-  cMapUrl: string,
-  cMapPacked: boolean,
-  workerSrc: string,
-  withCredentials: boolean,
+  canvasEl: React.RefObject<HTMLCanvasElement>;
+  file: string;
+  scale?: number;
+  rotate?: number;
+  page?: number;
+  cMapUrl?: string;
+  cMapPacked?: boolean;
+  workerSrc?: string;
+  withCredentials?: boolean;
 };
 
 export const usePdf = ({
@@ -116,10 +116,10 @@ export const usePdf = ({
       viewport,
     };
     page.render(renderContext);
-  }
+  };
 
   const loading = useMemo(() => !pdf, [pdf]);
-  const numPages = useMemo(() => pdf ? pdf._pdfInfo.numPages : null, [pdf]);
+  const numPages = useMemo(() => (pdf ? pdf._pdfInfo.numPages : null), [pdf]);
 
   return [loading, numPages];
 };

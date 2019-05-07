@@ -2,7 +2,11 @@
 /demo/dist
 /es
 /lib
-/node_modules
+node_modules
 /umd
 npm-debug.log*
-example/node_modules
+.rts2_cache_cjs
+.rts2_cache_es
+.rts2_cache_umd
+dist
+.cache
