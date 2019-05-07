@@ -4,13 +4,13 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 type ComponentProps = {
   file: string;
   onDocumentComplete: (numPages: number) => void;
-  page: number;
-  scale: number;
-  rotate: number;
-  cMapUrl: string;
-  cMapPacked: boolean;
-  workerSrc: string;
-  withCredentials: boolean;
+  page?: number;
+  scale?: number;
+  rotate?: number;
+  cMapUrl?: string;
+  cMapPacked?: boolean;
+  workerSrc?: string;
+  withCredentials?: boolean;
 };
 
 const Pdf = ({
