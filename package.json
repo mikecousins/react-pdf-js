@@ -16,7 +16,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --env=jsdom",
-    "netlify": "cd example && yarn && yarn build"
+    "netlify": "yarn && yarn build && cd example && yarn && yarn build"
   },
   "peerDependencies": {
     "react": ">=16"
