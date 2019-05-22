@@ -49,7 +49,7 @@ const App = () => {
   const canvasEl = useRef(null);
 
   const [loading, numPages] = usePdf({
-    file: 'basic.0dbc8f27.pdf',
+    file: 'basic.33e35a62.pdf',
     page,
     canvasEl,
   });
