@@ -32,11 +32,11 @@ const MyPdfViewer = () => {
     if (!pages) {
       return null;
     }
-    let previousButton = <li className="previous" onClick={() => setPage(page - 1))}><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
+    let previousButton = <li className="previous" onClick={() => setPage(page - 1)}><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
     if (page === 1) {
       previousButton = <li className="previous disabled"><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
     }
-    let nextButton = <li className="next" onClick={() => setPage(page + 1))}><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
+    let nextButton = <li className="next" onClick={() => setPage(page + 1)}><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
     if (page === pages) {
       nextButton = <li className="next disabled"><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
     }
