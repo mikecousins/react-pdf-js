@@ -125,14 +125,6 @@ Allows you to specify a custom pdf worker url. Default = '//cdnjs.cloudflare.com
 
 Allows you to add the withCredentials flag. Default = false.
 
-# Known Issues
-
-When using Create React App 3.0 you'll get some warnings about:
-> ./node_modules/pdfjs-dist/build/pdf.js
-Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
-
-Issues have been logged with create-react-app and pdf.js about this issue.
-
 # License
 
 MIT © [mikecousins](https://github.com/mikecousins)
