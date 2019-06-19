@@ -1,4 +1,4 @@
-import PdfJsLib from 'pdfjs-dist';
+import pdfjs from '@bundled-es-modules/pdfjs-dist/build/pdf';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 type ComponentProps = {
@@ -74,16 +74,16 @@ export const usePdf = ({
   const [pdf, setPdf] = useState();
 
   useEffect(() => {
-    PdfJsLib.GlobalWorkerOptions.workerSrc = workerSrc;
+    pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
   }, []);
 
   useEffect(() => {
-    const config: PdfJsLib.PDFSource = { url: file, withCredentials };
+    const config: pdfjs.PDFSource = { url: file, withCredentials };
     if (cMapUrl) {
       config.cMapUrl = cMapUrl;
       config.cMapPacked = cMapPacked;
     }
-    PdfJsLib.getDocument(config).promise.then(setPdf);
+    pdfjs.getDocument(config).promise.then(setPdf);
   }, [file, withCredentials]);
 
   // handle changes
