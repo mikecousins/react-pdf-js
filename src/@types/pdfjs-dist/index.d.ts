@@ -1,4 +1,4 @@
-declare module '@bundled-es-modules/pdfjs-dist/build/pdf' {
+declare module 'pdfjs-dist' {
   interface PDFPromise<T> {
     isResolved(): boolean;
     isRejected(): boolean;
