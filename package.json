@@ -1,5 +1,5 @@
 {
-  "name": "react-pdf-js",
+  "name": "@mikecousins/react-pdf",
   "version": "5.1.1",
   "description": "Simple React component to wrap up PDF.js. The easiest way to render PDFs in your React app.",
   "author": "mikecousins",
