@@ -3,6 +3,7 @@
 `react-pdf-js` provides a component for rendering PDF documents using [PDF.js](http://mozilla.github.io/pdf.js/).
 
 ---
+
 [![NPM Version](https://img.shields.io/npm/v/react-pdf-js.svg?style=flat-square)](https://www.npmjs.com/package/react-pdf-js)
 [![NPM Downloads](https://img.shields.io/npm/dm/react-pdf-js.svg?style=flat-square)](https://www.npmjs.com/package/react-pdf-js)
 [![Build Status](https://travis-ci.com/mikecousins/react-pdf-js.svg?branch=master)](https://travis-ci.com/mikecousins/react-pdf-js)
@@ -16,13 +17,13 @@ https://pdf.netlify.com
 
 # Usage
 
-Install with `yarn add react-pdf-js` or `npm install react-pdf-js`
+Install with `yarn add @mikecousins/react-pdf` or `npm install @mikecousins/react-pdf`
 
 Use it in your app (showing some basic pagination as well):
 
 ```js
 import React, { useState, useEffect, useRef } from 'react';
-import { usePdf } from 'react-pdf-js';
+import { usePdf } from '@mikecousins/react-pdf';
 
 const MyPdfViewer = () => {
   const [page, setPage] = useState(1);
@@ -32,13 +33,37 @@ const MyPdfViewer = () => {
     if (!pages) {
       return null;
     }
-    let previousButton = <li className="previous" onClick={() => setPage(page - 1)}><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
+    let previousButton = (
+      <li className="previous" onClick={() => setPage(page - 1)}>
+        <a href="#">
+          <i className="fa fa-arrow-left"></i> Previous
+        </a>
+      </li>
+    );
     if (page === 1) {
-      previousButton = <li className="previous disabled"><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
+      previousButton = (
+        <li className="previous disabled">
+          <a href="#">
+            <i className="fa fa-arrow-left"></i> Previous
+          </a>
+        </li>
+      );
     }
-    let nextButton = <li className="next" onClick={() => setPage(page + 1)}><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
+    let nextButton = (
+      <li className="next" onClick={() => setPage(page + 1)}>
+        <a href="#">
+          Next <i className="fa fa-arrow-right"></i>
+        </a>
+      </li>
+    );
     if (page === pages) {
-      nextButton = <li className="next disabled"><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
+      nextButton = (
+        <li className="next disabled">
+          <a href="#">
+            Next <i className="fa fa-arrow-right"></i>
+          </a>
+        </li>
+      );
     }
     return (
       <nav>
@@ -48,7 +73,7 @@ const MyPdfViewer = () => {
         </ul>
       </nav>
     );
-  }
+  };
 
   const canvasEl = useRef(null);
 
@@ -56,7 +81,7 @@ const MyPdfViewer = () => {
     file: 'test.pdf',
     onDocumentComplete,
     page,
-    canvasEl
+    canvasEl,
   });
 
   useEffect(() => {
@@ -70,7 +95,7 @@ const MyPdfViewer = () => {
       {renderPagination(page, pages)}
     </div>
   );
-}
+};
 
 export default MyPdfViewer;
 ```
@@ -115,7 +140,7 @@ Allows you to specify a cmap url. Default = '../node_modules/pdfjs-dist/cmaps/'.
 
 ## cMapPacked
 
-Allows you to specify  whether the cmaps are packed or not. Default = false.
+Allows you to specify whether the cmaps are packed or not. Default = false.
 
 ## workerSrc
 
