@@ -1,13 +1,12 @@
 {
   "name": "@mikecousins/react-pdf",
-  "version": "5.1.1",
+  "version": "5.2.0",
   "description": "Simple React component to wrap up PDF.js. The easiest way to render PDFs in your React app.",
   "author": "mikecousins",
   "license": "MIT",
   "repository": "mikecousins/react-pdf-js",
   "main": "dist/index.js",
-  "umd:main": "dist/react-pdf-js.umd.production.js",
-  "module": "dist/react-pdf-js.es.production.js",
+  "module": "dist/react-pdf.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
@@ -16,6 +15,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --env=jsdom",
+    "lint": "tsdx lint",
     "netlify": "yarn && yarn build && cd example && yarn && yarn build"
   },
   "peerDependencies": {
