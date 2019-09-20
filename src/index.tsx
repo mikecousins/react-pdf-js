@@ -1,4 +1,4 @@
-import pdfjs from 'pdfjs-dist';
+import pdfjs from '@bundled-es-modules/pdfjs-dist';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 type ComponentProps = {
