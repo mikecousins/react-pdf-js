@@ -1,19 +1,11 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { render } from '@testing-library/react';
 
-import { usePdf } from '../src/index';
+import Pdf from '../src';
 
 describe('Pdf', () => {
   it('renders without crashing', () => {
-    const canvasEl = useRef(null);
-
-    usePdf({
-      file: 'basic.33e35a62.pdf',
-      page: 1,
-      canvasEl,
-    });
-
-    const { container } = render(<canvas ref={canvasEl} />);
+    const { container } = render(<Pdf file="basic.33e35a62.pdf" />);
 
     expect(container).toBeDefined();
   });
