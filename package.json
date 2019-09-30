@@ -39,7 +39,7 @@
     "@types/react-dom": "16.9.1",
     "husky": "3.0.5",
     "react": "16.9.0",
-    "react-dom": "16.9.0",
+    "react-dom": "16.10.1",
     "tsdx": "0.9.2",
     "tslib": "1.10.0",
     "typescript": "3.6.3"
