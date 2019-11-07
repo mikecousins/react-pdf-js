@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 type ComponentProps = {
   file: string;
   onDocumentComplete: (numPages: number) => void;
+  onPageLoaded: () => void;
   page?: number;
   scale?: number;
   rotate?: number;
@@ -16,6 +17,7 @@ type ComponentProps = {
 const Pdf = ({
   file,
   onDocumentComplete,
+  onPageLoaded,
   page,
   scale,
   rotate,
@@ -35,22 +37,25 @@ const Pdf = ({
     cMapPacked,
     workerSrc,
     withCredentials,
+    onPageLoaded,
   });
 
   useEffect(() => {
     onDocumentComplete(numPages);
-  }, [numPages]);
+  }, [numPages, onDocumentComplete]);
 
   return <canvas ref={canvasEl} />;
 };
 
 Pdf.defaultProps = {
   onDocumentComplete: () => {},
+  onPageLoaded: () => {},
 };
 
 type HookProps = {
   canvasEl: React.RefObject<HTMLCanvasElement>;
   file: string;
+  onPageLoaded: () => void;
   scale?: number;
   rotate?: number;
   page?: number;
@@ -63,6 +68,7 @@ type HookProps = {
 export const usePdf = ({
   canvasEl,
   file,
+  onPageLoaded,
   scale = 1,
   rotate = 0,
   page = 1,
@@ -84,7 +90,7 @@ export const usePdf = ({
       config.cMapPacked = cMapPacked;
     }
     pdfjs.getDocument(config).promise.then(setPdf);
-  }, [file, withCredentials]);
+  }, [file, withCredentials, cMapUrl, cMapPacked]);
 
   // handle changes
   useEffect(() => {
@@ -115,7 +121,7 @@ export const usePdf = ({
       canvasContext,
       viewport,
     };
-    page.render(renderContext);
+    page.render(renderContext).promise.then(onPageLoaded);
   };
 
   const loading = useMemo(() => !pdf, [pdf]);
