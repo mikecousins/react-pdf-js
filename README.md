@@ -122,6 +122,10 @@ and then pass it into usePdf.
 
 URL of the PDF file.
 
+## onPageLoaded
+
+Allows you to specify a callback that is called when the PDF page will be fully loaded into the DOM.
+
 ## page
 
 Specify the page that you want to display. Default = 1,
