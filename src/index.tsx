@@ -74,7 +74,7 @@ export const usePdf = ({
   page = 1,
   cMapUrl,
   cMapPacked,
-  workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.228/pdf.worker.js',
+  workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`,
   withCredentials = false,
 }: HookProps) => {
   const [pdf, setPdf] = useState();
