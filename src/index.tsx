@@ -134,7 +134,7 @@ export const usePdf = ({
     if (pdf) {
       pdf.getPage(page).then((p: any) => drawPDF(p));
     }
-  }, [pdf, page, scale, rotate, canvasEl]);
+  }, [pdf, page, scale, rotate, canvasEl, onPageLoaded]);
 
   const loading = useMemo(() => !pdf, [pdf]);
   const numPages = useMemo(() => (pdf ? pdf._pdfInfo.numPages : null), [pdf]);
