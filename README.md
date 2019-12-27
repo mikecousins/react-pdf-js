@@ -10,6 +10,7 @@
 [![Dependency Status](https://david-dm.org/mikecousins/react-pdf-js.svg)](https://david-dm.org/mikecousins/react-pdf-js)
 [![devDependency Status](https://david-dm.org/mikecousins/react-pdf-js/dev-status.svg)](https://david-dm.org/mikecousins/react-pdf-js#info=devDependencies)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4ce8e5b5-16ca-4942-8c47-095debbc4693/deploy-status)](https://app.netlify.com/sites/pdf/deploys)
+[![codecov](https://codecov.io/gh/mikecousins/react-pdf-js/branch/master/graph/badge.svg)](https://codecov.io/gh/mikecousins/react-pdf-js)
 
 # Demo
 
