@@ -55,7 +55,7 @@ Pdf.defaultProps = {
 type HookProps = {
   canvasEl: React.RefObject<HTMLCanvasElement>;
   file: string;
-  onPageLoaded: () => void;
+  onPageLoaded?: () => void;
   scale?: number;
   rotate?: number;
   page?: number;
@@ -68,7 +68,7 @@ type HookProps = {
 export const usePdf = ({
   canvasEl,
   file,
-  onPageLoaded,
+  onPageLoaded = undefined,
   scale = 1,
   rotate = 0,
   page = 1,
@@ -78,10 +78,11 @@ export const usePdf = ({
   withCredentials = false,
 }: HookProps) => {
   const [pdf, setPdf] = useState();
+  const renderTask = useRef<any | null>(null);
 
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
-  }, []);
+  }, [workerSrc]);
 
   useEffect(() => {
     const config: pdfjs.PDFSource = { url: file, withCredentials };
@@ -94,35 +95,46 @@ export const usePdf = ({
 
   // handle changes
   useEffect(() => {
+    // draw a page of the pdf
+    const drawPDF = (page: any) => {
+      // Because this page's rotation option overwrites pdf default rotation value,
+      // calculating page rotation option value from pdf default and this component prop rotate.
+      const rotation = rotate === 0 ? page.rotate : page.rotate + rotate;
+      let dpRatio = 1;
+      dpRatio = window.devicePixelRatio;
+      const adjustedScale = scale * dpRatio;
+      const viewport = page.getViewport({ scale: adjustedScale, rotation });
+      const canvas = canvasEl.current;
+      if (!canvas) {
+        return;
+      }
+      const canvasContext = canvas.getContext('2d');
+      canvas.style.width = `${viewport.width / dpRatio}px`;
+      canvas.style.height = `${viewport.height / dpRatio}px`;
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      const renderContext = {
+        canvasContext,
+        viewport,
+      };
+      // when previous render doesn't done yet, we skip this
+      if (renderTask.current) {
+        renderTask.current = null;
+        return;
+      }
+      renderTask.current = page.render(renderContext);
+      return renderTask.current.promise.then(() => {
+        renderTask.current = null;
+        if (typeof onPageLoaded === 'function') {
+          onPageLoaded();
+        }
+      });
+    };
+
     if (pdf) {
       pdf.getPage(page).then((p: any) => drawPDF(p));
     }
   }, [pdf, page, scale, rotate, canvasEl]);
-
-  // draw a page of the pdf
-  const drawPDF = (page: any) => {
-    // Because this page's rotation option overwrites pdf default rotation value,
-    // calculating page rotation option value from pdf default and this component prop rotate.
-    const rotation = rotate === 0 ? page.rotate : page.rotate + rotate;
-    let dpRatio = 1;
-    dpRatio = window.devicePixelRatio;
-    const adjustedScale = scale * dpRatio;
-    const viewport = page.getViewport({ scale: adjustedScale, rotation });
-    const canvas = canvasEl.current;
-    if (!canvas) {
-      return;
-    }
-    const canvasContext = canvas.getContext('2d');
-    canvas.style.width = `${viewport.width / dpRatio}px`;
-    canvas.style.height = `${viewport.height / dpRatio}px`;
-    canvas.height = viewport.height;
-    canvas.width = viewport.width;
-    const renderContext = {
-      canvasContext,
-      viewport,
-    };
-    page.render(renderContext).promise.then(onPageLoaded);
-  };
 
   const loading = useMemo(() => !pdf, [pdf]);
   const numPages = useMemo(() => (pdf ? pdf._pdfInfo.numPages : null), [pdf]);
