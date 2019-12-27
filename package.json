@@ -15,6 +15,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --env=jsdom",
+    "test:coverage": "CI=true tsdx test --color --coverage",
     "lint": "tsdx lint src",
     "netlify": "yarn && yarn build && cd example && yarn && yarn build"
   },
