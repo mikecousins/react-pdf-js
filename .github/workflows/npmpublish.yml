@@ -17,5 +17,5 @@ jobs:
         with:
           node-version: 12
       - run: yarn
-      - run: yarn test
+      - run: yarn test:coverage
       - run: yarn build
