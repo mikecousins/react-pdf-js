@@ -42,7 +42,7 @@
     "react-dom": "16.12.0",
     "tsdx": "0.11.0",
     "tslib": "1.10.0",
-    "typescript": "3.7.3"
+    "typescript": "3.7.4"
   },
   "dependencies": {
     "@bundled-es-modules/pdfjs-dist": "2.2.228-alpha1"
