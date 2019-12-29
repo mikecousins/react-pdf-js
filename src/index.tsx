@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 type ComponentProps = {
   file: string;
-  onDocumentComplete: (numPages: number) => void;
+  onDocumentComplete: (numPages: number | null) => void;
   onPageLoaded: () => void;
   page?: number;
   scale?: number;
@@ -65,7 +65,7 @@ type HookProps = {
   withCredentials?: boolean;
 };
 
-type HookReturnValues = [boolean, number];
+type HookReturnValues = [boolean, number | null];
 
 export const usePdf = ({
   canvasEl,
@@ -156,7 +156,7 @@ export const usePdf = ({
   }, [pdf, page, scale, rotate, canvasEl, onPageLoaded]);
 
   const loading = !pdf;
-  const numPages = pdf ? pdf.numPages : 0;
+  const numPages = pdf ? pdf.numPages : null;
 
   return [loading, numPages];
 };
