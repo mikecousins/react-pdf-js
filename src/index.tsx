@@ -102,8 +102,7 @@ export const usePdf = ({
       // Because this page's rotation option overwrites pdf default rotation value,
       // calculating page rotation option value from pdf default and this component prop rotate.
       const rotation = rotate === 0 ? page.rotate : page.rotate + rotate;
-      let dpRatio = 1;
-      dpRatio = window.devicePixelRatio;
+      const dpRatio = window.devicePixelRatio;
       const adjustedScale = scale * dpRatio;
       const viewport = page.getViewport({ scale: adjustedScale, rotation });
       const canvas = canvasEl.current;
@@ -135,6 +134,7 @@ export const usePdf = ({
       return renderTask.current.promise.then(
         () => {
           renderTask.current = null;
+
           if (typeof onPageLoaded === 'function') {
             onPageLoaded();
           }

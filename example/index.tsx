@@ -6,63 +6,37 @@ import './pdfs/basic.pdf';
 
 const App = () => {
   const [page, setPage] = useState(1);
-  const [pages, setPages] = useState(null);
-
-  const renderPagination = (page, pages) => {
-    if (!pages) {
-      return null;
-    }
-    let previousButton = (
-      <li className="previous">
-        <button onClick={() => setPage(page - 1)}>Previous</button>
-      </li>
-    );
-    if (page === 1) {
-      previousButton = (
-        <li className="disabled">
-          <button>Previous</button>
-        </li>
-      );
-    }
-    let nextButton = (
-      <li className="next">
-        <button onClick={() => setPage(page + 1)}>Next</button>
-      </li>
-    );
-    if (page === pages) {
-      nextButton = (
-        <li>
-          <button>Next</button>
-        </li>
-      );
-    }
-    return (
-      <nav>
-        <ul className="pager">
-          {previousButton}
-          {nextButton}
-        </ul>
-      </nav>
-    );
-  };
-
   const canvasEl = useRef(null);
 
-  const [loading, numPages] = usePdf({
+  const [loading, pages] = usePdf({
     file: 'basic.33e35a62.pdf',
     page,
     canvasEl,
   });
 
-  useEffect(() => {
-    setPages(numPages);
-  }, [numPages]);
-
   return (
     <div>
       {loading && <span>Loading...</span>}
       <canvas ref={canvasEl} />
-      {renderPagination(page, pages)}
+      {Boolean(pages) && (
+        <nav>
+          <ul className="pager">
+            <li className="previous">
+              <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+                Previous
+              </button>
+            </li>
+            <li className="next">
+              <button
+                disabled={page === pages}
+                onClick={() => setPage(page + 1)}
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
+      )}
     </div>
   );
 };
