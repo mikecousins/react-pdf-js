@@ -1,56 +1,44 @@
 import pdfjs from 'pdfjs-dist';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
 
-type ComponentProps = {
-  file: string;
-  onDocumentComplete: (numPages: number | null) => void;
-  onPageLoaded: () => void;
-  page?: number;
-  scale?: number;
-  rotate?: number;
-  cMapUrl?: string;
-  cMapPacked?: boolean;
-  workerSrc?: string;
-  withCredentials?: boolean;
-};
+type ComponentProps = Omit<HookProps, 'canvasEl'> &
+  React.CanvasHTMLAttributes<HTMLCanvasElement>;
 
-const Pdf = ({
-  file,
-  onDocumentComplete,
-  onPageLoaded,
-  page,
-  scale,
-  rotate,
-  cMapUrl,
-  cMapPacked,
-  workerSrc,
-  withCredentials,
-}: ComponentProps) => {
-  const canvasEl = useRef<HTMLCanvasElement>(null);
-  const [, numPages] = usePdf({
-    canvasEl,
-    file,
-    page,
-    scale,
-    rotate,
-    cMapUrl,
-    cMapPacked,
-    workerSrc,
-    withCredentials,
-    onPageLoaded,
-  });
+const Pdf = React.forwardRef<HTMLCanvasElement | null, ComponentProps>(
+  (
+    {
+      file,
+      onPageLoaded,
+      page,
+      scale,
+      rotate,
+      cMapUrl,
+      cMapPacked,
+      workerSrc,
+      withCredentials,
+      ...canvasProps
+    },
+    ref
+  ) => {
+    const canvasEl = useRef<HTMLCanvasElement>(null);
+    useImperativeHandle(ref, () => canvasEl.current);
 
-  useEffect(() => {
-    onDocumentComplete(numPages);
-  }, [numPages, onDocumentComplete]);
+    usePdf({
+      canvasEl,
+      file,
+      onPageLoaded,
+      page,
+      scale,
+      rotate,
+      cMapUrl,
+      cMapPacked,
+      workerSrc,
+      withCredentials,
+    });
 
-  return <canvas ref={canvasEl} />;
-};
-
-Pdf.defaultProps = {
-  onDocumentComplete: () => {},
-  onPageLoaded: () => {},
-};
+    return <canvas {...canvasProps} ref={canvasEl} />;
+  }
+);
 
 type HookProps = {
   canvasEl: React.RefObject<HTMLCanvasElement>;
@@ -70,7 +58,7 @@ type HookReturnValues = [boolean, number | null];
 export const usePdf = ({
   canvasEl,
   file,
-  onPageLoaded = undefined,
+  onPageLoaded,
   scale = 1,
   rotate = 0,
   page = 1,
