@@ -19,140 +19,214 @@ https://pdf.netlify.com
 
 Install with `yarn add @mikecousins/react-pdf` or `npm install @mikecousins/react-pdf`
 
-Use it in your app (showing some basic pagination as well):
+## `usePdf` hook
+
+Use the hook in your app (showing some basic pagination as well):
 
 ```js
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { usePdf } from '@mikecousins/react-pdf';
 
 const MyPdfViewer = () => {
   const [page, setPage] = useState(1);
-  const [pages, setPages] = useState(null);
+  const canvasRef = useRef(null);
 
-  const renderPagination = (page, pages) => {
-    if (!pages) {
-      return null;
-    }
-    let previousButton = (
-      <li className="previous" onClick={() => setPage(page - 1)}>
-        <a href="#">
-          <i className="fa fa-arrow-left"></i> Previous
-        </a>
-      </li>
-    );
-    if (page === 1) {
-      previousButton = (
-        <li className="previous disabled">
-          <a href="#">
-            <i className="fa fa-arrow-left"></i> Previous
-          </a>
-        </li>
-      );
-    }
-    let nextButton = (
-      <li className="next" onClick={() => setPage(page + 1)}>
-        <a href="#">
-          Next <i className="fa fa-arrow-right"></i>
-        </a>
-      </li>
-    );
-    if (page === pages) {
-      nextButton = (
-        <li className="next disabled">
-          <a href="#">
-            Next <i className="fa fa-arrow-right"></i>
-          </a>
-        </li>
-      );
-    }
-    return (
-      <nav>
-        <ul className="pager">
-          {previousButton}
-          {nextButton}
-        </ul>
-      </nav>
-    );
-  };
-
-  const canvasEl = useRef(null);
-
-  const [loading, numPages] = usePdf({
+  const { pdfDocument, pdfPage } = usePdf({
     file: 'test.pdf',
-    onDocumentComplete,
     page,
-    canvasEl,
+    canvasRef,
   });
-
-  useEffect(() => {
-    setPages(numPages);
-  }, [numPages]);
 
   return (
     <div>
-      {loading && <span>Loading...</span>}
-      <canvas ref={canvasEl} />
-      {renderPagination(page, pages)}
+      {!pdfDocument && <span>Loading...</span>}
+      <canvas ref={canvasRef} />
+      {Boolean(pdfDocument && pdfDocument.numPages) && (
+        <nav>
+          <ul className="pager">
+            <li className="previous">
+              <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+                Previous
+              </button>
+            </li>
+            <li className="next">
+              <button
+                disabled={page === pdfDocument.numPages}
+                onClick={() => setPage(page + 1)}
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
+      )}
     </div>
   );
 };
-
-export default MyPdfViewer;
 ```
 
-# Props
+## Props
 
 When you call usePdf you'll want to pass in a subset of these props, like this:
 
-> `const [loading, numPages] = usePdf({ canvasEl, file: 'https://example.com/test.pdf', page });`
+> `const { pdfDocument, pdfPage } = usePdf({ canvasRef, file: 'https://example.com/test.pdf', page });`
 
-## canvasEl
+### canvasRef
 
 A reference to the canvas element. Create with:
 
-> `const canvasEl = useRef(null);`
+> `const canvasRef = useRef(null);`
 
 and then render it like:
 
-> `<canvas ref={canvasEl} />`
+> `<canvas ref={canvasRef} />`
 
 and then pass it into usePdf.
 
-## file
+### file
 
 URL of the PDF file.
 
-## onPageLoaded
+### onDocumentLoadSuccess
 
-Allows you to specify a callback that is called when the PDF page will be fully loaded into the DOM.
+Allows you to specify a callback that is called when the PDF document data will be fully loaded.
+Callback is called with [PDFDocumentProxy](https://github.com/mozilla/pdf.js/blob/master/src/display/api.js#L579)
+as an only argument.
 
-## page
+### onDocumentLoadFail
+
+Allows you to specify a callback that is called after an error occurred during PDF document data loading.
+
+### onPageLoadSuccess
+
+Allows you to specify a callback that is called when the PDF page data will be fully loaded.
+Callback is called with [PDFPageProxy](https://github.com/mozilla/pdf.js/blob/master/src/display/api.js#L897)
+as an only argument.
+
+### onPageLoadFail
+
+Allows you to specify a callback that is called after an error occurred during PDF page data loading.
+
+### onPageRenderSuccess
+
+Allows you to specify a callback that is called when the PDF page will be fully rendered into the DOM.
+Callback is called with [PDFPageProxy](https://github.com/mozilla/pdf.js/blob/master/src/display/api.js#L897)
+as an only argument.
+
+### onPageRenderFail
+
+Allows you to specify a callback that is called after an error occurred during PDF page rendering.
+
+### page
 
 Specify the page that you want to display. Default = 1,
 
-## scale
+### scale
 
 Allows you to scale the PDF. Default = 1.
 
-## rotate
+### rotate
 
 Allows you to rotate the PDF. Number is in degrees. Default = 0.
 
-## cMapUrl
+### cMapUrl
 
 Allows you to specify a cmap url. Default = '../node_modules/pdfjs-dist/cmaps/'.
 
-## cMapPacked
+### cMapPacked
 
 Allows you to specify whether the cmaps are packed or not. Default = false.
 
-## workerSrc
+### workerSrc
 
-Allows you to specify a custom pdf worker url. Default = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.1.266/pdf.worker.js'.
+Allows you to specify a custom pdf worker url. Default = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/\${pdfjs.version}/pdf.worker.js'.
 
-## withCredentials
+### withCredentials
 
 Allows you to add the withCredentials flag. Default = false.
+
+## Returned values
+
+### pdfDocument
+
+`pdfjs`'s `PDFDocumentProxy` [object](https://github.com/mozilla/pdf.js/blob/master/src/display/api.js#L579).
+This can be undefined if document has not been loaded yet.
+
+### pdfPage
+
+`pdfjs`'s `PDFPageProxy` [object](https://github.com/mozilla/pdf.js/blob/master/src/display/api.js#L897)
+This can be undefined if page has not been loaded yet.
+
+## `Pdf` component
+
+You can also use the `Pdf` component (which uses `usePdf` hook internally):
+
+```js
+import React, { useState } from 'react';
+import Pdf from '@mikecousins/react-pdf';
+
+const MyPdfViewer = () => {
+  const [page, setPage] = useState(1);
+
+  return <Pdf file="basic.33e35a62.pdf" page={page} />;
+};
+```
+
+Or if you want to use pdf's data (e.g. to render pagination):
+
+```js
+import React, { useState } from 'react';
+import Pdf from '@mikecousins/react-pdf';
+
+const MyPdfViewer = () => {
+  const [page, setPage] = useState(1);
+
+  return (
+    <Pdf file="basic.33e35a62.pdf" page={page}>
+      {({ pdfDocument, pdfPage, canvas }) => (
+        <>
+          {!pdfDocument && <span>Loading...</span>}
+          {canvas}
+          {Boolean(pdfDocument && pdfDocument.numPages) && (
+            <nav>
+              <ul className="pager">
+                <li className="previous">
+                  <button
+                    disabled={page === 1}
+                    onClick={() => setPage(page - 1)}
+                  >
+                    Previous
+                  </button>
+                </li>
+                <li className="next">
+                  <button
+                    disabled={page === pdfDocument.numPages}
+                    onClick={() => setPage(page + 1)}
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          )}
+        </>
+      )}
+    </Pdf>
+  );
+};
+```
+
+Notice that in the second example, you are responsible for rendering the canvas element into the DOM.
+
+## Props
+
+`Pdf` component accepts all the props that `usePdf` hook do, with exception of `canvasRef` (the component renders it by itself).
+
+Additionaly, the component accepts:
+
+### children
+
+A function that receives data returned by `usePdf` hook with addition of canvas element. You are responsible for rendering that element into the DOM if you choose to pass children prop.
 
 # License
 
