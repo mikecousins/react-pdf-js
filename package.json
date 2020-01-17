@@ -1,6 +1,6 @@
 {
   "name": "@mikecousins/react-pdf",
-  "version": "5.4.0",
+  "version": "5.5.0",
   "description": "Simple React component to wrap up PDF.js. The easiest way to render PDFs in your React app.",
   "author": "mikecousins",
   "license": "MIT",
@@ -40,17 +40,17 @@
   },
   "devDependencies": {
     "@testing-library/react": "9.4.0",
-    "@types/jest": "24.0.25",
+    "@types/jest": "24.9.0",
     "@types/pdfjs-dist": "2.1.3",
     "@types/react": "16.9.17",
     "@types/react-dom": "16.9.4",
-    "husky": "4.0.0",
+    "husky": "4.0.10",
     "jest-canvas-mock": "^2.2.0",
     "react": "16.12.0",
     "react-dom": "16.12.0",
-    "tsdx": "0.12.1",
+    "tsdx": "0.12.3",
     "tslib": "1.10.0",
-    "typescript": "3.7.4"
+    "typescript": "3.7.5"
   },
   "dependencies": {
     "pdfjs-dist": "2.2.228"
