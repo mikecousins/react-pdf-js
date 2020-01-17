@@ -1,14 +1,29 @@
 import pdfjs from 'pdfjs-dist';
 import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
 
-type ComponentProps = Omit<HookProps, 'canvasEl'> &
-  React.CanvasHTMLAttributes<HTMLCanvasElement>;
+function isFunction(value: any): value is Function {
+  return typeof value === 'function';
+}
+
+type ComponentRenderProps = HookReturnValues & {
+  canvas: React.ReactElement;
+};
+
+type ComponentProps = Omit<HookProps, 'canvasRef'> &
+  React.CanvasHTMLAttributes<HTMLCanvasElement> & {
+    children?: (renderProps: ComponentRenderProps) => React.ReactElement;
+  };
 
 const Pdf = React.forwardRef<HTMLCanvasElement | null, ComponentProps>(
   (
     {
       file,
-      onPageLoaded,
+      onDocumentLoadSuccess,
+      onDocumentLoadFail,
+      onPageLoadSuccess,
+      onPageLoadFail,
+      onPageRenderSuccess,
+      onPageRenderFail,
       page,
       scale,
       rotate,
@@ -16,17 +31,23 @@ const Pdf = React.forwardRef<HTMLCanvasElement | null, ComponentProps>(
       cMapPacked,
       workerSrc,
       withCredentials,
+      children,
       ...canvasProps
     },
     ref
   ) => {
-    const canvasEl = useRef<HTMLCanvasElement>(null);
-    useImperativeHandle(ref, () => canvasEl.current);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    useImperativeHandle(ref, () => canvasRef.current);
 
-    usePdf({
-      canvasEl,
+    const pdfData = usePdf({
+      canvasRef,
       file,
-      onPageLoaded,
+      onDocumentLoadSuccess,
+      onDocumentLoadFail,
+      onPageLoadSuccess,
+      onPageLoadFail,
+      onPageRenderSuccess,
+      onPageRenderFail,
       page,
       scale,
       rotate,
@@ -36,14 +57,25 @@ const Pdf = React.forwardRef<HTMLCanvasElement | null, ComponentProps>(
       withCredentials,
     });
 
-    return <canvas {...canvasProps} ref={canvasEl} />;
+    const canvas = <canvas {...canvasProps} ref={canvasRef} />;
+
+    if (isFunction(children)) {
+      return children({ canvas, ...pdfData });
+    }
+
+    return canvas;
   }
 );
 
 type HookProps = {
-  canvasEl: React.RefObject<HTMLCanvasElement>;
+  canvasRef: React.RefObject<HTMLCanvasElement | null>;
   file: string;
-  onPageLoaded?: () => void;
+  onDocumentLoadSuccess?: (document: pdfjs.PDFDocumentProxy) => void;
+  onDocumentLoadFail?: () => void;
+  onPageLoadSuccess?: (page: pdfjs.PDFPageProxy) => void;
+  onPageLoadFail?: () => void;
+  onPageRenderSuccess?: (page: pdfjs.PDFPageProxy) => void;
+  onPageRenderFail?: () => void;
   scale?: number;
   rotate?: number;
   page?: number;
@@ -53,12 +85,20 @@ type HookProps = {
   withCredentials?: boolean;
 };
 
-type HookReturnValues = [boolean, number | null];
+type HookReturnValues = {
+  pdfDocument: pdfjs.PDFDocumentProxy | undefined;
+  pdfPage: pdfjs.PDFPageProxy | undefined;
+};
 
 export const usePdf = ({
-  canvasEl,
+  canvasRef,
   file,
-  onPageLoaded,
+  onDocumentLoadSuccess,
+  onDocumentLoadFail,
+  onPageLoadSuccess,
+  onPageLoadFail,
+  onPageRenderSuccess,
+  onPageRenderFail,
   scale = 1,
   rotate = 0,
   page = 1,
@@ -67,8 +107,40 @@ export const usePdf = ({
   workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`,
   withCredentials = false,
 }: HookProps): HookReturnValues => {
-  const [pdf, setPdf] = useState<pdfjs.PDFDocumentProxy>();
+  const [pdfDocument, setPdfDocument] = useState<pdfjs.PDFDocumentProxy>();
+  const [pdfPage, setPdfPage] = useState<pdfjs.PDFPageProxy>();
   const renderTask = useRef<pdfjs.PDFRenderTask | null>(null);
+  const onDocumentLoadSuccessRef = useRef(onDocumentLoadSuccess);
+  const onDocumentLoadFailRef = useRef(onDocumentLoadFail);
+  const onPageLoadSuccessRef = useRef(onPageLoadSuccess);
+  const onPageLoadFailRef = useRef(onPageLoadFail);
+  const onPageRenderSuccessRef = useRef(onPageRenderSuccess);
+  const onPageRenderFailRef = useRef(onPageRenderFail);
+
+  // assign callbacks to refs to avoid redrawing
+  useEffect(() => {
+    onDocumentLoadSuccessRef.current = onDocumentLoadSuccess;
+  }, [onDocumentLoadSuccess]);
+
+  useEffect(() => {
+    onDocumentLoadFailRef.current = onDocumentLoadFail;
+  }, [onDocumentLoadFail]);
+
+  useEffect(() => {
+    onPageLoadSuccessRef.current = onPageLoadSuccess;
+  }, [onPageLoadSuccess]);
+
+  useEffect(() => {
+    onPageLoadFailRef.current = onPageLoadFail;
+  }, [onPageLoadFail]);
+
+  useEffect(() => {
+    onPageRenderSuccessRef.current = onPageRenderSuccess;
+  }, [onPageRenderSuccess]);
+
+  useEffect(() => {
+    onPageRenderFailRef.current = onPageRenderFail;
+  }, [onPageRenderFail]);
 
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
@@ -80,10 +152,22 @@ export const usePdf = ({
       config.cMapUrl = cMapUrl;
       config.cMapPacked = cMapPacked;
     }
-    pdfjs.getDocument(config).promise.then(setPdf);
+    pdfjs.getDocument(config).promise.then(
+      loadedPdfDocument => {
+        setPdfDocument(loadedPdfDocument);
+
+        if (isFunction(onDocumentLoadSuccessRef.current)) {
+          onDocumentLoadSuccessRef.current(loadedPdfDocument);
+        }
+      },
+      () => {
+        if (isFunction(onDocumentLoadFailRef.current)) {
+          onDocumentLoadFailRef.current();
+        }
+      }
+    );
   }, [file, withCredentials, cMapUrl, cMapPacked]);
 
-  // handle changes
   useEffect(() => {
     // draw a page of the pdf
     const drawPDF = (page: pdfjs.PDFPageProxy) => {
@@ -93,20 +177,20 @@ export const usePdf = ({
       const dpRatio = window.devicePixelRatio;
       const adjustedScale = scale * dpRatio;
       const viewport = page.getViewport({ scale: adjustedScale, rotation });
-      const canvas = canvasEl.current;
-      if (!canvas) {
+      const canvasEl = canvasRef.current;
+      if (!canvasEl) {
         return;
       }
 
-      const canvasContext = canvas.getContext('2d');
+      const canvasContext = canvasEl.getContext('2d');
       if (!canvasContext) {
         return;
       }
 
-      canvas.style.width = `${viewport.width / dpRatio}px`;
-      canvas.style.height = `${viewport.height / dpRatio}px`;
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
+      canvasEl.style.width = `${viewport.width / dpRatio}px`;
+      canvasEl.style.height = `${viewport.height / dpRatio}px`;
+      canvasEl.height = viewport.height;
+      canvasEl.width = viewport.width;
 
       // if previous render isn't done yet, we cancel it
       if (renderTask.current) {
@@ -123,30 +207,44 @@ export const usePdf = ({
         () => {
           renderTask.current = null;
 
-          if (typeof onPageLoaded === 'function') {
-            onPageLoaded();
+          if (isFunction(onPageRenderSuccessRef.current)) {
+            onPageRenderSuccessRef.current(page);
           }
         },
         err => {
           renderTask.current = null;
 
           // @ts-ignore typings are outdated
-          if (err.name === 'RenderingCancelledException') {
+          if (err && err.name === 'RenderingCancelledException') {
             drawPDF(page);
+          } else if (isFunction(onPageRenderFailRef.current)) {
+            onPageRenderFailRef.current();
           }
         }
       );
     };
 
-    if (pdf) {
-      pdf.getPage(page).then(drawPDF);
+    if (pdfDocument) {
+      pdfDocument.getPage(page).then(
+        loadedPdfPage => {
+          setPdfPage(loadedPdfPage);
+
+          if (isFunction(onPageLoadSuccessRef.current)) {
+            onPageLoadSuccessRef.current(loadedPdfPage);
+          }
+
+          drawPDF(loadedPdfPage);
+        },
+        () => {
+          if (isFunction(onPageLoadFailRef.current)) {
+            onPageLoadFailRef.current();
+          }
+        }
+      );
     }
-  }, [pdf, page, scale, rotate, canvasEl, onPageLoaded]);
+  }, [canvasRef, page, pdfDocument, rotate, scale]);
 
-  const loading = !pdf;
-  const numPages = pdf ? pdf.numPages : null;
-
-  return [loading, numPages];
+  return { pdfDocument, pdfPage };
 };
 
 export default Pdf;
