@@ -1,10 +1,10 @@
 import React from 'react';
-import pdfjs from 'pdfjs-dist';
+import pdfjs from '@bundled-es-modules/pdfjs-dist';
 import { render, wait, waitForDomChange } from '@testing-library/react';
 
 import Pdf from '../src';
 
-jest.mock('pdfjs-dist', () => ({
+jest.mock('@bundled-es-modules/pdfjs-dist', () => ({
   version: '1.0',
   GlobalWorkerOptions: {
     workerSrc: '',
