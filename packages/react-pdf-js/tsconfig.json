@@ -1,7 +1,7 @@
 {
   "include": ["src"],
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNext",
     "module": "esnext",
     "lib": ["dom", "esnext"],
     "importHelpers": true,
