@@ -1,0 +1,58 @@
+{
+  "name": "@mikecousins/react-pdf",
+  "version": "5.5.1",
+  "description": "Simple React component to wrap up PDF.js. The easiest way to render PDFs in your React app.",
+  "author": "mikecousins",
+  "license": "MIT",
+  "repository": "mikecousins/react-pdf-js",
+  "main": "dist/index.js",
+  "module": "dist/react-pdf.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --env=jsdom",
+    "test:coverage": "CI=true tsdx test --color --coverage",
+    "lint": "tsdx lint src test",
+    "netlify": "yarn && yarn build && cd example && yarn && yarn build"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint src test"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "jest": {
+    "setupFiles": [
+      "jest-canvas-mock"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/react": "9.4.0",
+    "@types/jest": "25.1.2",
+    "@types/pdfjs-dist": "2.1.3",
+    "@types/react": "16.9.19",
+    "@types/react-dom": "16.9.5",
+    "husky": "4.2.3",
+    "jest-canvas-mock": "^2.2.0",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "tsdx": "0.12.3",
+    "tslib": "1.10.0",
+    "typescript": "4.3.5"
+  },
+  "dependencies": {
+    "pdfjs-dist": "^2.7.570"
+  }
+}
