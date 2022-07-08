@@ -1,5 +1,5 @@
 {
-  "include": ["packages/react-pdf-js/src", "types"],
+  "include": ["src"],
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",

@@ -1,15 +1,12 @@
-import 'react-app-polyfill/ie11';
 import React, { useState } from 'react';
 import { render } from 'react-dom';
-
-import Pdf from '../.';
-import './pdfs/basic.pdf';
+import Pdf from '@mikecousins/react-pdf';
 
 const App = () => {
   const [page, setPage] = useState(1);
 
   return (
-    <Pdf file="basic.33e35a62.pdf" page={page}>
+    <Pdf file="basic.pdf" page={page}>
       {({ pdfDocument, canvas }) => (
         <>
           {!pdfDocument && <span>Loading...</span>}

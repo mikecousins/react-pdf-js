@@ -1,0 +1,38 @@
+[35m@mikecousins/react-pdf:build[0m: cache hit, replaying output [2m778285389bde2491[0m
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'cat' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(Use `node --trace-warnings ...` to show where the warning was created)
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'cd' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'chmod' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'cp' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'dirs' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'pushd' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'popd' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'echo' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'tempdir' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'pwd' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'exec' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'ls' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'find' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'grep' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'head' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'ln' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'mkdir' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'rm' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'mv' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'sed' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'set' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'sort' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'tail' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'test' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'to' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'toEnd' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'touch' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'uniq' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m(node:45332) Warning: Accessing non-existent property 'which' of module exports inside circular dependency
+[35m@mikecousins/react-pdf:build: [0m⠙ Creating entry file  99%                 1798ms, estimated 933ms
+[35m@mikecousins/react-pdf:build: [0m[2K[1A[2K[G✓ Creating entry file 1.8 secs
+[35m@mikecousins/react-pdf:build: [0mBrowserslist: caniuse-lite is outdated. Please run the following command: `yarn upgrade`
+[35m@mikecousins/react-pdf:build: [0m⠙ Building modules  25%                 0.7s, estimated 2.7s
+[35m@mikecousins/react-pdf:build: [0m[2K[1A[2K[G⠹ Building modules  36%                 1.0s, estimated 2.7s
+[35m@mikecousins/react-pdf:build: [0m[2K[1A[2K[G⠸ Building modules  44%                 1.2s, estimated 2.7s
+[35m@mikecousins/react-pdf:build: [0m[2K[1A[2K[G✓ Building modules 1.2 secs

@@ -1,0 +1,8 @@
+[32mexample:build[0m: cache hit, replaying output [2m2e6cdcdc127198f4[0m
+[32mexample:build: [0m[36mvite v2.9.14 [32mbuilding for production...[36m[39m
+[32mexample:build: [0m<script src="./index.tsx"> in "/index.html" can't be bundled without type="module" attribute
+[32mexample:build: [0mtransforming...
+[32mexample:build: [0m[32m✓[39m 1 modules transformed.
+[32mexample:build: [0mGenerated an empty chunk: "index"
+[32mexample:build: [0mrendering chunks...
+[32mexample:build: [0m[90m[37m[2mdist/[22m[90m[39m[32mindex.html  [39m [2m0.32 KiB[22m
