@@ -19,7 +19,7 @@ type ComponentProps = Omit<HookProps, 'canvasRef'> &
     children?: (renderProps: ComponentRenderProps) => React.ReactElement;
   };
 
-const Pdf = React.forwardRef<HTMLCanvasElement | null, ComponentProps>(
+export const Pdf = React.forwardRef<HTMLCanvasElement | null, ComponentProps>(
   (
     {
       file,
@@ -250,5 +250,3 @@ export const usePdf = ({
 
   return { pdfDocument, pdfPage };
 };
-
-export default Pdf;

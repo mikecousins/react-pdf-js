@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import Pdf from '@mikecousins/react-pdf';
+import { Pdf } from '@mikecousins/react-pdf';
 
 const App = () => {
   const [page, setPage] = useState(1);
