@@ -8,7 +8,9 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@mikecousins/react-pdf": "workspace:*"
+    "@mikecousins/react-pdf": "workspace:*",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@types/react": "18.0.15",

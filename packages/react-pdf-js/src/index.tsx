@@ -1,10 +1,6 @@
 import * as pdfjs from 'pdfjs-dist';
-
-import {
-  PDFDocumentProxy,
-  PDFPageProxy,
-  DocumentInitParameters,
-} from 'pdfjs-dist/types/display/api';
+import { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
+import { DocumentInitParameters } from 'pdfjs-dist/types/src/display/api';
 
 import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
 
@@ -46,7 +42,7 @@ const Pdf = React.forwardRef<HTMLCanvasElement | null, ComponentProps>(
     ref
   ) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    useImperativeHandle(ref, () => canvasRef.current);
+    useImperativeHandle(ref, () => canvasRef.current!);
 
     const pdfData = usePdf({
       canvasRef,

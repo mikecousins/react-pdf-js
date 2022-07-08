@@ -1,8 +1,7 @@
 import React from 'react';
 import { render, wait, waitForDomChange } from '@testing-library/react';
-import { DocumentInitParameters } from 'pdfjs-dist/types/display/api';
-
 import Pdf from '../src';
+import { DocumentInitParameters } from 'pdfjs-dist/types/src/display/api';
 
 jest.mock('pdfjs-dist', () => ({
   version: '1.0',
