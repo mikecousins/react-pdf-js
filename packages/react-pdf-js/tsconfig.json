@@ -1,7 +1,7 @@
 {
-  "include": ["src", "types"],
+  "include": ["src"],
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNext",
     "module": "esnext",
     "lib": ["dom", "esnext"],
     "importHelpers": true,
@@ -22,7 +22,7 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "*": ["src/*", "node_modules/*"]
+      "*": ["packages/react-pdf-js/src/*", "node_modules/*"]
     },
     "jsx": "react",
     "esModuleInterop": true

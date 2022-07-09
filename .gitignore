@@ -11,3 +11,13 @@ npm-debug.log*
 .rts2_cache_umd
 dist
 .cache
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+.turbo

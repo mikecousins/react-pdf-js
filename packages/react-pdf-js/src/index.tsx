@@ -1,80 +1,13 @@
+import { useState, useEffect, useRef } from 'react';
 import * as pdfjs from 'pdfjs-dist';
-
-import {
-  PDFDocumentProxy,
-  PDFPageProxy,
-  DocumentInitParameters,
-} from 'pdfjs-dist/types/display/api';
-
-import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
+import { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
+import { DocumentInitParameters } from 'pdfjs-dist/types/src/display/api';
 
 function isFunction(value: any): value is Function {
   return typeof value === 'function';
 }
 
 type PDFRenderTask = ReturnType<PDFPageProxy['render']>;
-
-type ComponentRenderProps = HookReturnValues & {
-  canvas: React.ReactElement;
-};
-
-type ComponentProps = Omit<HookProps, 'canvasRef'> &
-  React.CanvasHTMLAttributes<HTMLCanvasElement> & {
-    children?: (renderProps: ComponentRenderProps) => React.ReactElement;
-  };
-
-const Pdf = React.forwardRef<HTMLCanvasElement | null, ComponentProps>(
-  (
-    {
-      file,
-      onDocumentLoadSuccess,
-      onDocumentLoadFail,
-      onPageLoadSuccess,
-      onPageLoadFail,
-      onPageRenderSuccess,
-      onPageRenderFail,
-      page,
-      scale,
-      rotate,
-      cMapUrl,
-      cMapPacked,
-      workerSrc,
-      withCredentials,
-      children,
-      ...canvasProps
-    },
-    ref
-  ) => {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    useImperativeHandle(ref, () => canvasRef.current);
-
-    const pdfData = usePdf({
-      canvasRef,
-      file,
-      onDocumentLoadSuccess,
-      onDocumentLoadFail,
-      onPageLoadSuccess,
-      onPageLoadFail,
-      onPageRenderSuccess,
-      onPageRenderFail,
-      page,
-      scale,
-      rotate,
-      cMapUrl,
-      cMapPacked,
-      workerSrc,
-      withCredentials,
-    });
-
-    const canvas = <canvas {...canvasProps} ref={canvasRef} />;
-
-    if (isFunction(children)) {
-      return children({ canvas, ...pdfData });
-    }
-
-    return canvas;
-  }
-);
 
 type HookProps = {
   canvasRef: React.RefObject<HTMLCanvasElement | null>;
@@ -161,6 +94,7 @@ export const usePdf = ({
       config.cMapUrl = cMapUrl;
       config.cMapPacked = cMapPacked;
     }
+
     pdfjs.getDocument(config).promise.then(
       loadedPdfDocument => {
         setPdfDocument(loadedPdfDocument);
@@ -186,7 +120,7 @@ export const usePdf = ({
       const dpRatio = window.devicePixelRatio;
       const adjustedScale = scale * dpRatio;
       const viewport = page.getViewport({ scale: adjustedScale, rotation });
-      const canvasEl = canvasRef.current;
+      const canvasEl = canvasRef!.current;
       if (!canvasEl) {
         return;
       }
@@ -254,5 +188,3 @@ export const usePdf = ({
 
   return { pdfDocument, pdfPage };
 };
-
-export default Pdf;

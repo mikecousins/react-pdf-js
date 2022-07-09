@@ -1,8 +1,7 @@
 import React from 'react';
 import { render, wait, waitForDomChange } from '@testing-library/react';
-import { DocumentInitParameters } from 'pdfjs-dist/types/display/api';
-
 import Pdf from '../src';
+import { DocumentInitParameters } from 'pdfjs-dist/types/src/display/api';
 
 jest.mock('pdfjs-dist', () => ({
   version: '1.0',
@@ -32,7 +31,7 @@ jest.mock('pdfjs-dist', () => ({
 describe('Pdf', () => {
   it('renders children', async () => {
     const { getByText } = render(
-      <Pdf file="basic.33e35a62.pdf">
+      <Pdf file="basic.pdf">
         {({ canvas }) => (
           <div>
             {canvas}
@@ -50,7 +49,7 @@ describe('Pdf', () => {
   it('calls render function with proper params', async () => {
     const renderFunc = jest.fn(({ canvas }) => canvas);
 
-    render(<Pdf file="basic.33e35a62.pdf">{renderFunc}</Pdf>);
+    render(<Pdf file="basic.pdf">{renderFunc}</Pdf>);
 
     expect(renderFunc).toBeCalledWith({
       canvas: expect.any(Object),
