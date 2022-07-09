@@ -8,17 +8,16 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/mikecousins-react-pdf.umd.js",
-  "module": "./dist/mikecousins-react-pdf.es.js",
-  "types": "./dist/mikecousins-react-pdf-es.d.ts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/mikecousins-react-pdf.es.js",
-      "require": "./dist/mikecousins-react-pdf.umd.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
   "scripts": {
-    "build": "vite build",
+    "build": "tsup src/index.tsx --dts --format esm,cjs",
     "lint": "eslint"
   },
   "husky": {
@@ -44,9 +43,8 @@
     "@types/react-dom": "18.0.6",
     "@vitejs/plugin-react": "1.3.2",
     "jest-canvas-mock": "^2.4.0",
-    "typescript": "4.7.4",
-    "vite": "2.9.14",
-    "vite-plugin-dts": "1.2.1"
+    "tsup": "6.1.3",
+    "typescript": "4.7.4"
   },
   "dependencies": {
     "pdfjs-dist": "2.14.305"

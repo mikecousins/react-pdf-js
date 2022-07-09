@@ -94,6 +94,7 @@ export const usePdf = ({
       config.cMapUrl = cMapUrl;
       config.cMapPacked = cMapPacked;
     }
+
     pdfjs.getDocument(config).promise.then(
       loadedPdfDocument => {
         setPdfDocument(loadedPdfDocument);

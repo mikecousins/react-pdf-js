@@ -1,13 +1,12 @@
-import React, { useRef, useState } from 'react';
-import { createRoot } from 'react-dom/client';
+import { useRef, useState } from 'react';
 import { usePdf } from '@mikecousins/react-pdf';
 
-const App = () => {
+function App() {
   const [page, setPage] = useState(1);
   const canvasRef = useRef(null);
 
   const { pdfDocument } = usePdf({
-    file: 'test.pdf',
+    file: 'basic.pdf',
     page,
     canvasRef,
   });
@@ -26,7 +25,7 @@ const App = () => {
             </li>
             <li className="next">
               <button
-                disabled={page === pdfDocument.numPages}
+                disabled={page === pdfDocument?.numPages}
                 onClick={() => setPage(page + 1)}
               >
                 Next
@@ -37,8 +36,6 @@ const App = () => {
       )}
     </div>
   );
-};
+}
 
-const container = document.getElementById('root');
-const root = createRoot(container!);
-root.render(<App />);
+export default App;
