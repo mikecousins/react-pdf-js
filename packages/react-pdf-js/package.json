@@ -1,6 +1,6 @@
 {
   "name": "@mikecousins/react-pdf",
-  "version": "6.0.0-alpha.1",
+  "version": "6.1.0",
   "description": "Simple React component to wrap up PDF.js. The easiest way to render PDFs in your React app.",
   "author": "mikecousins",
   "license": "MIT",
@@ -43,6 +43,7 @@
     "@types/react-dom": "18.0.6",
     "@vitejs/plugin-react": "2.1.0",
     "jest-canvas-mock": "2.4.0",
+    "pdfjs-dist": "2.16.105",
     "tslib": "2.4.0",
     "tsup": "6.2.3",
     "typescript": "4.8.3"

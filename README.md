@@ -15,7 +15,7 @@ https://pdf.netlify.com
 
 # Usage
 
-Install with `yarn add @mikecousins/react-pdf` or `npm install @mikecousins/react-pdf`
+Install with `yarn add @mikecousins/react-pdf pdfjs-dist` or `npm install @mikecousins/react-pdf pdfjs-dist`
 
 ## `usePdf` hook
 
