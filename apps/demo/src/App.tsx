@@ -42,8 +42,7 @@ function App() {
       </div>
       <div className="bg-gray-100">
         <div className="container text-center py-12 mx-auto flex">
-          <div className="flex-1 flex flex-col">
-            <div className="flex-1" />
+          <div className="flex-1 flex flex-col justify-center">
             <div className="text-center">
               <button
                 disabled={previousDisabled}
@@ -53,14 +52,12 @@ function App() {
                 <ArrowLeftCircleIcon className="h-12 w-12" />
               </button>
             </div>
-            <div className="flex-1" />
           </div>
           <div>
             {!pdfDocument && <span>Loading...</span>}
             <canvas ref={canvasRef} />
           </div>
-          <div className="flex-1 flex flex-col">
-            <div className="flex-1" />
+          <div className="flex-1 flex flex-col justify-center">
             <div className="text-center">
               <button
                 disabled={nextDisabled}
@@ -70,13 +67,12 @@ function App() {
                 <ArrowRightCircleIcon className="h-12 w-12" />
               </button>
             </div>
-            <div className="flex-1" />
           </div>
         </div>
       </div>
       <div className="bg-gray-200">
         <div className="container text-center py-12 mx-auto">
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-row gap-4 px-4 justify-center">
             <a
               href="https://www.npmjs.com/package/@mikecousins/react-pdf"
               className="text-blue-400 underline"
