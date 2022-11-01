@@ -41,7 +41,7 @@
     "@types/jest": "29.1.1",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
-    "@vitejs/plugin-react": "2.1.0",
+    "@vitejs/plugin-react": "2.2.0",
     "jest-canvas-mock": "2.4.0",
     "pdfjs-dist": "2.16.105",
     "tslib": "2.4.0",
