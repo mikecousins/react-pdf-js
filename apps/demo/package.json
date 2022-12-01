@@ -8,7 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@heroicons/react": "2.0.11",
+    "@heroicons/react": "2.0.13",
     "@mikecousins/react-pdf": "workspace:*",
     "clsx": "1.2.1",
     "react": "^18.2.0",
