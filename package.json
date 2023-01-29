@@ -22,6 +22,7 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
+    "eslint": "^8.33.0",
     "prettier": "2.7.1",
     "turbo": "1.4.7",
     "typescript": "4.8.3"
