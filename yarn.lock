@@ -502,7 +502,7 @@ __metadata:
     jest-canvas-mock: 2.4.0
     pdfjs-dist: 2.16.105
     tslib: 2.4.0
-    tsup: 6.2.3
+    tsup: 6.5.0
     typescript: 4.8.3
   peerDependencies:
     pdfjs-dist: 2.16.105
@@ -982,14 +982,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bundle-require@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "bundle-require@npm:3.1.0"
+"bundle-require@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "bundle-require@npm:3.1.2"
   dependencies:
     load-tsconfig: ^0.2.0
   peerDependencies:
     esbuild: ">=0.13"
-  checksum: e433dd18ad2ccaf9d210040c5ce300a8c60f4caf0472856fd5162ec407f7b5b3e0559e540aa92b7381a18a6ff2b45bbe9270dc2fd7ace17e445e72a9cbc7fa95
+  checksum: 71f8cb81bcde97825317b0e516b7e479ec70bd2370f55a8f02795c0df6d541e6562c4b9ec0427cc7b5b835103a8dcf306da04e3846fa468146358471490fcf81
   languageName: node
   linkType: hard
 
@@ -3184,9 +3184,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^2.74.1":
-  version: 2.76.0
-  resolution: "rollup@npm:2.76.0"
+"rollup@npm:^3.2.5":
+  version: 3.14.0
+  resolution: "rollup@npm:3.14.0"
   dependencies:
     fsevents: ~2.3.2
   dependenciesMeta:
@@ -3194,7 +3194,7 @@ __metadata:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 58293e1c63c11d4afcfcf619601d5c5136dd3d0c9d3bd6a0b6141fede32027edc1eb53873bbb9a9c1e95e86c67f6ad66185720031b6eadf325972174d1d8fbcb
+  checksum: 48f4da224753b8022529256243b74b3f6f41d9b4358ba079ac42f2a2cf07e4bd01b5d94579338194238e3c575487974ca508e144cf6195123293e7fdf82506cb
   languageName: node
   linkType: hard
 
@@ -3570,11 +3570,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsup@npm:6.2.3":
-  version: 6.2.3
-  resolution: "tsup@npm:6.2.3"
+"tsup@npm:6.5.0":
+  version: 6.5.0
+  resolution: "tsup@npm:6.5.0"
   dependencies:
-    bundle-require: ^3.1.0
+    bundle-require: ^3.1.2
     cac: ^6.7.12
     chokidar: ^3.5.1
     debug: ^4.3.1
@@ -3584,7 +3584,7 @@ __metadata:
     joycon: ^3.0.1
     postcss-load-config: ^3.0.1
     resolve-from: ^5.0.0
-    rollup: ^2.74.1
+    rollup: ^3.2.5
     source-map: 0.8.0-beta.0
     sucrase: ^3.20.3
     tree-kill: ^1.2.2
@@ -3602,7 +3602,7 @@ __metadata:
   bin:
     tsup: dist/cli-default.js
     tsup-node: dist/cli-node.js
-  checksum: f1cb8f4f83a4a304f61d57dc62fb7176d1fa8842485a7dec4c3fd7cb98e169dbdc4bf52c45ff8cede6843b791fe4a0f70579b34684f568af3c2c3cb2f8469af4
+  checksum: 625082f2a2afc63024ddd54f5aca28372a7b4ec4f7c402f8aacefd0c56d8da7250665dbb4097d40edcf2cbd4168d96ed4593ecb903ab36e625628f375980e266
   languageName: node
   linkType: hard
 
