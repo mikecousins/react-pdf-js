@@ -495,7 +495,7 @@ __metadata:
   resolution: "@mikecousins/react-pdf@workspace:packages/react-pdf-js"
   dependencies:
     "@testing-library/react": 13.4.0
-    "@types/jest": 29.1.1
+    "@types/jest": 29.4.0
     "@types/react": 18.0.21
     "@types/react-dom": 18.0.6
     "@vitejs/plugin-react": 2.1.0
@@ -641,13 +641,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:29.1.1":
-  version: 29.1.1
-  resolution: "@types/jest@npm:29.1.1"
+"@types/jest@npm:29.4.0":
+  version: 29.4.0
+  resolution: "@types/jest@npm:29.4.0"
   dependencies:
     expect: ^29.0.0
     pretty-format: ^29.0.0
-  checksum: d9e6f7d6ab64cf45535369d0a3dc4640cbe6b37ab6f8927e874eacc199581338ebf6ff544f7c2cd188c5fc7cd0b3197aa72cb2b826f0a1352b93b89993711413
+  checksum: 23760282362a252e6690314584d83a47512d4cd61663e957ed3398ecf98195fe931c45606ee2f9def12f8ed7d8aa102d492ec42d26facdaf8b78094a31e6568e
   languageName: node
   linkType: hard
 
