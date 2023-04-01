@@ -3042,7 +3042,7 @@ __metadata:
   resolution: "react-pdf-js-mono@workspace:."
   dependencies:
     prettier: 2.7.1
-    turbo: 1.7.3
+    turbo: 1.8.8
     typescript: 4.8.3
   languageName: unknown
   linkType: soft
@@ -3559,58 +3559,58 @@ __metadata:
   languageName: node
   linkType: hard
 
-"turbo-darwin-64@npm:1.7.3":
-  version: 1.7.3
-  resolution: "turbo-darwin-64@npm:1.7.3"
+"turbo-darwin-64@npm:1.8.8":
+  version: 1.8.8
+  resolution: "turbo-darwin-64@npm:1.8.8"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-darwin-arm64@npm:1.7.3":
-  version: 1.7.3
-  resolution: "turbo-darwin-arm64@npm:1.7.3"
+"turbo-darwin-arm64@npm:1.8.8":
+  version: 1.8.8
+  resolution: "turbo-darwin-arm64@npm:1.8.8"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo-linux-64@npm:1.7.3":
-  version: 1.7.3
-  resolution: "turbo-linux-64@npm:1.7.3"
+"turbo-linux-64@npm:1.8.8":
+  version: 1.8.8
+  resolution: "turbo-linux-64@npm:1.8.8"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-linux-arm64@npm:1.7.3":
-  version: 1.7.3
-  resolution: "turbo-linux-arm64@npm:1.7.3"
+"turbo-linux-arm64@npm:1.8.8":
+  version: 1.8.8
+  resolution: "turbo-linux-arm64@npm:1.8.8"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo-windows-64@npm:1.7.3":
-  version: 1.7.3
-  resolution: "turbo-windows-64@npm:1.7.3"
+"turbo-windows-64@npm:1.8.8":
+  version: 1.8.8
+  resolution: "turbo-windows-64@npm:1.8.8"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-windows-arm64@npm:1.7.3":
-  version: 1.7.3
-  resolution: "turbo-windows-arm64@npm:1.7.3"
+"turbo-windows-arm64@npm:1.8.8":
+  version: 1.8.8
+  resolution: "turbo-windows-arm64@npm:1.8.8"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo@npm:1.7.3":
-  version: 1.7.3
-  resolution: "turbo@npm:1.7.3"
+"turbo@npm:1.8.8":
+  version: 1.8.8
+  resolution: "turbo@npm:1.8.8"
   dependencies:
-    turbo-darwin-64: 1.7.3
-    turbo-darwin-arm64: 1.7.3
-    turbo-linux-64: 1.7.3
-    turbo-linux-arm64: 1.7.3
-    turbo-windows-64: 1.7.3
-    turbo-windows-arm64: 1.7.3
+    turbo-darwin-64: 1.8.8
+    turbo-darwin-arm64: 1.8.8
+    turbo-linux-64: 1.8.8
+    turbo-linux-arm64: 1.8.8
+    turbo-windows-64: 1.8.8
+    turbo-windows-arm64: 1.8.8
   dependenciesMeta:
     turbo-darwin-64:
       optional: true
@@ -3626,7 +3626,7 @@ __metadata:
       optional: true
   bin:
     turbo: bin/turbo
-  checksum: 62fce7e1895593c51e51225789b1290d575affc74e8933692d9d133528b21a8e0942d2947529faeec4cf81486700854923aac48479f6dcc6e285091bab5075a0
+  checksum: 6dcfd7b38e2dd9abe279bda54e474be3463df51428f0b91c5e0539e9fd8c9b1efec562df629946f5ca92ede05f0aba35027481065d054249334e11692085ddb7
   languageName: node
   linkType: hard
 
