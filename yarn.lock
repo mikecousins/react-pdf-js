@@ -520,12 +520,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@heroicons/react@npm:2.0.14":
-  version: 2.0.14
-  resolution: "@heroicons/react@npm:2.0.14"
+"@heroicons/react@npm:2.0.17":
+  version: 2.0.17
+  resolution: "@heroicons/react@npm:2.0.17"
   peerDependencies:
     react: ">= 16"
-  checksum: d1623865c04e2bedc1ae370ca0a305bb0c775c7db171e29d03afc3032598105b7e8c9290e7d6b34a5f334e2a2c92e8e2aac1c5e89d1ea1fb7073cce6e03a7f16
+  checksum: 31677c9b95de4ea92efa205c7a803c33003d3203b0cebf9ca74522485e5351caff7070cbd898885bf050f181682cab8d4815cbef0e7624c56d3312cdf50d2cb9
   languageName: node
   linkType: hard
 
@@ -1387,7 +1387,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "demo@workspace:apps/demo"
   dependencies:
-    "@heroicons/react": 2.0.14
+    "@heroicons/react": 2.0.17
     "@mikecousins/react-pdf": "workspace:*"
     "@types/react": 18.0.21
     "@types/react-dom": 18.0.6
