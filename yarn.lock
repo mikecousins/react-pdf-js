@@ -619,7 +619,7 @@ __metadata:
   dependencies:
     "@testing-library/react": 13.4.0
     "@types/jest": 29.4.0
-    "@types/react": 18.0.21
+    "@types/react": 18.0.31
     "@types/react-dom": 18.0.6
     "@vitejs/plugin-react": 3.1.0
     jest-canvas-mock: 2.4.0
@@ -807,14 +807,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.0.21":
-  version: 18.0.21
-  resolution: "@types/react@npm:18.0.21"
+"@types/react@npm:18.0.31":
+  version: 18.0.31
+  resolution: "@types/react@npm:18.0.31"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 36c1a7c9d507e81e2e629c1ad3db51d7b84d8b010c2d5008da411874286c6a5ccc711ae1d4c470efc0bdc77153cc8804a40e927e929e5164c669ca41b84b846d
+  checksum: 6befbd5587e266905b50fd6bbd7c1cacd557bddf99e6a9862ca2f1d06df3dca71b9d485a37d010479730f021aab93b852d417c714de5efc2f41be0ff4c09b4db
   languageName: node
   linkType: hard
 
@@ -1389,7 +1389,7 @@ __metadata:
   dependencies:
     "@heroicons/react": 2.0.14
     "@mikecousins/react-pdf": "workspace:*"
-    "@types/react": 18.0.21
+    "@types/react": 18.0.31
     "@types/react-dom": 18.0.6
     "@vitejs/plugin-react": 3.1.0
     autoprefixer: 10.4.12
