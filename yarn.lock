@@ -620,7 +620,7 @@ __metadata:
     "@testing-library/react": 13.4.0
     "@types/jest": 29.4.0
     "@types/react": 18.0.21
-    "@types/react-dom": 18.0.6
+    "@types/react-dom": 18.2.1
     "@vitejs/plugin-react": 3.1.0
     jest-canvas-mock: 2.4.0
     pdfjs-dist: 2.16.105
@@ -788,7 +788,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.0.6, @types/react-dom@npm:^18.0.0":
+"@types/react-dom@npm:18.2.1":
+  version: 18.2.1
+  resolution: "@types/react-dom@npm:18.2.1"
+  dependencies:
+    "@types/react": "*"
+  checksum: 4e607a9d08f707ae2bd6b377f1da32989dcbe4e38ac39110423a1f6bc95dd53a5484f7f952b34e9d12b5f29a265d52a8c74c1a7d1d1e25be0fa69ccf9d64209f
+  languageName: node
+  linkType: hard
+
+"@types/react-dom@npm:^18.0.0":
   version: 18.0.6
   resolution: "@types/react-dom@npm:18.0.6"
   dependencies:
@@ -1390,7 +1399,7 @@ __metadata:
     "@heroicons/react": 2.0.14
     "@mikecousins/react-pdf": "workspace:*"
     "@types/react": 18.0.21
-    "@types/react-dom": 18.0.6
+    "@types/react-dom": 18.2.1
     "@vitejs/plugin-react": 3.1.0
     autoprefixer: 10.4.12
     clsx: 1.2.1
