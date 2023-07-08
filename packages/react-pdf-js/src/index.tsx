@@ -128,8 +128,10 @@ export const usePdf = ({
         return;
       }
       
-      canvasEl.height = viewport.height;
-      canvasEl.width = viewport.width;
+      canvasEl.height = viewport.height * window.devicePixelRatio;
+      canvasEl.width = viewport.width * window.devicePixelRatio;
+
+      canvasContext.scale(window.devicePixelRatio, window.devicePixelRatio);
 
       // if previous render isn't done yet, we cancel it
       if (renderTask.current) {
