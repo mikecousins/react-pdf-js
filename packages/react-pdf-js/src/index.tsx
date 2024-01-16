@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import * as pdfjs from 'pdfjs-dist';
-import { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
-import { DocumentInitParameters } from 'pdfjs-dist/types/src/display/api';
+import type { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
+import type { DocumentInitParameters } from 'pdfjs-dist/types/src/display/api';
 
 function isFunction(value: any): value is Function {
   return typeof value === 'function';
@@ -46,7 +46,7 @@ export const usePdf = ({
   page = 1,
   cMapUrl,
   cMapPacked,
-  workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`,
+  workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.mjs`,
   withCredentials = false,
 }: HookProps): HookReturnValues => {
   const [pdfDocument, setPdfDocument] = useState<PDFDocumentProxy>();
@@ -97,7 +97,7 @@ export const usePdf = ({
     }
 
     pdfjs.getDocument(config).promise.then(
-      loadedPdfDocument => {
+      (loadedPdfDocument) => {
         setPdfDocument(loadedPdfDocument);
 
         if (isFunction(onDocumentLoadSuccessRef.current)) {
@@ -118,9 +118,7 @@ export const usePdf = ({
       // Because this page's rotation option overwrites pdf default rotation value,
       // calculating page rotation option value from pdf default and this component prop rotate.
       const rotation = rotate === 0 ? page.rotate : page.rotate + rotate;
-      const dpRatio = window.devicePixelRatio;
-      const adjustedScale = scale * dpRatio;
-      const viewport = page.getViewport({ scale: adjustedScale, rotation });
+      const viewport = page.getViewport({ scale, rotation });
       const canvasEl = canvasRef!.current;
       if (!canvasEl) {
         return;
@@ -130,11 +128,11 @@ export const usePdf = ({
       if (!canvasContext) {
         return;
       }
+      
+      canvasEl.height = viewport.height * window.devicePixelRatio;
+      canvasEl.width = viewport.width * window.devicePixelRatio;
 
-      canvasEl.style.width = `${viewport.width / dpRatio}px`;
-      canvasEl.style.height = `${viewport.height / dpRatio}px`;
-      canvasEl.height = viewport.height;
-      canvasEl.width = viewport.width;
+      canvasContext.scale(window.devicePixelRatio, window.devicePixelRatio);
 
       // if previous render isn't done yet, we cancel it
       if (renderTask.current) {
@@ -172,7 +170,7 @@ export const usePdf = ({
 
     if (pdfDocument) {
       pdfDocument.getPage(page).then(
-        loadedPdfPage => {
+        (loadedPdfPage) => {
           setPdfPage(loadedPdfPage);
 
           if (isFunction(onPageLoadSuccessRef.current)) {
