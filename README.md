@@ -10,7 +10,7 @@
 
 # Demo
 
-[https://pdf.netlify.com](https://react-pdf.cousins.ai/)
+[https://react-pdf.cousins.ai](https://react-pdf.cousins.ai/)
 
 # Usage
 
