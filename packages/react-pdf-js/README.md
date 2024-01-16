@@ -6,12 +6,11 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@mikecousins/react-pdf.svg?style=flat-square)](https://www.npmjs.com/package/@mikecousins/react-pdf)
 [![NPM Downloads](https://img.shields.io/npm/dm/@mikecousins/react-pdf.svg?style=flat-square)](https://www.npmjs.com/package/@mikecousins/react-pdf)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/4ce8e5b5-16ca-4942-8c47-095debbc4693/deploy-status)](https://app.netlify.com/sites/pdf/deploys)
 [![codecov](https://codecov.io/gh/mikecousins/react-pdf-js/branch/master/graph/badge.svg)](https://codecov.io/gh/mikecousins/react-pdf-js)
 
 # Demo
 
-https://pdf.netlify.com
+https://react-pdf.cousins.ai/
 
 # Usage
 
