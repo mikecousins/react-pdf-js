@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import * as pdfjs from 'pdfjs-dist';
-import { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
-import { DocumentInitParameters } from 'pdfjs-dist/types/src/display/api';
+import type { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
+import type { DocumentInitParameters } from 'pdfjs-dist/types/src/display/api';
 
 function isFunction(value: any): value is Function {
   return typeof value === 'function';
@@ -46,7 +46,7 @@ export const usePdf = ({
   page = 1,
   cMapUrl,
   cMapPacked,
-  workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`,
+  workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.mjs`,
   withCredentials = false,
 }: HookProps): HookReturnValues => {
   const [pdfDocument, setPdfDocument] = useState<PDFDocumentProxy>();
@@ -96,7 +96,7 @@ export const usePdf = ({
     }
 
     pdfjs.getDocument(config).promise.then(
-      loadedPdfDocument => {
+      (loadedPdfDocument) => {
         setPdfDocument(loadedPdfDocument);
 
         if (isFunction(onDocumentLoadSuccessRef.current)) {
@@ -168,7 +168,7 @@ export const usePdf = ({
 
     if (pdfDocument) {
       pdfDocument.getPage(page).then(
-        loadedPdfPage => {
+        (loadedPdfPage) => {
           setPdfPage(loadedPdfPage);
 
           if (isFunction(onPageLoadSuccessRef.current)) {

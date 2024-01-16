@@ -1,19 +1,29 @@
 {
   "name": "@mikecousins/react-pdf",
-  "version": "6.1.1",
+  "version": "7.0.1",
   "description": "Simple React component to wrap up PDF.js. The easiest way to render PDFs in your React app.",
   "author": "mikecousins",
   "license": "MIT",
-  "repository": "mikecousins/react-pdf-js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikecousins/react-pdf-js.git"
+  },
+  "type": "module",
   "files": [
     "dist"
   ],
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.js"
+      }
     }
   },
   "scripts": {
@@ -37,21 +47,20 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react": "13.4.0",
-    "@types/jest": "29.4.0",
-    "@types/react": "18.0.21",
+    "@testing-library/react": "14.1.2",
+    "@types/jest": "29.5.11",
+    "@types/react": "18.2.48",
     "@types/react-dom": "18.0.6",
-    "@vitejs/plugin-react": "3.1.0",
+    "@vitejs/plugin-react": "4.2.1",
     "jest-canvas-mock": "2.4.0",
-    "pdfjs-dist": "2.16.105",
-    "tslib": "2.4.0",
-    "tsup": "6.5.0",
-    "typescript": "4.8.3"
+    "pdfjs-dist": "4.0.379",
+    "tsup": "8.0.1",
+    "typescript": "5.3.3"
   },
   "peerDependencies": {
-    "pdfjs-dist": "2.16.105",
+    "pdfjs-dist": "4.0.379",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "bundleDependencies": true
+  "bundleDependencies": []
 }
