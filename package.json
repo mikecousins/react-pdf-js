@@ -22,9 +22,9 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "eslint": "^8.33.0",
-    "prettier": "3.2.2",
-    "turbo": "1.11.3",
+    "eslint": "^8.56.0",
+    "prettier": "3.2.4",
+    "turbo": "1.12.1",
     "typescript": "5.3.3"
   },
   "packageManager": "yarn@4.1.0"
