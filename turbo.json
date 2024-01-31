@@ -9,6 +9,5 @@
     },
     "lint": {},
     "test": {}
-  },
-  "baseBranch": "origin/main"
+  }
 }
