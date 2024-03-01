@@ -50,7 +50,7 @@
     "@testing-library/react": "14.2.0",
     "@types/jest": "29.5.11",
     "@types/react": "18.2.48",
-    "@types/react-dom": "18.2.18",
+    "@types/react-dom": "18.2.19",
     "@vitejs/plugin-react": "4.2.1",
     "jest-canvas-mock": "2.5.2",
     "pdfjs-dist": "4.0.379",
