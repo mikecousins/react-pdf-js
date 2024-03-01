@@ -755,7 +755,7 @@ __metadata:
   dependencies:
     "@testing-library/react": "npm:14.2.0"
     "@types/jest": "npm:29.5.11"
-    "@types/react": "npm:18.2.48"
+    "@types/react": "npm:18.2.61"
     "@types/react-dom": "npm:18.2.18"
     "@vitejs/plugin-react": "npm:4.2.1"
     jest-canvas-mock: "npm:2.5.2"
@@ -1097,14 +1097,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.48":
-  version: 18.2.48
-  resolution: "@types/react@npm:18.2.48"
+"@types/react@npm:18.2.61":
+  version: 18.2.61
+  resolution: "@types/react@npm:18.2.61"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10/2e56ea6bd821ae96bd943f727a59d85384eaf5f8a3e6fce4fa1d34453e32d8eedda742432b3857fa0de7a4214bf84ce4239757eb52918e76452c00384731e585
+  checksum: 10/74c2920ccca83fc51190ed4eda1066fa6a644197839dd37765fcce93cbd50b7a52b75815ce0083bb95195f886c80b57745314dd49ecbf235fa93d753ae2260bc
   languageName: node
   linkType: hard
 
@@ -1810,7 +1810,7 @@ __metadata:
   dependencies:
     "@heroicons/react": "npm:2.1.1"
     "@mikecousins/react-pdf": "workspace:*"
-    "@types/react": "npm:18.2.48"
+    "@types/react": "npm:18.2.61"
     "@types/react-dom": "npm:18.2.18"
     "@vitejs/plugin-react": "npm:4.2.1"
     autoprefixer: "npm:10.4.17"
