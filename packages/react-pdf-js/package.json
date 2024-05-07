@@ -53,12 +53,12 @@
     "@types/react-dom": "18.2.21",
     "@vitejs/plugin-react": "4.2.1",
     "jest-canvas-mock": "2.5.2",
-    "pdfjs-dist": "4.0.379",
+    "pdfjs-dist": "4.2.67",
     "tsup": "8.0.2",
     "typescript": "5.3.3"
   },
   "peerDependencies": {
-    "pdfjs-dist": "4.0.379",
+    "pdfjs-dist": "4.2.67",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
