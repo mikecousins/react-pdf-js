@@ -755,7 +755,7 @@ __metadata:
   dependencies:
     "@testing-library/react": "npm:14.2.1"
     "@types/jest": "npm:29.5.12"
-    "@types/react": "npm:18.2.65"
+    "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.2.21"
     "@vitejs/plugin-react": "npm:4.2.1"
     jest-canvas-mock: "npm:2.5.2"
@@ -1087,31 +1087,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
-  version: 16.9.19
-  resolution: "@types/react@npm:16.9.19"
+"@types/react@npm:*, @types/react@npm:18.3.3":
+  version: 18.3.3
+  resolution: "@types/react@npm:18.3.3"
   dependencies:
     "@types/prop-types": "npm:*"
-    csstype: "npm:^2.2.0"
-  checksum: 10/55c66cfd1b62f5534c41e6b9708e544442bf2b543015f32f0d8e159e22972a901f0802d0227cc8ac16f59541221dd7e20d5242a2154168d88a8042bd3a8f3e0b
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:18.2.65":
-  version: 18.2.65
-  resolution: "@types/react@npm:18.2.65"
-  dependencies:
-    "@types/prop-types": "npm:*"
-    "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10/8022689f6c68e76b5e7b3c95af794fb3d128d5b2ccac408adaa80b117724c48b04dd4a2750e5c2ca29cd70ac7719b4ed5c5b1c12cb739d6f1d52188c09fb3060
-  languageName: node
-  linkType: hard
-
-"@types/scheduler@npm:*":
-  version: 0.16.2
-  resolution: "@types/scheduler@npm:0.16.2"
-  checksum: 10/b6b4dcfeae6deba2e06a70941860fb1435730576d3689225a421280b7742318d1548b3d22c1f66ab68e414f346a9542f29240bc955b6332c5b11e561077583bc
+  checksum: 10/68e203b7f1f91d6cf21f33fc7af9d6d228035a26c83f514981e54aa3da695d0ec6af10c277c6336de1dd76c4adbe9563f3a21f80c4462000f41e5f370b46e96c
   languageName: node
   linkType: hard
 
@@ -1707,13 +1689,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:^2.2.0":
-  version: 2.6.9
-  resolution: "csstype@npm:2.6.9"
-  checksum: 10/e21febf7ad56dd0ea66766b92bbea71714b38a43f40df62f0f3caf2e35b415320441806d7dbd4e776c62554fdaa4088eb9ddc80da05896a35581b6ca031d97a8
-  languageName: node
-  linkType: hard
-
 "csstype@npm:^3.0.2":
   version: 3.1.0
   resolution: "csstype@npm:3.1.0"
@@ -1810,7 +1785,7 @@ __metadata:
   dependencies:
     "@heroicons/react": "npm:2.1.3"
     "@mikecousins/react-pdf": "workspace:*"
-    "@types/react": "npm:18.2.65"
+    "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.2.21"
     "@vitejs/plugin-react": "npm:4.2.1"
     autoprefixer: "npm:10.4.17"
@@ -4060,11 +4035,11 @@ __metadata:
   linkType: hard
 
 "react@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react@npm:18.2.0"
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
   dependencies:
     loose-envify: "npm:^1.1.0"
-  checksum: 10/b9214a9bd79e99d08de55f8bef2b7fc8c39630be97c4e29d7be173d14a9a10670b5325e94485f74cd8bff4966ef3c78ee53c79a7b0b9b70cba20aa8973acc694
+  checksum: 10/261137d3f3993eaa2368a83110466fc0e558bc2c7f7ae7ca52d94f03aac945f45146bd85e5f481044db1758a1dbb57879e2fcdd33924e2dde1bdc550ce73f7bf
   languageName: node
   linkType: hard
 
