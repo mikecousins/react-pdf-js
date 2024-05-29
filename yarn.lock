@@ -972,7 +972,7 @@ __metadata:
     "@types/react-dom": "npm:18.3.0"
     "@vitejs/plugin-react": "npm:4.3.0"
     jest-canvas-mock: "npm:2.5.2"
-    pdfjs-dist: "npm:4.2.67"
+    pdfjs-dist: "npm:4.3.136"
     tsup: "npm:8.0.2"
     typescript: "npm:5.4.5"
   peerDependencies:
@@ -3875,9 +3875,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pdfjs-dist@npm:4.2.67":
-  version: 4.2.67
-  resolution: "pdfjs-dist@npm:4.2.67"
+"pdfjs-dist@npm:4.3.136":
+  version: 4.3.136
+  resolution: "pdfjs-dist@npm:4.3.136"
   dependencies:
     canvas: "npm:^2.11.2"
     path2d: "npm:^0.2.0"
@@ -3886,7 +3886,7 @@ __metadata:
       optional: true
     path2d:
       optional: true
-  checksum: 10/34baaad1a1e9a27975e6e82992ee35ee83d8d4f06f258fedf39a1fc3254e6732418190d8eaf9b2a9c5dc9642cd372f6a627dbbd164942437b5ef4a7edb127774
+  checksum: 10/5511a54a0811c93c6d0517d3bd7ee1df5ffc00577d8b27054956d3775bb9a8a75427ad878c4b13fdda830aabf17e2807667b957e499848bb5968caaba4254d46
   languageName: node
   linkType: hard
 
