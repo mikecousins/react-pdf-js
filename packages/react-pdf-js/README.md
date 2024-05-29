@@ -14,7 +14,7 @@ https://react-pdf.cousins.ai/
 
 # Usage
 
-Install with `yarn add @mikecousins/react-pdf pdfjs-dist` or `npm install @mikecousins/react-pdf pdfjs-dist`
+Install with `pnpm add @mikecousins/react-pdf pdfjs-dist`, `yarn add @mikecousins/react-pdf pdfjs-dist` or `npm install @mikecousins/react-pdf pdfjs-dist`
 
 ## `usePdf` hook
 
