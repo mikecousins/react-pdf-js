@@ -27,5 +27,5 @@
     "turbo": "1.12.4",
     "typescript": "5.4.5"
   },
-  "packageManager": "yarn@4.1.0"
+  "packageManager": "yarn@4.2.2"
 }
