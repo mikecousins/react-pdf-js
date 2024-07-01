@@ -44,7 +44,7 @@
     "@vitejs/plugin-react": "4.3.0",
     "jest-canvas-mock": "2.5.2",
     "pdfjs-dist": "4.3.136",
-    "tsup": "8.0.2",
+    "tsup": "8.1.0",
     "typescript": "5.4.5"
   },
   "peerDependencies": {
