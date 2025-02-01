@@ -24,8 +24,8 @@ importers:
   apps/demo:
     dependencies:
       '@heroicons/react':
-        specifier: 2.1.5
-        version: 2.1.5(react@18.3.1)
+        specifier: 2.2.0
+        version: 2.2.0(react@18.3.1)
       '@mikecousins/react-pdf':
         specifier: workspace:*
         version: link:../../packages/react-pdf-js
@@ -512,10 +512,10 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  '@heroicons/react@2.1.5':
-    resolution: {integrity: sha512-FuzFN+BsHa+7OxbvAERtgBTNeZpUjgM/MIizfVkSCL2/edriN0Hx/DWRCR//aPYwO5QX/YlgLGXk+E3PcfZwjA==}
+  '@heroicons/react@2.2.0':
+    resolution: {integrity: sha512-LMcepvRaS9LYHJGsF0zzmgKCUim/X3N/DQKc4jepAXJ7l8QxJ1PmxJzqplF2Z3FE4PqBAIGyJAQ/w4B5dsqbtQ==}
     peerDependencies:
-      react: '>= 16'
+      react: '>= 16 || ^19.0.0-rc'
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -2276,7 +2276,7 @@ snapshots:
 
   '@eslint/js@8.57.0': {}
 
-  '@heroicons/react@2.1.5(react@18.3.1)':
+  '@heroicons/react@2.2.0(react@18.3.1)':
     dependencies:
       react: 18.3.1
 
