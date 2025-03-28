@@ -37,7 +37,7 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "@testing-library/react": "^15.0.7",
+    "@testing-library/react": "^16.2.0",
     "@types/jest": "^29.5.14",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",

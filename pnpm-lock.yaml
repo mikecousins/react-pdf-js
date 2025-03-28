@@ -74,8 +74,8 @@ importers:
         version: 19.0.0(react@19.0.0)
     devDependencies:
       '@testing-library/react':
-        specifier: ^15.0.7
-        version: 15.0.7(@types/react@19.0.12)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: ^16.2.0
+        version: 16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@19.0.4(@types/react@19.0.12))(@types/react@19.0.12)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -608,15 +608,19 @@ packages:
     resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
     engines: {node: '>=18'}
 
-  '@testing-library/react@15.0.7':
-    resolution: {integrity: sha512-cg0RvEdD1TIhhkm1IeYMQxrzy0MtUNfa3minv4MjbgcYzJAZ7yD0i0lwoPOTPr+INtiXFezt2o8xMSnyHhEn2Q==}
+  '@testing-library/react@16.2.0':
+    resolution: {integrity: sha512-2cSskAvA1QNtKc8Y9VJQRv0tm3hLVgxRGDB+KYhIaPQJ1I+RHbhIXcM+zClKXzMes/wshsMVzf4B9vS4IZpqDQ==}
     engines: {node: '>=18'}
     peerDependencies:
-      '@types/react': ^18.0.0
-      react: ^18.0.0
-      react-dom: ^18.0.0
+      '@testing-library/dom': ^10.0.0
+      '@types/react': ^18.0.0 || ^19.0.0
+      '@types/react-dom': ^18.0.0 || ^19.0.0
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
     peerDependenciesMeta:
       '@types/react':
+        optional: true
+      '@types/react-dom':
         optional: true
 
   '@types/aria-query@5.0.4':
@@ -651,11 +655,6 @@ packages:
 
   '@types/node@22.13.14':
     resolution: {integrity: sha512-Zs/Ollc1SJ8nKUAgc7ivOEdIBM8JAKgrqqUYi2J997JuKO7/tpQC+WCetQ1sypiKCQWHdvdg9wBNpUPEWZae7w==}
-
-  '@types/react-dom@18.3.5':
-    resolution: {integrity: sha512-P4t6saawp+b/dFrUr2cvkVsfvPguwsxtH6dNIYRllMsefqFzkZk5UIjzyDOv5g1dXIPdG4Sp1yCR4Z6RCUsG/Q==}
-    peerDependencies:
-      '@types/react': ^18.0.0
 
   '@types/react-dom@19.0.4':
     resolution: {integrity: sha512-4fSQ8vWFkg+TGhePfUzVmat3eC14TXYSsiiDSLI0dVLsrm9gZFABjPy/Qu6TKgl1tq1Bu1yDsuQgY3A3DOjCcg==}
@@ -2137,15 +2136,15 @@ snapshots:
       lz-string: 1.5.0
       pretty-format: 27.5.1
 
-  '@testing-library/react@15.0.7(@types/react@19.0.12)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@testing-library/react@16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@19.0.4(@types/react@19.0.12))(@types/react@19.0.12)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@babel/runtime': 7.27.0
       '@testing-library/dom': 10.4.0
-      '@types/react-dom': 18.3.5(@types/react@19.0.12)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
     optionalDependencies:
       '@types/react': 19.0.12
+      '@types/react-dom': 19.0.4(@types/react@19.0.12)
 
   '@types/aria-query@5.0.4': {}
 
@@ -2190,10 +2189,6 @@ snapshots:
   '@types/node@22.13.14':
     dependencies:
       undici-types: 6.20.0
-
-  '@types/react-dom@18.3.5(@types/react@19.0.12)':
-    dependencies:
-      '@types/react': 19.0.12
 
   '@types/react-dom@19.0.4(@types/react@19.0.12)':
     dependencies:
