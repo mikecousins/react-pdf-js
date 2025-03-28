@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import * as pdfjs from 'pdfjs-dist';
+import { GlobalWorkerOptions, getDocument, version } from 'pdfjs-dist';
 import type { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
 import type { DocumentInitParameters } from 'pdfjs-dist/types/src/display/api';
 
@@ -46,7 +46,7 @@ export const usePdf = ({
   page = 1,
   cMapUrl,
   cMapPacked,
-  workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.mjs`,
+  workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.mjs`,
   withCredentials = false,
 }: HookProps): HookReturnValues => {
   const [pdfDocument, setPdfDocument] = useState<PDFDocumentProxy>();
@@ -86,7 +86,7 @@ export const usePdf = ({
   }, [onPageRenderFail]);
 
   useEffect(() => {
-    pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
+    GlobalWorkerOptions.workerSrc = workerSrc;
   }, [workerSrc]);
 
   useEffect(() => {
@@ -96,7 +96,7 @@ export const usePdf = ({
       config.cMapPacked = cMapPacked;
     }
 
-    pdfjs.getDocument(config).promise.then(
+    getDocument(config).promise.then(
       (loadedPdfDocument) => {
         setPdfDocument(loadedPdfDocument);
 
@@ -128,7 +128,7 @@ export const usePdf = ({
       if (!canvasContext) {
         return;
       }
-      
+
       canvasEl.height = viewport.height * window.devicePixelRatio;
       canvasEl.width = viewport.width * window.devicePixelRatio;
 
