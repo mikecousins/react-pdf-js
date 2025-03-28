@@ -43,14 +43,14 @@
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
     "jest-canvas-mock": "^2.5.2",
-    "pdfjs-dist": "^4.10.38",
+    "pdfjs-dist": "^5.0.375",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2"
   },
   "peerDependencies": {
-    "pdfjs-dist": "^4.2.67",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "pdfjs-dist": "^5",
+    "react": "^19",
+    "react-dom": "^19"
   },
   "bundleDependencies": []
 }
