@@ -37,20 +37,20 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "@testing-library/react": "15.0.7",
-    "@types/jest": "29.5.12",
-    "@types/react": "18.3.3",
-    "@types/react-dom": "18.3.0",
-    "@vitejs/plugin-react": "4.3.1",
-    "jest-canvas-mock": "2.5.2",
-    "pdfjs-dist": "4.3.136",
-    "tsup": "8.0.2",
-    "typescript": "5.5.4"
+    "@testing-library/react": "^15.0.7",
+    "@types/jest": "^29.5.14",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jest-canvas-mock": "^2.5.2",
+    "pdfjs-dist": "^4.10.38",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
   },
   "peerDependencies": {
-    "pdfjs-dist": "4.2.67",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "pdfjs-dist": "^4.2.67",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "bundleDependencies": []
 }
