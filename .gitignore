@@ -21,3 +21,4 @@ dist
 !.yarn/versions
 
 .turbo
+.DS_Store
