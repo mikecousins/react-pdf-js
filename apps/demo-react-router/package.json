@@ -14,22 +14,22 @@
     "@react-router/node": "^7.4.0",
     "@react-router/serve": "^7.4.0",
     "clsx": "^2.1.1",
-    "isbot": "^5.1.17",
+    "isbot": "^5.1.25",
     "pdfjs-dist": "^5.0.375",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "react-router": "^7.4.0"
   },
   "devDependencies": {
     "@react-router/dev": "^7.4.0",
-    "@tailwindcss/vite": "^4.0.0",
-    "@types/node": "^20",
-    "@types/react": "^19.0.1",
-    "@types/react-dom": "^19.0.1",
-    "react-router-devtools": "^1.1.0",
-    "tailwindcss": "^4.0.0",
-    "typescript": "^5.7.2",
-    "vite": "^5.4.11",
+    "@tailwindcss/vite": "^4.0.17",
+    "@types/node": "^22.13.14",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "react-router-devtools": "^1.1.8",
+    "tailwindcss": "^4.0.17",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.3",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
