@@ -23,3 +23,21 @@ Select a section to get started learning about `@mikecousins/react-pdf`
 ## About
 
 This library is maintained by [Mike Cousins](https://mike.cousins.ai).
+
+## Links
+
+### NPM
+
+[https://www.npmjs.com/package/@mikecousins/react-pdf](https://www.npmjs.com/package/@mikecousins/react-pdf)
+
+### Bundlephobia
+![Bundlephobia badge](https://badgen.net/bundlephobia/minzip/@mikecousins/react-pdf)
+[https://bundlephobia.com/package/@mikecousins/react-pdf](https://bundlephobia.com/package/@mikecousins/react-pdf)
+
+### Publint
+
+[https://publint.dev/@mikecousins/react-pdf](https://publint.dev/@mikecousins/react-pdf)
+
+### Are The Types Wrong?
+
+[https://arethetypeswrong.github.io/?p=%40mikecousins%2Freact-pdf](https://arethetypeswrong.github.io/?p=%40mikecousins%2Freact-pdf)
