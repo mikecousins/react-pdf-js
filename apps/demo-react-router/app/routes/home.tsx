@@ -1,13 +1,20 @@
-import type { Route } from "./+types/home";
+import type { Route } from './+types/home';
 import { useRef, useState } from 'react';
 import { usePdf } from '@mikecousins/react-pdf';
 import clsx from 'clsx';
-import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@heroicons/react/24/solid';
+import {
+  ArrowLeftCircleIcon,
+  ArrowRightCircleIcon,
+} from '@heroicons/react/24/solid';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: '@mikecousins/react-pdf' },
+    {
+      name: 'description',
+      content:
+        'The simplest PDF rendering library for modern websites. @mikecousins/react-pdf is super lightweight and will embed a PDF in your website easily.',
+    },
   ];
 }
 
@@ -51,7 +58,9 @@ export default function Home() {
               <button
                 disabled={previousDisabled}
                 onClick={() => setPage(page - 1)}
-                className={clsx(previousDisabled && 'text-gray-300')}
+                className={clsx(
+                  previousDisabled ? 'text-gray-300' : 'text-gray-900'
+                )}
               >
                 <ArrowLeftCircleIcon className="h-12 w-12" />
               </button>
@@ -66,7 +75,9 @@ export default function Home() {
               <button
                 disabled={nextDisabled}
                 onClick={() => setPage(page + 1)}
-                className={clsx(nextDisabled && 'text-gray-300')}
+                className={clsx(
+                  nextDisabled ? 'text-gray-300' : 'text-gray-900'
+                )}
               >
                 <ArrowRightCircleIcon className="h-12 w-12" />
               </button>
