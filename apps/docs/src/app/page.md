@@ -26,7 +26,19 @@ This library is maintained by [Mike Cousins](https://mike.cousins.ai).
 
 ## Links
 
-### NPM
+### Github
+
+![github stars badge](https://badgen.net/github/stars/mikecousins/react-pdf-js)
+
+
+[https://www.github.com/mikecousins/react-pdf-js](https://www.github.com/mikecousins/react-pdf-js)
+
+
+### npm
+
+![npm version badge](https://badgen.net/npm/v/@mikecousins/react-pdf)
+![npm downloads badge](https://badgen.net/npm/dm/@mikecousins/react-pdf)
+
 
 [https://www.npmjs.com/package/@mikecousins/react-pdf](https://www.npmjs.com/package/@mikecousins/react-pdf)
 
