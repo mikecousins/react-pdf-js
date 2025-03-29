@@ -1,0 +1,47 @@
+pre[class*='language-'] {
+  color: var(--color-slate-50);
+}
+
+.token.tag,
+.token.class-name,
+.token.selector,
+.token.selector .class,
+.token.selector.class,
+.token.function {
+  color: var(--color-pink-400);
+}
+
+.token.attr-name,
+.token.keyword,
+.token.rule,
+.token.pseudo-class,
+.token.important {
+  color: var(--color-slate-300);
+}
+
+.token.module {
+  color: var(--color-pink-400);
+}
+
+.token.attr-value,
+.token.class,
+.token.string,
+.token.property {
+  color: var(--color-sky-300);
+}
+
+.token.punctuation,
+.token.attr-equals {
+  color: var(--color-slate-500);
+}
+
+.token.unit,
+.language-css .token.function {
+  color: var(--color-teal-200);
+}
+
+.token.comment,
+.token.operator,
+.token.combinator {
+  color: var(--color-slate-400);
+}
