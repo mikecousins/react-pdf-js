@@ -41,6 +41,12 @@ export default function RootLayout({
       className={clsx('h-full antialiased', inter.variable, lexend.variable)}
       suppressHydrationWarning
     >
+      <script
+        id="counterscale-script"
+        data-site-id="pdf"
+        src="https://counterscale.cousins.ai/tracker.js"
+        defer
+      ></script>
       <body className="flex min-h-full bg-white dark:bg-slate-900">
         <Providers>
           <Layout>{children}</Layout>
