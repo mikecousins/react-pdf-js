@@ -13,7 +13,7 @@
     "@algolia/autocomplete-core": "^1.18.1",
     "@headlessui/react": "^2.2.0",
     "@markdoc/markdoc": "^0.4.0",
-    "@markdoc/next.js": "^0.3.7",
+    "@markdoc/next.js": "^0.4.0",
     "@sindresorhus/slugify": "^2.2.1",
     "@tailwindcss/postcss": "^4.0.17",
     "@tailwindcss/typography": "^0.5.16",
