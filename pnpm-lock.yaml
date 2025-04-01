@@ -140,8 +140,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0(@types/react@18.3.20)(react@18.3.1)
       '@markdoc/next.js':
-        specifier: ^0.3.7
-        version: 0.3.7(@markdoc/markdoc@0.4.0(@types/react@18.3.20)(react@18.3.1))(next@14.2.26(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+        specifier: ^0.4.0
+        version: 0.4.0(@markdoc/markdoc@0.4.0(@types/react@18.3.20)(react@18.3.1))(next@14.2.26(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       '@sindresorhus/slugify':
         specifier: ^2.2.1
         version: 2.2.1
@@ -223,14 +223,14 @@ importers:
     dependencies:
       react:
         specifier: ^19
-        version: 19.0.0
+        version: 19.1.0
       react-dom:
         specifier: ^19
-        version: 19.0.0(react@19.0.0)
+        version: 19.1.0(react@19.1.0)
     devDependencies:
       '@testing-library/react':
         specifier: ^16.2.0
-        version: 16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@19.0.4(@types/react@19.0.12))(@types/react@19.0.12)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@19.0.4(@types/react@19.0.12))(@types/react@19.0.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -920,8 +920,8 @@ packages:
       react:
         optional: true
 
-  '@markdoc/next.js@0.3.7':
-    resolution: {integrity: sha512-lp/J0Lfx8YPWes82HOMSDvXBfIkJxPKfEwgzGTwfFBJUGBNM1TBvchaaAzDP2X+HRORP4jNcGbJrZoXSdon0BQ==}
+  '@markdoc/next.js@0.4.0':
+    resolution: {integrity: sha512-/tWBjixB4NWo5XUla70keO57xZP5OEP4ms358zXmbNoKtZHR4LjnBtulqLLZaJXOF7/M2BbblrjTYfSRWwE7Pg==}
     peerDependencies:
       '@markdoc/markdoc': '*'
       next: '*'
@@ -5282,7 +5282,7 @@ snapshots:
       '@types/react': 18.3.20
       react: 18.3.1
 
-  '@markdoc/next.js@0.3.7(@markdoc/markdoc@0.4.0(@types/react@18.3.20)(react@18.3.1))(next@14.2.26(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)':
+  '@markdoc/next.js@0.4.0(@markdoc/markdoc@0.4.0(@types/react@18.3.20)(react@18.3.1))(next@14.2.26(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@markdoc/markdoc': 0.4.0(@types/react@18.3.20)(react@18.3.1)
       js-yaml: 4.1.0
@@ -5990,12 +5990,12 @@ snapshots:
       lz-string: 1.5.0
       pretty-format: 27.5.1
 
-  '@testing-library/react@16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@19.0.4(@types/react@19.0.12))(@types/react@19.0.12)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@testing-library/react@16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@19.0.4(@types/react@19.0.12))(@types/react@19.0.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@babel/runtime': 7.27.0
       '@testing-library/dom': 10.4.0
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
     optionalDependencies:
       '@types/react': 19.0.12
       '@types/react-dom': 19.0.4(@types/react@19.0.12)
