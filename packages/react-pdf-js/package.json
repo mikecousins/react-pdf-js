@@ -28,7 +28,7 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.tsx --dts --format esm,cjs",
+    "build": "tsdown src/index.tsx --dts --format esm,cjs",
     "lint": "eslint"
   },
   "prettier": {
@@ -45,7 +45,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "jest-canvas-mock": "^2.5.2",
     "pdfjs-dist": "^5.0.375",
-    "tsup": "^8.4.0",
+    "tsdown": "^0.9.6",
     "typescript": "^5.8.2"
   },
   "peerDependencies": {

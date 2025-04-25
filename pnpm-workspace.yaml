@@ -3,4 +3,5 @@ packages:
   - packages/*
 onlyBuiltDependencies:
   - esbuild
+  - rolldown
   - sharp
