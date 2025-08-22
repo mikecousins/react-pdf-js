@@ -143,6 +143,7 @@ export const usePdf = ({
 
       renderTask.current = page.render({
         canvasContext,
+        canvas: canvasEl,
         viewport,
       });
 
