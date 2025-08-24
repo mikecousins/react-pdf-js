@@ -30,7 +30,8 @@
   "scripts": {
     "build": "tsup src/index.tsx --dts --format esm,cjs",
     "lint": "eslint",
-    "test": "vitest"
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
   },
   "prettier": {
     "printWidth": 80,

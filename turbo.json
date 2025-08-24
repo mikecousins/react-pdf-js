@@ -5,9 +5,23 @@
       "dependsOn": [
         "^build"
       ],
-      "outputs": ["dist/**", "build/**"]
+      "outputs": ["dist/**", "build/**", ".next/**"]
     },
-    "lint": {},
-    "test": {}
+    "lint": {
+      "outputs": [],
+      "cache": false
+    },
+    "test": {
+      "outputs": ["coverage/**"],
+      "cache": false
+    },
+    "typecheck": {
+      "outputs": [],
+      "cache": false
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
   }
 }
