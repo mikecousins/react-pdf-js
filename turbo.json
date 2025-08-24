@@ -8,6 +8,11 @@
       "outputs": ["dist/**", "build/**"]
     },
     "lint": {},
-    "test": {}
+    "test": {},
+    "typecheck": {
+      "dependsOn": [
+        "^build"
+      ]
+    }
   }
 }
