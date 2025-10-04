@@ -87,39 +87,37 @@ export const usePdf = ({
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    import('pdfjs-dist').then(({ GlobalWorkerOptions, version }) => {
-      GlobalWorkerOptions.workerSrc =
-        workerSrc ||
-        `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.mjs`;
-    });
-  }, [workerSrc]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
     const config: DocumentInitParameters = { url: file, withCredentials };
     if (cMapUrl) {
       config.cMapUrl = cMapUrl;
       config.cMapPacked = cMapPacked;
     }
 
-    import('pdfjs-dist').then(({ getDocument }) => {
-      getDocument(config).promise.then(
-        (loadedPdfDocument) => {
-          setPdfDocument(loadedPdfDocument);
+    import('pdfjs-dist').then(
+      ({ GlobalWorkerOptions, getDocument, version }) => {
+        // Set worker source first
+        GlobalWorkerOptions.workerSrc =
+          workerSrc ||
+          `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.mjs`;
 
-          if (isFunction(onDocumentLoadSuccessRef.current)) {
-            onDocumentLoadSuccessRef.current(loadedPdfDocument);
+        // Then load the document
+        getDocument(config).promise.then(
+          (loadedPdfDocument) => {
+            setPdfDocument(loadedPdfDocument);
+
+            if (isFunction(onDocumentLoadSuccessRef.current)) {
+              onDocumentLoadSuccessRef.current(loadedPdfDocument);
+            }
+          },
+          () => {
+            if (isFunction(onDocumentLoadFailRef.current)) {
+              onDocumentLoadFailRef.current();
+            }
           }
-        },
-        () => {
-          if (isFunction(onDocumentLoadFailRef.current)) {
-            onDocumentLoadFailRef.current();
-          }
-        }
-      );
-    });
-  }, [file, withCredentials, cMapUrl, cMapPacked]);
+        );
+      }
+    );
+  }, [file, withCredentials, cMapUrl, cMapPacked, workerSrc]);
 
   useEffect(() => {
     // draw a page of the pdf
