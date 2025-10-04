@@ -28,7 +28,7 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.tsx --dts --format esm,cjs",
+    "build": "tsdown",
     "lint": "eslint",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
@@ -49,7 +49,7 @@
     "pdfjs-dist": "^5.4.149",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "tsup": "^8.5.0",
+    "tsdown": "^0.15.6",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   },
