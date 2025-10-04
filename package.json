@@ -25,8 +25,8 @@
   "devDependencies": {
     "eslint": "^8.57.1",
     "prettier": "^3.6.2",
-    "turbo": "^2.5.6",
-    "typescript": "^5.9.2"
+    "turbo": "^2.5.8",
+    "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@10.7.0"
 }
