@@ -16,12 +16,12 @@ Check out our examples below in a framework similar to your situation.
 
 ### React Router (Remix)
 
-Live Demo: [https://react-pdf-js-demo-react-router.vercel.app/](https://react-pdf-js-demo-react-router.vercel.app/)
+Live Demo: [https://react-pdf-js-demo-react-router.netlify.app/](https://react-pdf-js-demo-react-router.netlify.app/)
 
 Code: [https://github.com/mikecousins/react-pdf-js/tree/main/apps/demo-react-router](https://github.com/mikecousins/react-pdf-js/tree/main/apps/demo-react-router)
 
 ### Vite/SPA
 
-Live Demo: [https://react-pdf-js-demo-vite.vercel.app/](https://react-pdf-js-demo-vite.vercel.app/)
+Live Demo: [https://react-pdf-js-demo-vite.netlify.app/](https://react-pdf-js-demo-vite.netlify.app/)
 
 Code: [https://github.com/mikecousins/react-pdf-js/tree/main/apps/demo](https://github.com/mikecousins/react-pdf-js/tree/main/apps/demo)

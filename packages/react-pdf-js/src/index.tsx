@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { GlobalWorkerOptions, getDocument, version } from 'pdfjs-dist';
 import type { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
 import type { DocumentInitParameters } from 'pdfjs-dist/types/src/display/api';
 
@@ -46,7 +45,7 @@ export const usePdf = ({
   page = 1,
   cMapUrl,
   cMapPacked,
-  workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.mjs`,
+  workerSrc,
   withCredentials = false,
 }: HookProps): HookReturnValues => {
   const [pdfDocument, setPdfDocument] = useState<PDFDocumentProxy>();
@@ -86,31 +85,39 @@ export const usePdf = ({
   }, [onPageRenderFail]);
 
   useEffect(() => {
-    GlobalWorkerOptions.workerSrc = workerSrc;
-  }, [workerSrc]);
+    if (typeof window === 'undefined') return;
 
-  useEffect(() => {
     const config: DocumentInitParameters = { url: file, withCredentials };
     if (cMapUrl) {
       config.cMapUrl = cMapUrl;
       config.cMapPacked = cMapPacked;
     }
 
-    getDocument(config).promise.then(
-      (loadedPdfDocument) => {
-        setPdfDocument(loadedPdfDocument);
+    import('pdfjs-dist').then(
+      ({ GlobalWorkerOptions, getDocument, version }) => {
+        // Set worker source first
+        GlobalWorkerOptions.workerSrc =
+          workerSrc ||
+          `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.mjs`;
 
-        if (isFunction(onDocumentLoadSuccessRef.current)) {
-          onDocumentLoadSuccessRef.current(loadedPdfDocument);
-        }
-      },
-      () => {
-        if (isFunction(onDocumentLoadFailRef.current)) {
-          onDocumentLoadFailRef.current();
-        }
+        // Then load the document
+        getDocument(config).promise.then(
+          (loadedPdfDocument) => {
+            setPdfDocument(loadedPdfDocument);
+
+            if (isFunction(onDocumentLoadSuccessRef.current)) {
+              onDocumentLoadSuccessRef.current(loadedPdfDocument);
+            }
+          },
+          () => {
+            if (isFunction(onDocumentLoadFailRef.current)) {
+              onDocumentLoadFailRef.current();
+            }
+          }
+        );
       }
     );
-  }, [file, withCredentials, cMapUrl, cMapPacked]);
+  }, [file, withCredentials, cMapUrl, cMapPacked, workerSrc]);
 
   useEffect(() => {
     // draw a page of the pdf
@@ -129,10 +136,13 @@ export const usePdf = ({
         return;
       }
 
-      canvasEl.height = viewport.height * window.devicePixelRatio;
-      canvasEl.width = viewport.width * window.devicePixelRatio;
+      const devicePixelRatio =
+        typeof window !== 'undefined' ? window.devicePixelRatio : 1;
 
-      canvasContext.scale(window.devicePixelRatio, window.devicePixelRatio);
+      canvasEl.height = viewport.height * devicePixelRatio;
+      canvasEl.width = viewport.width * devicePixelRatio;
+
+      canvasContext.scale(devicePixelRatio, devicePixelRatio);
 
       // if previous render isn't done yet, we cancel it
       if (renderTask.current) {
@@ -159,7 +169,8 @@ export const usePdf = ({
           renderTask.current = null;
 
           if (reason && reason.name === 'RenderingCancelledException') {
-            const lastPageRequestedRender = lastPageRequestedRenderRef.current ?? page;
+            const lastPageRequestedRender =
+              lastPageRequestedRenderRef.current ?? page;
             lastPageRequestedRenderRef.current = null;
             drawPDF(lastPageRequestedRender);
           } else if (isFunction(onPageRenderFailRef.current)) {
