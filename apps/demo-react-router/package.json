@@ -23,15 +23,15 @@
     "react-router": "^7.15.1"
   },
   "devDependencies": {
-    "@netlify/vite-plugin-react-router": "^1.0.1",
+    "@netlify/vite-plugin-react-router": "^3.1.1",
     "@react-router/dev": "^7.15.1",
     "@tailwindcss/vite": "^4.3.0",
-    "@types/node": "^24.12.4",
+    "@types/node": "^25.9.1",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "tailwindcss": "^4.3.0",
     "typescript": "^5.9.3",
-    "vite": "^7.3.3",
+    "vite": "^8.0.14",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
