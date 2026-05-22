@@ -13,25 +13,25 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@mikecousins/react-pdf": "workspace:*",
-    "@react-router/node": "^7.9.3",
-    "@react-router/serve": "^7.9.3",
+    "@react-router/node": "^7.15.1",
+    "@react-router/serve": "^7.15.1",
     "clsx": "^2.1.1",
-    "isbot": "^5.1.31",
-    "pdfjs-dist": "^5.4.149",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-router": "^7.9.3"
+    "isbot": "^5.1.40",
+    "pdfjs-dist": "^5.7.284",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-router": "^7.15.1"
   },
   "devDependencies": {
     "@netlify/vite-plugin-react-router": "^1.0.1",
-    "@react-router/dev": "^7.9.3",
-    "@tailwindcss/vite": "^4.1.14",
-    "@types/node": "^24.6.2",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.2.0",
-    "tailwindcss": "^4.1.14",
+    "@react-router/dev": "^7.15.1",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/node": "^24.12.4",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "tailwindcss": "^4.3.0",
     "typescript": "^5.9.3",
-    "vite": "^7.1.9",
+    "vite": "^7.3.3",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
