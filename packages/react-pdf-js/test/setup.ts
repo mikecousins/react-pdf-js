@@ -30,7 +30,7 @@ vi.mock('pdfjs-dist', () => ({
     promise: config.url?.includes('fail_document')
       ? Promise.reject(new Error('Document load failed'))
       : Promise.resolve({
-          getPage: vi.fn((pageNum: number) =>
+          getPage: vi.fn((_pageNum: number) =>
             config.url?.includes('fail_page')
               ? Promise.reject(new Error('Page load failed'))
               : Promise.resolve({

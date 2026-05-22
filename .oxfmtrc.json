@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 80,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "ignorePatterns": [
+    "**/tsconfig.tsbuildinfo",
+    "**/CHANGELOG.md",
+    "**/*.tsbuildinfo"
+  ]
+}

@@ -1,12 +1,12 @@
-import { useId } from 'react'
-import clsx from 'clsx'
+import { useId } from 'react';
+import clsx from 'clsx';
 
-import { InstallationIcon } from '@/components/icons/InstallationIcon'
-import { LightbulbIcon } from '@/components/icons/LightbulbIcon'
-import { PluginsIcon } from '@/components/icons/PluginsIcon'
-import { PresetsIcon } from '@/components/icons/PresetsIcon'
-import { ThemingIcon } from '@/components/icons/ThemingIcon'
-import { WarningIcon } from '@/components/icons/WarningIcon'
+import { InstallationIcon } from '@/components/icons/InstallationIcon';
+import { LightbulbIcon } from '@/components/icons/LightbulbIcon';
+import { PluginsIcon } from '@/components/icons/PluginsIcon';
+import { PresetsIcon } from '@/components/icons/PresetsIcon';
+import { ThemingIcon } from '@/components/icons/ThemingIcon';
+import { WarningIcon } from '@/components/icons/WarningIcon';
 
 const icons = {
   installation: InstallationIcon,
@@ -15,13 +15,13 @@ const icons = {
   theming: ThemingIcon,
   lightbulb: LightbulbIcon,
   warning: WarningIcon,
-}
+};
 
 const iconStyles = {
   blue: '[--icon-foreground:var(--color-slate-900)] [--icon-background:var(--color-white)]',
   amber:
     '[--icon-foreground:var(--color-amber-900)] [--icon-background:var(--color-amber-100)]',
-}
+};
 
 export function Icon({
   icon,
@@ -29,11 +29,11 @@ export function Icon({
   className,
   ...props
 }: {
-  color?: keyof typeof iconStyles
-  icon: keyof typeof icons
+  color?: keyof typeof iconStyles;
+  icon: keyof typeof icons;
 } & Omit<React.ComponentPropsWithoutRef<'svg'>, 'color'>) {
-  let id = useId()
-  let IconComponent = icons[icon]
+  let id = useId();
+  let IconComponent = icons[icon];
 
   return (
     <svg
@@ -45,7 +45,7 @@ export function Icon({
     >
       <IconComponent id={id} color={color} />
     </svg>
-  )
+  );
 }
 
 const gradients = {
@@ -58,13 +58,13 @@ const gradients = {
     { stopColor: '#FDE68A', offset: '.08' },
     { stopColor: '#F59E0B', offset: '.837' },
   ],
-}
+};
 
 export function Gradient({
   color = 'blue',
   ...props
 }: {
-  color?: keyof typeof gradients
+  color?: keyof typeof gradients;
 } & Omit<React.ComponentPropsWithoutRef<'radialGradient'>, 'color'>) {
   return (
     <radialGradient
@@ -78,19 +78,19 @@ export function Gradient({
         <stop key={stopIndex} {...stop} />
       ))}
     </radialGradient>
-  )
+  );
 }
 
 export function LightMode({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'g'>) {
-  return <g className={clsx('dark:hidden', className)} {...props} />
+  return <g className={clsx('dark:hidden', className)} {...props} />;
 }
 
 export function DarkMode({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'g'>) {
-  return <g className={clsx('hidden dark:inline', className)} {...props} />
+  return <g className={clsx('hidden dark:inline', className)} {...props} />;
 }

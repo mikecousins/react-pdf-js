@@ -20,6 +20,7 @@ this once, in the npmjs.com UI — it cannot be automated):
 
 > npmjs.com → **`@mikecousins/react-pdf`** → **Settings → Trusted Publisher** →
 > **GitHub Actions**, with:
+>
 > - Organization or user: **`mikecousins`**
 > - Repository: **`react-pdf-js`**
 > - Workflow filename: **`publish.yml`** (must match exactly)
@@ -94,11 +95,11 @@ pnpm changeset (per PR)
 
 ## Local helper scripts
 
-| Script                   | Use                                                     |
-| ------------------------ | ------------------------------------------------------- |
-| `pnpm changeset`         | Author a changeset (the normal per-PR step)             |
-| `pnpm changeset:version` | Preview the version bump + changelog locally            |
-| `pnpm changeset:publish` | Manual publish escape hatch — **not** the normal path   |
+| Script                   | Use                                                   |
+| ------------------------ | ----------------------------------------------------- |
+| `pnpm changeset`         | Author a changeset (the normal per-PR step)           |
+| `pnpm changeset:version` | Preview the version bump + changelog locally          |
+| `pnpm changeset:publish` | Manual publish escape hatch — **not** the normal path |
 
 ## Notes & troubleshooting
 

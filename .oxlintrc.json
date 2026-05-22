@@ -1,0 +1,27 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "import"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "settings": {
+    "react": {
+      "runtime": "automatic"
+    }
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off"
+  },
+  "ignorePatterns": [
+    "**/dist",
+    "**/build",
+    "**/.next",
+    "**/coverage",
+    "**/.turbo",
+    "**/.cache",
+    "**/+types",
+    "**/.react-router",
+    "apps/docs/next-env.d.ts"
+  ]
+}

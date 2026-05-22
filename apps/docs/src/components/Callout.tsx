@@ -1,6 +1,6 @@
-import clsx from 'clsx'
+import clsx from 'clsx';
 
-import { Icon } from '@/components/Icon'
+import { Icon } from '@/components/Icon';
 
 const styles = {
   note: {
@@ -15,25 +15,25 @@ const styles = {
     title: 'text-amber-900 dark:text-amber-500',
     body: 'text-amber-800 [--tw-prose-underline:var(--color-amber-400)] [--tw-prose-background:var(--color-amber-50)] prose-a:text-amber-900 prose-code:text-amber-900 dark:text-slate-300 dark:[--tw-prose-underline:var(--color-sky-700)] dark:prose-code:text-slate-300',
   },
-}
+};
 
 const icons = {
   note: (props: { className?: string }) => <Icon icon="lightbulb" {...props} />,
   warning: (props: { className?: string }) => (
     <Icon icon="warning" color="amber" {...props} />
   ),
-}
+};
 
 export function Callout({
   title,
   children,
   type = 'note',
 }: {
-  title: string
-  children: React.ReactNode
-  type?: keyof typeof styles
+  title: string;
+  children: React.ReactNode;
+  type?: keyof typeof styles;
 }) {
-  let IconComponent = icons[type]
+  let IconComponent = icons[type];
 
   return (
     <div className={clsx('my-8 flex rounded-3xl p-6', styles[type].container)}>
@@ -49,5 +49,5 @@ export function Callout({
         </div>
       </div>
     </div>
-  )
+  );
 }

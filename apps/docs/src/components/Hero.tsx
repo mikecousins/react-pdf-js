@@ -1,24 +1,24 @@
-import { Fragment } from 'react'
-import Image from 'next/image'
-import clsx from 'clsx'
-import { Highlight } from 'prism-react-renderer'
+import { Fragment } from 'react';
+import Image from 'next/image';
+import clsx from 'clsx';
+import { Highlight } from 'prism-react-renderer';
 
-import { Button } from '@/components/Button'
-import { HeroBackground } from '@/components/HeroBackground'
-import blurCyanImage from '@/images/blur-cyan.png'
-import blurIndigoImage from '@/images/blur-indigo.png'
+import { Button } from '@/components/Button';
+import { HeroBackground } from '@/components/HeroBackground';
+import blurCyanImage from '@/images/blur-cyan.png';
+import blurIndigoImage from '@/images/blur-indigo.png';
 
-const codeLanguage = 'typescript'
+const codeLanguage = 'typescript';
 const code = `  const { pdfDocument, pdfPage } = usePdf({
     file: 'test.pdf',
     page,
     canvasRef,
-  });`
+  });`;
 
 const tabs = [
   { name: 'pdf-viewer.tsx', isActive: true },
   { name: 'package.json', isActive: false },
-]
+];
 
 function TrafficLightsIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -27,7 +27,7 @@ function TrafficLightsIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
       <circle cx="21" cy="5" r="4.5" />
       <circle cx="37" cy="5" r="4.5" />
     </svg>
-  )
+  );
 }
 
 export function Hero() {
@@ -50,12 +50,15 @@ export function Hero() {
                 The simplest way to embed PDFs.
               </p>
               <p className="mt-3 text-2xl tracking-tight text-slate-400">
-                Under 1kB in size. Modern React hook architecture. Easily add embedded
-                PDFs in your modern React web app.
+                Under 1kB in size. Modern React hook architecture. Easily add
+                embedded PDFs in your modern React web app.
               </p>
               <div className="mt-8 flex gap-4 md:justify-center lg:justify-start">
                 <Button href="/">Get started</Button>
-                <Button href="https://github.com/mikecousins/react-pdf-js" variant="secondary">
+                <Button
+                  href="https://github.com/mikecousins/react-pdf-js"
+                  variant="secondary"
+                >
                   View on GitHub
                 </Button>
               </div>
@@ -99,13 +102,13 @@ export function Hero() {
                           'flex h-6 rounded-full',
                           tab.isActive
                             ? 'bg-linear-to-r from-sky-400/30 via-sky-400 to-sky-400/30 p-px font-medium text-sky-300'
-                            : 'text-slate-500',
+                            : 'text-slate-500'
                         )}
                       >
                         <div
                           className={clsx(
                             'flex items-center rounded-full px-2.5',
-                            tab.isActive && 'bg-slate-800',
+                            tab.isActive && 'bg-slate-800'
                           )}
                         >
                           {tab.name}
@@ -142,7 +145,7 @@ export function Hero() {
                         <pre
                           className={clsx(
                             className,
-                            'flex overflow-x-auto pb-6',
+                            'flex overflow-x-auto pb-6'
                           )}
                           style={style}
                         >
@@ -169,5 +172,5 @@ export function Hero() {
         </div>
       </div>
     </div>
-  )
+  );
 }

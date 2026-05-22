@@ -29,13 +29,13 @@ CI installs with `pnpm install --frozen-lockfile`; commit the updated
 Run from the repo root — Turborepo fans each task out across the workspaces and
 caches results.
 
-| Command           | What it does                                              |
-| ----------------- | --------------------------------------------------------- |
-| `pnpm build`      | Build every package/app (`turbo run build`)               |
-| `pnpm test`       | Run all tests (`turbo run test`)                          |
-| `pnpm lint`       | Lint everything (`turbo run lint`)                        |
-| `pnpm typecheck`  | Type-check everything (`turbo run typecheck`)             |
-| `pnpm format`     | Format the repo with Prettier                             |
+| Command          | What it does                                  |
+| ---------------- | --------------------------------------------- |
+| `pnpm build`     | Build every package/app (`turbo run build`)   |
+| `pnpm test`      | Run all tests (`turbo run test`)              |
+| `pnpm lint`      | Lint everything (`turbo run lint`)            |
+| `pnpm typecheck` | Type-check everything (`turbo run typecheck`) |
+| `pnpm format`    | Format the repo with Prettier                 |
 
 These four (build, test, lint, typecheck) are exactly what `ci.yml` runs on
 every PR.

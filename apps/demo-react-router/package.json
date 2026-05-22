@@ -7,7 +7,6 @@
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
-    "lint": "echo 'No linting configured for demo-react-router app'",
     "test": "echo 'No tests for demo-react-router app'"
   },
   "dependencies": {

@@ -14,4 +14,4 @@ export const navigation = [
       { title: 'Examples', href: '/docs/examples' },
     ],
   },
-]
+];
