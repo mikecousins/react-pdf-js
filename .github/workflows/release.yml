@@ -61,6 +61,7 @@ jobs:
           name="$(jq -r '.[0].name' <<<"$PUBLISHED")"
           version="$(jq -r '.[0].version' <<<"$PUBLISHED")"
           tag="${name}@${version}"
+          git push origin "refs/tags/${tag}"
           awk -v v="$version" '
             $0 == "## " v { flag = 1; next }
             /^## / && flag { flag = 0 }
