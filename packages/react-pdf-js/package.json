@@ -9,6 +9,10 @@
     "type": "git",
     "url": "git+https://github.com/mikecousins/react-pdf-js.git"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "type": "module",
   "files": [
     "dist"
@@ -57,6 +61,5 @@
     "pdfjs-dist": "^5",
     "react": "^19",
     "react-dom": "^19"
-  },
-  "bundleDependencies": []
+  }
 }

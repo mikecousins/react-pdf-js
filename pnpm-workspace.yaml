@@ -6,3 +6,5 @@ onlyBuiltDependencies:
   - esbuild
   - sharp
   - unrs-resolver
+overrides:
+  rolldown: 1.0.0-beta.41
