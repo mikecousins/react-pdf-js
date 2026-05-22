@@ -154,6 +154,11 @@ This can be undefined if document has not been loaded yet.
 `pdfjs`'s `PDFPageProxy` [object](https://github.com/mozilla/pdf.js/blob/master/src/display/api.js#L897)
 This can be undefined if page has not been loaded yet.
 
+# Contributing
+
+Repository structure, local development, and the release process are documented
+in [`docs/`](./docs/README.md).
+
 # License
 
 MIT © [mikecousins](https://github.com/mikecousins)
