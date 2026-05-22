@@ -1,0 +1,73 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write # commit version bumps, push tags, create the draft release
+  pull-requests: write # open/update the "Version Packages" PR
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.2.2
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # When changesets exist: opens/updates the "Version Packages" PR (bumps
+      # version + writes CHANGELOG). When that PR is merged (no changesets left):
+      # runs `changeset tag` to create + push git tags. It never runs `npm
+      # publish` here, and createGithubReleases is off so it does not publish a
+      # release that would prematurely trigger publish.yml.
+      - name: Changesets version PR / tag
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: pnpm exec changeset version
+          publish: pnpm exec changeset tag
+          createGithubReleases: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Only when a new tag was created this run. Creates a DRAFT release so the
+      # maintainer can review notes and click "Publish release" to gate npm.
+      - name: Create draft GitHub Release
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISHED: ${{ steps.changesets.outputs.publishedPackages }}
+        run: |
+          set -euo pipefail
+          name="$(jq -r '.[0].name' <<<"$PUBLISHED")"
+          version="$(jq -r '.[0].version' <<<"$PUBLISHED")"
+          tag="${name}@${version}"
+          awk -v v="$version" '
+            $0 == "## " v { flag = 1; next }
+            /^## / && flag { flag = 0 }
+            flag { print }
+          ' packages/react-pdf-js/CHANGELOG.md > release-notes.md
+          if [ -s release-notes.md ]; then
+            gh release create "$tag" --draft --title "$tag" --notes-file release-notes.md
+          else
+            gh release create "$tag" --draft --title "$tag" --generate-notes
+          fi

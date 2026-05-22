@@ -1,0 +1,41 @@
+name: Publish
+
+# Filename "publish.yml" must match the workflow registered as the npm trusted
+# publisher for @mikecousins/react-pdf (npmjs.com -> package -> Settings).
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write # REQUIRED: mints the OIDC token pnpm exchanges with npm
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest # OIDC requires a GitHub-hosted runner
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.2.2
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      # Run directly in the package dir, NOT through turbo: Turborepo filters env
+      # vars by default and would strip the OIDC token (ACTIONS_ID_TOKEN_REQUEST_*)
+      # pnpm needs. Provenance is enabled via publishConfig in package.json.
+      - name: Publish to npm
+        working-directory: packages/react-pdf-js
+        run: pnpm publish --no-git-checks
