@@ -11,3 +11,7 @@
 [build.environment]
   NODE_VERSION = "22"
   PNPM_VERSION = "11.2.2"
+  # In case the legacy Next.js runtime is still installed at the project
+  # level, signal that this is no longer a Next.js site.
+  NEXT_PLUGIN_SKIP = "true"
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
