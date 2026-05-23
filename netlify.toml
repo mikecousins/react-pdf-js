@@ -1,7 +1,13 @@
 # Build settings for the `react-pdf-js` Netlify project (the docs site).
-# Build from the repo root via Turborepo so pnpm picks up the workspace
-# config and lockfile, then publish Astro's output from apps/docs/dist.
+# Build from apps/docs/ where the Astro project lives. The lockfile and
+# pnpm-workspace.yaml at the repo root are picked up by pnpm via parent
+# traversal during install.
 
 [build]
-  command = "pnpm install --no-frozen-lockfile && pnpm turbo run build --filter=mikecousins-react-pdf-docs"
-  publish = "apps/docs/dist"
+  base = "apps/docs/"
+  command = "pnpm build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  PNPM_VERSION = "11.2.2"
