@@ -1,14 +1,14 @@
-'use client'
+'use client';
 
-import { Fragment } from 'react'
-import { Highlight } from 'prism-react-renderer'
+import { Fragment } from 'react';
+import { Highlight } from 'prism-react-renderer';
 
 export function Fence({
   children,
   language,
 }: {
-  children: string
-  language: string
+  children: string;
+  language: string;
 }) {
   return (
     <Highlight
@@ -33,5 +33,5 @@ export function Fence({
         </pre>
       )}
     </Highlight>
-  )
+  );
 }

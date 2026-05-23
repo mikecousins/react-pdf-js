@@ -18,15 +18,15 @@ dependencies).
 
 ## Toolchain
 
-| Concern            | Tool                                        |
-| ------------------ | ------------------------------------------- |
-| Package manager    | pnpm `11.2.2` (pinned via `packageManager`) |
-| Task orchestration | Turborepo (`turbo.json`)                    |
+| Concern            | Tool                                            |
+| ------------------ | ----------------------------------------------- |
+| Package manager    | pnpm `11.2.2` (pinned via `packageManager`)     |
+| Task orchestration | Turborepo (`turbo.json`)                        |
 | Library bundling   | [tsdown](https://tsdown.dev) (ESM + CJS + d.ts) |
-| Tests              | Vitest + Testing Library                    |
-| Lint / format      | ESLint + Prettier                           |
-| Language           | TypeScript                                  |
-| Versioning/publish | Changesets + npm trusted publishing (OIDC)  |
+| Tests              | Vitest + Testing Library                        |
+| Lint / format      | ESLint + Prettier                               |
+| Language           | TypeScript                                      |
+| Versioning/publish | Changesets + npm trusted publishing (OIDC)      |
 
 > **Node 22 required.** pnpm 11 needs Node ≥ 22.13; the repo pins Node via
 > [`.nvmrc`](../.nvmrc). See [Development](./development.md).

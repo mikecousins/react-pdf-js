@@ -4,8 +4,8 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { usePdf } from '../src/index';
 
 // Test component that uses the hook
-const TestComponent = ({ 
-  file, 
+const TestComponent = ({
+  file,
   onDocumentLoadSuccess,
   onDocumentLoadFail,
   onPageLoadSuccess,
@@ -28,7 +28,7 @@ const TestComponent = ({
   page?: number;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
+
   const { pdfDocument, pdfPage } = usePdf({
     canvasRef,
     file,
@@ -66,15 +66,15 @@ describe('usePdf', () => {
   });
 
   it('loads PDF document and page successfully', async () => {
-    const { getByTestId } = render(
-      <TestComponent file="basic.pdf" />
-    );
+    const { getByTestId } = render(<TestComponent file="basic.pdf" />);
 
     const canvas = getByTestId('pdf-canvas');
     expect(canvas).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(getByTestId('document-status')).toHaveTextContent('document-loaded');
+      expect(getByTestId('document-status')).toHaveTextContent(
+        'document-loaded'
+      );
     });
 
     await waitFor(() => {
@@ -84,10 +84,10 @@ describe('usePdf', () => {
 
   it('calls onDocumentLoadSuccess callback when document loads', async () => {
     const onDocumentLoadSuccess = vi.fn();
-    
+
     render(
-      <TestComponent 
-        file="basic.pdf" 
+      <TestComponent
+        file="basic.pdf"
         onDocumentLoadSuccess={onDocumentLoadSuccess}
       />
     );
@@ -99,12 +99,9 @@ describe('usePdf', () => {
 
   it('calls onPageLoadSuccess callback when page loads', async () => {
     const onPageLoadSuccess = vi.fn();
-    
+
     render(
-      <TestComponent 
-        file="basic.pdf" 
-        onPageLoadSuccess={onPageLoadSuccess}
-      />
+      <TestComponent file="basic.pdf" onPageLoadSuccess={onPageLoadSuccess} />
     );
 
     await waitFor(() => {
@@ -114,10 +111,10 @@ describe('usePdf', () => {
 
   it('calls onPageRenderSuccess callback when page renders', async () => {
     const onPageRenderSuccess = vi.fn();
-    
+
     render(
-      <TestComponent 
-        file="basic.pdf" 
+      <TestComponent
+        file="basic.pdf"
         onPageRenderSuccess={onPageRenderSuccess}
       />
     );
@@ -129,10 +126,10 @@ describe('usePdf', () => {
 
   it('handles document load failure', async () => {
     const onDocumentLoadFail = vi.fn();
-    
+
     render(
-      <TestComponent 
-        file="fail_document" 
+      <TestComponent
+        file="fail_document"
         onDocumentLoadFail={onDocumentLoadFail}
       />
     );
@@ -144,13 +141,8 @@ describe('usePdf', () => {
 
   it('handles page load failure', async () => {
     const onPageLoadFail = vi.fn();
-    
-    render(
-      <TestComponent 
-        file="fail_page" 
-        onPageLoadFail={onPageLoadFail}
-      />
-    );
+
+    render(<TestComponent file="fail_page" onPageLoadFail={onPageLoadFail} />);
 
     await waitFor(() => {
       expect(onPageLoadFail).toHaveBeenCalled();
@@ -159,12 +151,9 @@ describe('usePdf', () => {
 
   it('handles page render failure', async () => {
     const onPageRenderFail = vi.fn();
-    
+
     render(
-      <TestComponent 
-        file="fail_render" 
-        onPageRenderFail={onPageRenderFail}
-      />
+      <TestComponent file="fail_render" onPageRenderFail={onPageRenderFail} />
     );
 
     await waitFor(() => {
@@ -178,7 +167,9 @@ describe('usePdf', () => {
     );
 
     await waitFor(() => {
-      expect(getByTestId('document-status')).toHaveTextContent('document-loaded');
+      expect(getByTestId('document-status')).toHaveTextContent(
+        'document-loaded'
+      );
     });
 
     await waitFor(() => {
@@ -192,7 +183,9 @@ describe('usePdf', () => {
     );
 
     await waitFor(() => {
-      expect(getByTestId('document-status')).toHaveTextContent('document-loaded');
+      expect(getByTestId('document-status')).toHaveTextContent(
+        'document-loaded'
+      );
     });
 
     await waitFor(() => {
@@ -201,12 +194,12 @@ describe('usePdf', () => {
   });
 
   it('respects page parameter', async () => {
-    const { getByTestId } = render(
-      <TestComponent file="basic.pdf" page={2} />
-    );
+    const { getByTestId } = render(<TestComponent file="basic.pdf" page={2} />);
 
     await waitFor(() => {
-      expect(getByTestId('document-status')).toHaveTextContent('document-loaded');
+      expect(getByTestId('document-status')).toHaveTextContent(
+        'document-loaded'
+      );
     });
 
     await waitFor(() => {

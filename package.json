@@ -2,8 +2,8 @@
   "name": "react-pdf-js-mono",
   "version": "5.5.1",
   "description": "Simple React component to wrap up PDF.js. The easiest way to render PDFs in your React app.",
-  "author": "mikecousins",
   "license": "MIT",
+  "author": "mikecousins",
   "repository": "mikecousins/react-pdf-js",
   "workspaces": [
     "apps/*",
@@ -11,24 +11,18 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "lint": "turbo run lint",
+    "lint": "oxlint",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
-    "format": "prettier --write .",
+    "format": "oxfmt",
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "changeset:publish": "changeset publish"
   },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
-    "eslint": "^8.57.1",
-    "prettier": "^3.8.3",
+    "oxfmt": "^0.51.0",
+    "oxlint": "^1.66.0",
     "turbo": "^2.9.14",
     "typescript": "^5.9.3"
   },

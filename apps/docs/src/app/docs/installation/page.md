@@ -49,4 +49,3 @@ yarn add @mikecousins/react-pdf pdfjs-dist
 ## Next Steps
 
 That's it! Next you'll want to choose how to use the library and for that we have two modes, [component](/docs/component-version) for basic use cases and [hook](/docs/hook-version) for more customization.
-

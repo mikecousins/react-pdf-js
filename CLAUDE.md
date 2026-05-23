@@ -10,23 +10,26 @@ This is a monorepo for `@mikecousins/react-pdf`, a React component library that 
 
 - `packages/react-pdf-js/` - Main React PDF component library
 - `apps/demo/` - Demo application showcasing the component
-- `apps/demo-react-router/` - React Router demo application  
+- `apps/demo-react-router/` - React Router demo application
 - `apps/docs/` - Documentation site built with Next.js
 
 ## Development Commands
 
 ### Root Level Commands (use these for most tasks)
+
 - `pnpm build` - Build all packages and apps via Turborepo
-- `pnpm lint` - Lint all packages and apps via Turborepo
+- `pnpm lint` - Lint the whole repo with oxlint
 - `pnpm test` - Run tests for all packages via Turborepo
-- `pnpm format` - Format all code using Prettier
+- `pnpm format` - Format all code using oxfmt
 
 ### Package-Specific Commands
+
 For the main library (`packages/react-pdf-js/`):
+
 - `pnpm build` - Build using tsup (outputs ESM and CJS formats)
-- `pnpm lint` - Run ESLint
 
 ### Package Manager
+
 This project uses `pnpm` as the package manager (version 10.7.0). Always use `pnpm` instead of npm or yarn.
 
 ## Core Architecture
@@ -42,6 +45,7 @@ The main library exports a single React hook called `usePdf` that:
 4. **Configuration**: Supports PDF.js worker configuration, cMap settings, and credential handling
 
 ### Key Files
+
 - `packages/react-pdf-js/src/index.tsx` - Main hook implementation and TypeScript types
 - `packages/react-pdf-js/package.json` - Library configuration with peer dependencies on React 19+ and pdfjs-dist 5+
 

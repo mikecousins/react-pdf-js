@@ -1,7 +1,7 @@
-import { useId } from 'react'
+import { useId } from 'react';
 
 export function HeroBackground(props: React.ComponentPropsWithoutRef<'svg'>) {
-  let id = useId()
+  let id = useId();
 
   return (
     <svg
@@ -184,5 +184,5 @@ export function HeroBackground(props: React.ComponentPropsWithoutRef<'svg'>) {
         />
       </g>
     </svg>
-  )
+  );
 }

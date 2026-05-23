@@ -1,5 +1,5 @@
-import { Callout } from '@/components/Callout'
-import { QuickLink, QuickLinks } from '@/components/QuickLinks'
+import { Callout } from '@/components/Callout';
+import { QuickLink, QuickLinks } from '@/components/QuickLinks';
 
 const tags = {
   callout: {
@@ -42,6 +42,6 @@ const tags = {
       href: { type: String },
     },
   },
-}
+};
 
-export default tags
+export default tags;

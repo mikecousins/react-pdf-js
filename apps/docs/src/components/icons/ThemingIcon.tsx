@@ -1,11 +1,11 @@
-import { DarkMode, Gradient, LightMode } from '@/components/Icon'
+import { DarkMode, Gradient, LightMode } from '@/components/Icon';
 
 export function ThemingIcon({
   id,
   color,
 }: {
-  id: string
-  color?: React.ComponentProps<typeof Gradient>['color']
+  id: string;
+  color?: React.ComponentProps<typeof Gradient>['color'];
 }) {
   return (
     <>
@@ -61,5 +61,5 @@ export function ThemingIcon({
         />
       </DarkMode>
     </>
-  )
+  );
 }
