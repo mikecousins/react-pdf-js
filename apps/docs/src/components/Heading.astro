@@ -1,0 +1,19 @@
+---
+import slugify from '@sindresorhus/slugify';
+
+interface Props {
+  level: 1 | 2 | 3 | 4 | 5 | 6;
+  id?: string;
+}
+
+const { level, id: providedId } = Astro.props;
+const Tag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
+const renderedSlot = await Astro.slots.render('default');
+const stripped = renderedSlot.replace(/<[^>]*>/g, '').trim();
+const id = providedId ?? slugify(stripped);
+---
+
+<Tag id={id}>
+  <slot />
+</Tag>

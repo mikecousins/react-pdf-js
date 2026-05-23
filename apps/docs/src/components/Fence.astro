@@ -1,0 +1,13 @@
+---
+import { Fence as FenceReact } from '@/components/Fence.tsx';
+
+interface Props {
+  language?: string;
+  content?: string;
+}
+
+const { language = 'plaintext', content } = Astro.props;
+const code = content ?? (await Astro.slots.render('default'));
+---
+
+<FenceReact code={code} language={language} />

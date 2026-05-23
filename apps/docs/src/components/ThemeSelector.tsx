@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useTheme } from 'next-themes';
 import {
   Label,
   Listbox,
@@ -9,7 +8,9 @@ import {
 } from '@headlessui/react';
 import clsx from 'clsx';
 
-const themes = [
+import { useTheme, type Theme } from '@/lib/theme';
+
+const themes: { name: string; value: Theme; icon: React.ComponentType<React.ComponentPropsWithoutRef<'svg'>> }[] = [
   { name: 'Light', value: 'light', icon: LightIcon },
   { name: 'Dark', value: 'dark', icon: DarkIcon },
   { name: 'System', value: 'system', icon: SystemIcon },
@@ -51,9 +52,7 @@ function SystemIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   );
 }
 
-export function ThemeSelector(
-  props: React.ComponentPropsWithoutRef<typeof Listbox<'div'>>
-) {
+export function ThemeSelector(props: { className?: string }) {
   let { theme, setTheme } = useTheme();
   let [mounted, setMounted] = useState(false);
 
@@ -86,10 +85,10 @@ export function ThemeSelector(
         />
       </ListboxButton>
       <ListboxOptions className="absolute top-full left-1/2 mt-3 w-36 -translate-x-1/2 space-y-1 rounded-xl bg-white p-3 text-sm font-medium ring-1 shadow-md shadow-black/5 ring-black/5 dark:bg-slate-800 dark:ring-white/5">
-        {themes.map((theme) => (
+        {themes.map((t) => (
           <ListboxOption
-            key={theme.value}
-            value={theme.value}
+            key={t.value}
+            value={t.value}
             className={({ focus, selected }) =>
               clsx(
                 'flex cursor-pointer items-center rounded-[0.625rem] p-1 select-none',
@@ -105,7 +104,7 @@ export function ThemeSelector(
             {({ selected }) => (
               <>
                 <div className="rounded-md bg-white p-1 ring-1 shadow-sm ring-slate-900/5 dark:bg-slate-700 dark:ring-white/5 dark:ring-inset">
-                  <theme.icon
+                  <t.icon
                     className={clsx(
                       'h-4 w-4',
                       selected
@@ -114,7 +113,7 @@ export function ThemeSelector(
                     )}
                   />
                 </div>
-                <div className="ml-3">{theme.name}</div>
+                <div className="ml-3">{t.name}</div>
               </>
             )}
           </ListboxOption>

@@ -1,48 +1,16 @@
-import { type Node } from '@markdoc/markdoc';
 import { slugifyWithCounter } from '@sindresorhus/slugify';
+import type { Section, Subsection } from '@/components/TableOfContents';
 
-interface HeadingNode extends Node {
-  type: 'heading';
-  attributes: {
-    level: 1 | 2 | 3 | 4 | 5 | 6;
-    id?: string;
-    [key: string]: unknown;
-  };
-}
-
-type H2Node = HeadingNode & {
-  attributes: {
-    level: 2;
-  };
+type AnyNode = {
+  type?: string;
+  attributes?: Record<string, unknown> & { level?: number; content?: string; id?: string };
+  children?: AnyNode[];
 };
 
-type H3Node = HeadingNode & {
-  attributes: {
-    level: 3;
-  };
-};
-
-function isHeadingNode(node: Node): node is HeadingNode {
-  return (
-    node.type === 'heading' &&
-    [1, 2, 3, 4, 5, 6].includes(node.attributes.level) &&
-    (typeof node.attributes.id === 'string' ||
-      typeof node.attributes.id === 'undefined')
-  );
-}
-
-function isH2Node(node: Node): node is H2Node {
-  return isHeadingNode(node) && node.attributes.level === 2;
-}
-
-function isH3Node(node: Node): node is H3Node {
-  return isHeadingNode(node) && node.attributes.level === 3;
-}
-
-function getNodeText(node: Node) {
+function getNodeText(node: AnyNode): string {
   let text = '';
-  for (let child of node.children ?? []) {
-    if (child.type === 'text') {
+  for (const child of node.children ?? []) {
+    if (child.type === 'text' && typeof child.attributes?.content === 'string') {
       text += child.attributes.content;
     }
     text += getNodeText(child);
@@ -50,42 +18,25 @@ function getNodeText(node: Node) {
   return text;
 }
 
-export type Subsection = H3Node['attributes'] & {
-  id: string;
-  title: string;
-  children?: undefined;
-};
-
-export type Section = H2Node['attributes'] & {
-  id: string;
-  title: string;
-  children: Array<Subsection>;
-};
-
 export function collectSections(
-  nodes: Array<Node>,
+  nodes: AnyNode[],
   slugify = slugifyWithCounter()
-) {
-  let sections: Array<Section> = [];
+): Section[] {
+  const sections: Section[] = [];
 
-  for (let node of nodes) {
-    if (isH2Node(node) || isH3Node(node)) {
-      let title = getNodeText(node);
+  for (const node of nodes) {
+    if (node.type === 'heading' && (node.attributes?.level === 2 || node.attributes?.level === 3)) {
+      const title = getNodeText(node);
       if (title) {
-        let id = slugify(title);
-        if (isH3Node(node)) {
-          if (!sections[sections.length - 1]) {
-            throw new Error(
-              'Cannot add `h3` to table of contents without a preceding `h2`'
-            );
+        const id = (node.attributes.id as string | undefined) ?? slugify(title);
+        if (node.attributes.level === 3) {
+          const parent = sections[sections.length - 1];
+          if (!parent) {
+            throw new Error('Cannot add `h3` to table of contents without a preceding `h2`');
           }
-          sections[sections.length - 1].children.push({
-            ...node.attributes,
-            id,
-            title,
-          });
+          parent.children.push({ id, title } satisfies Subsection);
         } else {
-          sections.push({ ...node.attributes, id, title, children: [] });
+          sections.push({ id, title, children: [] });
         }
       }
     }
@@ -95,3 +46,5 @@ export function collectSections(
 
   return sections;
 }
+
+export type { Section, Subsection };

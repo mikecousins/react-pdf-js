@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from 'astro:content';
+import Markdoc from '@markdoc/markdoc';
+import DocLayout from '@/layouts/DocLayout.astro';
+import { collectSections } from '@/lib/sections';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('docs');
+  return entries
+    .filter((entry) => entry.id !== 'index')
+    .map((entry) => ({
+      params: { slug: entry.id },
+      props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const ast = Markdoc.parse(entry.body ?? '');
+const tableOfContents = collectSections(ast.children ?? []);
+---
+
+<DocLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  tableOfContents={tableOfContents}
+>
+  <Content />
+</DocLayout>

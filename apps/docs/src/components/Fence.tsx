@@ -1,18 +1,10 @@
-'use client';
-
 import { Fragment } from 'react';
 import { Highlight } from 'prism-react-renderer';
 
-export function Fence({
-  children,
-  language,
-}: {
-  children: string;
-  language: string;
-}) {
+export function Fence({ code, language }: { code: string; language: string }) {
   return (
     <Highlight
-      code={children.trimEnd()}
+      code={code.trimEnd()}
       language={language}
       theme={{ plain: {}, styles: [] }}
     >
