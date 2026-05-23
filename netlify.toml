@@ -1,9 +1,7 @@
 # Build settings for the `react-pdf-js` Netlify project (the docs site).
-# After migrating apps/docs from Next.js to Astro, point Netlify at the
-# Astro output instead of `.next`. Explicit `base` overrides any
-# UI-configured base directory so this works regardless of project settings.
+# Build from the repo root via Turborepo so pnpm picks up the workspace
+# config and lockfile, then publish Astro's output from apps/docs/dist.
 
 [build]
-  base = "apps/docs/"
-  command = "pnpm build"
-  publish = "dist"
+  command = "pnpm install --no-frozen-lockfile && pnpm turbo run build --filter=mikecousins-react-pdf-docs"
+  publish = "apps/docs/dist"
