@@ -1,0 +1,9 @@
+# Build settings for the `react-pdf-js` Netlify project (the docs site).
+# After migrating apps/docs from Next.js to Astro, point Netlify at the
+# Astro output instead of `.next`. Explicit `base` overrides any
+# UI-configured base directory so this works regardless of project settings.
+
+[build]
+  base = "apps/docs/"
+  command = "pnpm build"
+  publish = "dist"

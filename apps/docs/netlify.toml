@@ -1,7 +1,0 @@
-# Build settings for the Astro docs site.
-# After migrating away from Next.js, the publish dir and build command
-# need to point at Astro's output instead of `.next`.
-
-[build]
-  command = "pnpm build"
-  publish = "dist"
