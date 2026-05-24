@@ -1,10 +1,16 @@
-'use client';
-
 import { useCallback, useEffect, useState } from 'react';
-import Link from 'next/link';
 import clsx from 'clsx';
 
-import { type Section, type Subsection } from '@/lib/sections';
+export type Subsection = {
+  id: string;
+  title: string;
+};
+
+export type Section = {
+  id: string;
+  title: string;
+  children: Array<Subsection>;
+};
 
 export function TableOfContents({
   tableOfContents,
@@ -13,8 +19,8 @@ export function TableOfContents({
 }) {
   let [currentSection, setCurrentSection] = useState(tableOfContents[0]?.id);
 
-  let getHeadings = useCallback((tableOfContents: Array<Section>) => {
-    return tableOfContents
+  let getHeadings = useCallback((sections: Array<Section>) => {
+    return sections
       .flatMap((node) => [node.id, ...node.children.map((child) => child.id)])
       .map((id) => {
         let el = document.getElementById(id);
@@ -34,7 +40,7 @@ export function TableOfContents({
     let headings = getHeadings(tableOfContents);
     function onScroll() {
       let top = window.scrollY;
-      let current = headings[0].id;
+      let current = headings[0]?.id;
       for (let heading of headings) {
         if (top >= heading.top - 10) {
           current = heading.id;
@@ -42,7 +48,7 @@ export function TableOfContents({
           break;
         }
       }
-      setCurrentSection(current);
+      if (current) setCurrentSection(current);
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -51,11 +57,11 @@ export function TableOfContents({
     };
   }, [getHeadings, tableOfContents]);
 
-  function isActive(section: Section | Subsection) {
+  function isActive(section: Section | Subsection): boolean {
     if (section.id === currentSection) {
       return true;
     }
-    if (!section.children) {
+    if (!('children' in section) || !section.children) {
       return false;
     }
     return section.children.findIndex(isActive) > -1;
@@ -76,7 +82,7 @@ export function TableOfContents({
               {tableOfContents.map((section) => (
                 <li key={section.id}>
                   <h3>
-                    <Link
+                    <a
                       href={`#${section.id}`}
                       className={clsx(
                         isActive(section)
@@ -85,7 +91,7 @@ export function TableOfContents({
                       )}
                     >
                       {section.title}
-                    </Link>
+                    </a>
                   </h3>
                   {section.children.length > 0 && (
                     <ol
@@ -94,7 +100,7 @@ export function TableOfContents({
                     >
                       {section.children.map((subSection) => (
                         <li key={subSection.id}>
-                          <Link
+                          <a
                             href={`#${subSection.id}`}
                             className={
                               isActive(subSection)
@@ -103,7 +109,7 @@ export function TableOfContents({
                             }
                           >
                             {subSection.title}
-                          </Link>
+                          </a>
                         </li>
                       ))}
                     </ol>

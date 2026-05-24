@@ -1,0 +1,24 @@
+---
+import { getEntry, render } from 'astro:content';
+import Markdoc from '@markdoc/markdoc';
+import DocLayout from '@/layouts/DocLayout.astro';
+import { collectSections } from '@/lib/sections';
+
+const entry = await getEntry('docs', 'index');
+if (!entry) {
+  throw new Error('Could not find docs/index content');
+}
+const { Content } = await render(entry);
+
+const ast = Markdoc.parse(entry.body ?? '');
+const tableOfContents = collectSections(ast.children ?? []);
+---
+
+<DocLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  tableOfContents={tableOfContents}
+  showHero
+>
+  <Content />
+</DocLayout>

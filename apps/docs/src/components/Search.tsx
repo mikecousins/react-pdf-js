@@ -1,9 +1,6 @@
-'use client';
-
 import {
   forwardRef,
   Fragment,
-  Suspense,
   useCallback,
   useEffect,
   useId,
@@ -11,7 +8,6 @@ import {
   useState,
 } from 'react';
 import Highlighter from 'react-highlight-words';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import {
   type AutocompleteApi,
   type AutocompleteCollection,
@@ -22,7 +18,7 @@ import { Dialog, DialogPanel } from '@headlessui/react';
 import clsx from 'clsx';
 
 import { navigation } from '@/lib/navigation';
-import { type Result } from '@/markdoc/search.mjs';
+import type { Result } from 'virtual:search';
 
 type EmptyObject = Record<string, never>;
 
@@ -47,7 +43,6 @@ function useAutocomplete({
   close: (autocomplete: Autocomplete) => void;
 }) {
   let id = useId();
-  let router = useRouter();
   let [autocompleteState, setAutocompleteState] = useState<
     AutocompleteState<Result> | EmptyObject
   >({});
@@ -57,7 +52,7 @@ function useAutocomplete({
       return;
     }
 
-    router.push(itemUrl);
+    window.location.assign(itemUrl);
 
     if (
       itemUrl ===
@@ -87,7 +82,7 @@ function useAutocomplete({
         navigate,
       },
       getSources({ query }) {
-        return import('@/markdoc/search.mjs').then(({ search }) => {
+        return import('virtual:search').then(({ search }) => {
           return [
             {
               sourceId: 'documentation',
@@ -247,7 +242,7 @@ function SearchResults({
 }
 
 const SearchInput = forwardRef<
-  React.ElementRef<'input'>,
+  HTMLInputElement,
   {
     autocomplete: Autocomplete;
     autocompleteState: AutocompleteState<Result> | EmptyObject;
@@ -264,28 +259,26 @@ const SearchInput = forwardRef<
         data-autofocus
         className={clsx(
           'flex-auto appearance-none bg-transparent pl-12 text-slate-900 outline-hidden placeholder:text-slate-400 focus:w-full focus:flex-none sm:text-sm dark:text-white [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden [&::-webkit-search-results-button]:hidden [&::-webkit-search-results-decoration]:hidden',
-          autocompleteState.status === 'stalled' ? 'pr-11' : 'pr-4'
+          'status' in autocompleteState && autocompleteState.status === 'stalled' ? 'pr-11' : 'pr-4'
         )}
         {...inputProps}
         onKeyDown={(event) => {
           if (
             event.key === 'Escape' &&
+            'isOpen' in autocompleteState &&
             !autocompleteState.isOpen &&
             autocompleteState.query === ''
           ) {
-            // In Safari, closing the dialog with the escape key can sometimes cause the scroll position to jump to the
-            // bottom of the page. This is a workaround for that until we can figure out a proper fix in Headless UI.
             if (document.activeElement instanceof HTMLElement) {
               document.activeElement.blur();
             }
-
             onClose();
           } else {
             inputProps.onKeyDown(event);
           }
         }}
       />
-      {autocompleteState.status === 'stalled' && (
+      {'status' in autocompleteState && autocompleteState.status === 'stalled' && (
         <div className="absolute inset-y-0 right-3 flex items-center">
           <LoadingIcon className="h-6 w-6 animate-spin stroke-slate-200 text-slate-400 dark:stroke-slate-700 dark:text-slate-500" />
         </div>
@@ -293,23 +286,6 @@ const SearchInput = forwardRef<
     </div>
   );
 });
-
-function CloseOnNavigation({
-  close,
-  autocomplete,
-}: {
-  close: (autocomplete: Autocomplete) => void;
-  autocomplete: Autocomplete;
-}) {
-  let pathname = usePathname();
-  let searchParams = useSearchParams();
-
-  useEffect(() => {
-    close(autocomplete);
-  }, [pathname, searchParams, close, autocomplete]);
-
-  return null;
-}
 
 function SearchDialog({
   open,
@@ -320,9 +296,9 @@ function SearchDialog({
   setOpen: (open: boolean) => void;
   className?: string;
 }) {
-  let formRef = useRef<React.ElementRef<'form'>>(null);
-  let panelRef = useRef<React.ElementRef<'div'>>(null);
-  let inputRef = useRef<React.ElementRef<typeof SearchInput>>(null);
+  let formRef = useRef<HTMLFormElement>(null);
+  let panelRef = useRef<HTMLDivElement>(null);
+  let inputRef = useRef<HTMLInputElement>(null);
 
   let close = useCallback(
     (autocomplete: Autocomplete) => {
@@ -358,56 +334,51 @@ function SearchDialog({
   }, [open, setOpen]);
 
   return (
-    <>
-      <Suspense fallback={null}>
-        <CloseOnNavigation close={close} autocomplete={autocomplete} />
-      </Suspense>
-      <Dialog
-        open={open}
-        onClose={() => close(autocomplete)}
-        className={clsx('fixed inset-0 z-50', className)}
-      >
-        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm" />
+    <Dialog
+      open={open}
+      onClose={() => close(autocomplete)}
+      className={clsx('fixed inset-0 z-50', className)}
+    >
+      <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm" />
 
-        <div className="fixed inset-0 overflow-y-auto px-4 py-4 sm:px-6 sm:py-20 md:py-32 lg:px-8 lg:py-[15vh]">
-          <DialogPanel className="mx-auto transform-gpu overflow-hidden rounded-xl bg-white shadow-xl sm:max-w-xl dark:bg-slate-800 dark:ring-1 dark:ring-slate-700">
-            <div {...autocomplete.getRootProps({})}>
-              <form
-                ref={formRef}
-                {...autocomplete.getFormProps({
-                  inputElement: inputRef.current,
-                })}
+      <div className="fixed inset-0 overflow-y-auto px-4 py-4 sm:px-6 sm:py-20 md:py-32 lg:px-8 lg:py-[15vh]">
+        <DialogPanel className="mx-auto transform-gpu overflow-hidden rounded-xl bg-white shadow-xl sm:max-w-xl dark:bg-slate-800 dark:ring-1 dark:ring-slate-700">
+          <div {...autocomplete.getRootProps({})}>
+            <form
+              ref={formRef}
+              {...autocomplete.getFormProps({
+                inputElement: inputRef.current,
+              })}
+            >
+              <SearchInput
+                ref={inputRef}
+                autocomplete={autocomplete}
+                autocompleteState={autocompleteState}
+                onClose={() => setOpen(false)}
+              />
+              <div
+                ref={panelRef}
+                className="border-t border-slate-200 bg-white px-2 py-3 empty:hidden dark:border-slate-400/10 dark:bg-slate-800"
+                {...autocomplete.getPanelProps({})}
               >
-                <SearchInput
-                  ref={inputRef}
-                  autocomplete={autocomplete}
-                  autocompleteState={autocompleteState}
-                  onClose={() => setOpen(false)}
-                />
-                <div
-                  ref={panelRef}
-                  className="border-t border-slate-200 bg-white px-2 py-3 empty:hidden dark:border-slate-400/10 dark:bg-slate-800"
-                  {...autocomplete.getPanelProps({})}
-                >
-                  {autocompleteState.isOpen && (
-                    <SearchResults
-                      autocomplete={autocomplete}
-                      query={autocompleteState.query}
-                      collection={autocompleteState.collections[0]}
-                    />
-                  )}
-                </div>
-              </form>
-            </div>
-          </DialogPanel>
-        </div>
-      </Dialog>
-    </>
+                {'isOpen' in autocompleteState && autocompleteState.isOpen && (
+                  <SearchResults
+                    autocomplete={autocomplete}
+                    query={autocompleteState.query}
+                    collection={autocompleteState.collections[0]}
+                  />
+                )}
+              </div>
+            </form>
+          </div>
+        </DialogPanel>
+      </div>
+    </Dialog>
   );
 }
 
 function useSearchProps() {
-  let buttonRef = useRef<React.ElementRef<'button'>>(null);
+  let buttonRef = useRef<HTMLButtonElement>(null);
   let [open, setOpen] = useState(false);
 
   return {

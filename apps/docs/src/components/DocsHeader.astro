@@ -1,0 +1,30 @@
+---
+import { navigation } from '@/lib/navigation';
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+const pathname = Astro.url.pathname;
+const section = navigation.find((s) =>
+  s.links.find((link) => link.href === pathname)
+);
+---
+
+{
+  (title || section) && (
+    <header class="mb-9 space-y-1">
+      {section && (
+        <p class="font-display text-sm font-medium text-sky-500">
+          {section.title}
+        </p>
+      )}
+      {title && (
+        <h1 class="font-display text-3xl tracking-tight text-slate-900 dark:text-white">
+          {title}
+        </h1>
+      )}
+    </header>
+  )
+}

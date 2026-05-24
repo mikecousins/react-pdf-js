@@ -1,0 +1,71 @@
+---
+import Header from '@/components/Header.astro';
+import Hero from '@/components/Hero.astro';
+import Navigation from '@/components/Navigation.astro';
+import '@/styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  showHero?: boolean;
+}
+
+const {
+  title = '@mikecousins/react-pdf - Embed PDFs in React.',
+  description = 'Cache every single thing your app could ever do ahead of time, so your code never even has to run at all.',
+  showHero = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="h-full antialiased">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const resolved = stored ?? (prefersDark ? 'dark' : 'light');
+        if (resolved === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    <script
+      is:inline
+      id="counterscale-script"
+      data-site-id="pdf"
+      src="https://counterscale.cousins.ai/tracker.js"
+      defer
+    ></script>
+  </head>
+  <body class="flex min-h-full bg-white dark:bg-slate-900">
+    <div class="flex w-full flex-col">
+      <Header />
+
+      {showHero && <Hero />}
+
+      <div class="relative mx-auto flex w-full max-w-8xl flex-auto justify-center sm:px-2 lg:px-8 xl:px-12">
+        <div class="hidden lg:relative lg:block lg:flex-none">
+          <div class="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden"></div>
+          <div class="absolute top-16 right-0 bottom-0 hidden h-12 w-px bg-linear-to-t from-slate-800 dark:block"></div>
+          <div class="absolute top-28 right-0 bottom-0 hidden w-px bg-slate-800 dark:block"></div>
+          <div class="sticky top-[4.75rem] -ml-0.5 h-[calc(100vh-4.75rem)] w-64 overflow-x-hidden overflow-y-auto py-16 pr-8 pl-0.5 xl:w-72 xl:pr-16">
+            <Navigation />
+          </div>
+        </div>
+        <slot />
+      </div>
+    </div>
+  </body>
+</html>

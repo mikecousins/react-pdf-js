@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import DocsHeader from '@/components/DocsHeader.astro';
+import PrevNextLinks from '@/components/PrevNextLinks.astro';
+import Prose from '@/components/Prose.astro';
+import { TableOfContents } from '@/components/TableOfContents';
+import type { Section } from '@/lib/sections';
+
+interface Props {
+  title: string;
+  description?: string;
+  tableOfContents: Section[];
+  showHero?: boolean;
+}
+
+const { title, description, tableOfContents, showHero = false } = Astro.props;
+
+const pageTitle = title === 'Getting started' ? undefined : `${title} - Docs`;
+---
+
+<BaseLayout
+  title={pageTitle ?? '@mikecousins/react-pdf - Embed PDFs in React.'}
+  description={description}
+  showHero={showHero}
+>
+  <div class="max-w-2xl min-w-0 flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
+    <article>
+      <DocsHeader title={title} />
+      <Prose>
+        <slot />
+      </Prose>
+    </article>
+    <PrevNextLinks />
+  </div>
+  <TableOfContents client:load tableOfContents={tableOfContents} />
+</BaseLayout>
