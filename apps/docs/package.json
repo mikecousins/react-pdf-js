@@ -22,7 +22,7 @@
     "@sindresorhus/slugify": "^3.0.0",
     "@tailwindcss/postcss": "^4.3.0",
     "@tailwindcss/typography": "^0.5.19",
-    "astro": "^6.3.7",
+    "astro": "^7.1.0",
     "clsx": "^2.1.1",
     "fast-glob": "^3.3.3",
     "flexsearch": "^0.8.212",
