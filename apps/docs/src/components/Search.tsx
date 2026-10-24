@@ -47,23 +47,23 @@ function useAutocomplete({
     AutocompleteState<Result> | EmptyObject
   >({});
 
-  function navigate({ itemUrl }: { itemUrl?: string }) {
-    if (!itemUrl) {
-      return;
+  let [autocomplete] = useState<Autocomplete>(() => {
+    function navigate({ itemUrl }: { itemUrl?: string }) {
+      if (!itemUrl) {
+        return;
+      }
+
+      window.location.assign(itemUrl);
+
+      if (
+        itemUrl ===
+        window.location.pathname + window.location.search + window.location.hash
+      ) {
+        close(instance);
+      }
     }
 
-    window.location.assign(itemUrl);
-
-    if (
-      itemUrl ===
-      window.location.pathname + window.location.search + window.location.hash
-    ) {
-      close(autocomplete);
-    }
-  }
-
-  let [autocomplete] = useState<Autocomplete>(() =>
-    createAutocomplete<
+    let instance: Autocomplete = createAutocomplete<
       Result,
       React.SyntheticEvent,
       React.MouseEvent,
@@ -97,8 +97,10 @@ function useAutocomplete({
           ];
         });
       },
-    })
-  );
+    });
+
+    return instance;
+  });
 
   return { autocomplete, autocompleteState };
 }
@@ -259,7 +261,10 @@ const SearchInput = forwardRef<
         data-autofocus
         className={clsx(
           'flex-auto appearance-none bg-transparent pl-12 text-slate-900 outline-hidden placeholder:text-slate-400 focus:w-full focus:flex-none sm:text-sm dark:text-white [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden [&::-webkit-search-results-button]:hidden [&::-webkit-search-results-decoration]:hidden',
-          'status' in autocompleteState && autocompleteState.status === 'stalled' ? 'pr-11' : 'pr-4'
+          'status' in autocompleteState &&
+            autocompleteState.status === 'stalled'
+            ? 'pr-11'
+            : 'pr-4'
         )}
         {...inputProps}
         onKeyDown={(event) => {
@@ -278,11 +283,12 @@ const SearchInput = forwardRef<
           }
         }}
       />
-      {'status' in autocompleteState && autocompleteState.status === 'stalled' && (
-        <div className="absolute inset-y-0 right-3 flex items-center">
-          <LoadingIcon className="h-6 w-6 animate-spin stroke-slate-200 text-slate-400 dark:stroke-slate-700 dark:text-slate-500" />
-        </div>
-      )}
+      {'status' in autocompleteState &&
+        autocompleteState.status === 'stalled' && (
+          <div className="absolute inset-y-0 right-3 flex items-center">
+            <LoadingIcon className="h-6 w-6 animate-spin stroke-slate-200 text-slate-400 dark:stroke-slate-700 dark:text-slate-500" />
+          </div>
+        )}
     </div>
   );
 });
@@ -347,6 +353,8 @@ function SearchDialog({
             <form
               ref={formRef}
               {...autocomplete.getFormProps({
+                // Autocomplete reads the input element from its form props.
+                // oxlint-disable-next-line react/refs
                 inputElement: inputRef.current,
               })}
             >
@@ -402,14 +410,11 @@ function useSearchProps() {
 }
 
 export function Search() {
-  let [modifierKey, setModifierKey] = useState<string>();
+  // Rendered with `client:only`, so `navigator` is always available here.
+  let modifierKey = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)
+    ? '⌘'
+    : 'Ctrl ';
   let { buttonProps, dialogProps } = useSearchProps();
-
-  useEffect(() => {
-    setModifierKey(
-      /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform) ? '⌘' : 'Ctrl '
-    );
-  }, []);
 
   return (
     <>

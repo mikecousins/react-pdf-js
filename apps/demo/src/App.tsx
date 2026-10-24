@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div className="w-full flex flex-col">
-      <div className="bg-gradient-to-r from-sky-800 to-indigo-800">
+      <div className="bg-linear-to-r from-sky-800 to-indigo-800">
         <div className="container text-center py-12 mx-auto">
           <div className="text-4xl font-bold text-white">
             @mikecousins/react-pdf

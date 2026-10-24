@@ -16,12 +16,10 @@ function applyTheme(theme: Theme) {
 }
 
 export function useTheme() {
-  const [theme, setThemeState] = useState<Theme>('system');
-
-  useEffect(() => {
-    const stored = (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? 'system';
-    setThemeState(stored);
-  }, []);
+  // Only used from `client:only` islands, so `localStorage` is available.
+  const [theme, setThemeState] = useState<Theme>(
+    () => (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? 'system'
+  );
 
   useEffect(() => {
     if (theme !== 'system') return;

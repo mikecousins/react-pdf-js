@@ -2,9 +2,10 @@
 
 ## Prerequisites
 
-- **Node.js ≥ 22.13** — pnpm 11 requires it. The version is pinned in
+- **Node.js 24** — Astro 7 (docs site) needs ≥ 22.23.4 and pnpm 11 needs
+  ≥ 22.13. The version is pinned in
   [`.nvmrc`](../.nvmrc); with `nvm` run `nvm use`.
-- **pnpm 11.2.2** — pinned via the `packageManager` field in `package.json` and
+- **pnpm 11.28.8** — pinned via the `packageManager` field in `package.json` and
   managed by [Corepack](https://nodejs.org/api/corepack.html) (bundled with
   Node). Enable it once:
 
@@ -33,9 +34,9 @@ caches results.
 | ---------------- | --------------------------------------------- |
 | `pnpm build`     | Build every package/app (`turbo run build`)   |
 | `pnpm test`      | Run all tests (`turbo run test`)              |
-| `pnpm lint`      | Lint everything (`turbo run lint`)            |
+| `pnpm lint`      | Lint everything with oxlint                   |
 | `pnpm typecheck` | Type-check everything (`turbo run typecheck`) |
-| `pnpm format`    | Format the repo with Prettier                 |
+| `pnpm format`    | Format the repo with oxfmt                    |
 
 These four (build, test, lint, typecheck) are exactly what `ci.yml` runs on
 every PR.

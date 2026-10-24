@@ -17,26 +17,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version: '24'
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
-          version: 11.2.2
+          version: 11.28.8
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       # When changesets exist: opens/updates the "Version Packages" PR (bumps
       # version + writes CHANGELOG). When that PR is merged (no changesets left):
-      # runs `changeset tag` to create + push git tags. It never runs `npm
+      # runs `changeset git-tag` to create + push git tags. It never runs `npm
       # publish` here, and createGithubReleases is off so it does not publish a
       # release that would prematurely trigger publish.yml.
       - name: Changesets version PR / tag
@@ -44,7 +44,7 @@ jobs:
         uses: changesets/action@v1
         with:
           version: pnpm exec changeset version
-          publish: pnpm exec changeset tag
+          publish: pnpm exec changeset git-tag
           createGithubReleases: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

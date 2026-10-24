@@ -47,7 +47,7 @@ The main library exports a single React hook called `usePdf` that:
 ### Key Files
 
 - `packages/react-pdf-js/src/index.tsx` - Main hook implementation and TypeScript types
-- `packages/react-pdf-js/package.json` - Library configuration with peer dependencies on React 19+ and pdfjs-dist 5+
+- `packages/react-pdf-js/package.json` - Library configuration with peer dependencies on React 19+ and pdfjs-dist 5 or 6
 
 ## Testing
 

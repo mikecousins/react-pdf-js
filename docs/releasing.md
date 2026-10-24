@@ -113,5 +113,5 @@ pnpm changeset (per PR)
 - **Only the library is released.** The `apps/*` packages are `private` and
   listed under `ignore` in `.changeset/config.json`, so they're never versioned
   or published.
-- **Node 22** is required throughout (pnpm 11); the workflows pin it and the repo
+- **Node 24** is used throughout; the workflows pin it and the repo
   has an `.nvmrc`.

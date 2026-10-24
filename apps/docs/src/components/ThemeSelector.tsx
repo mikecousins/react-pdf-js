@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   Label,
   Listbox,
@@ -10,7 +9,11 @@ import clsx from 'clsx';
 
 import { useTheme, type Theme } from '@/lib/theme';
 
-const themes: { name: string; value: Theme; icon: React.ComponentType<React.ComponentPropsWithoutRef<'svg'>> }[] = [
+const themes: {
+  name: string;
+  value: Theme;
+  icon: React.ComponentType<React.ComponentPropsWithoutRef<'svg'>>;
+}[] = [
   { name: 'Light', value: 'light', icon: LightIcon },
   { name: 'Dark', value: 'dark', icon: DarkIcon },
   { name: 'System', value: 'system', icon: SystemIcon },
@@ -54,15 +57,6 @@ function SystemIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 export function ThemeSelector(props: { className?: string }) {
   let { theme, setTheme } = useTheme();
-  let [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return <div className="h-6 w-6" />;
-  }
 
   return (
     <Listbox as="div" value={theme} onChange={setTheme} {...props}>

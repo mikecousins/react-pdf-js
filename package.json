@@ -20,11 +20,11 @@
     "changeset:publish": "changeset publish"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.31.0",
-    "oxfmt": "^0.51.0",
-    "oxlint": "^1.66.0",
-    "turbo": "^2.9.14",
-    "typescript": "^5.9.3"
+    "@changesets/cli": "^3.0.3",
+    "oxfmt": "^0.74.0",
+    "oxlint": "^1.89.0",
+    "turbo": "^2.11.10",
+    "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@11.2.2"
+  "packageManager": "pnpm@11.28.8"
 }
