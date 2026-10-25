@@ -12,34 +12,34 @@
     "typecheck": "astro check"
   },
   "dependencies": {
-    "@algolia/autocomplete-core": "^1.19.8",
-    "@astrojs/check": "^0.9.9",
-    "@astrojs/markdoc": "^1.0.5",
-    "@astrojs/react": "^5.0.5",
-    "@astrojs/sitemap": "^3.7.2",
+    "@algolia/autocomplete-core": "^1.19.12",
+    "@astrojs/check": "^0.9.12",
+    "@astrojs/markdoc": "^2.1.1",
+    "@astrojs/react": "^7.1.1",
+    "@astrojs/sitemap": "^3.7.4",
     "@headlessui/react": "^2.2.10",
-    "@markdoc/markdoc": "^0.5.7",
-    "@sindresorhus/slugify": "^3.0.0",
-    "@tailwindcss/postcss": "^4.3.0",
-    "@tailwindcss/typography": "^0.5.19",
-    "astro": "^6.3.7",
+    "@markdoc/markdoc": "^0.5.10",
+    "@sindresorhus/slugify": "^3.0.1",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.2",
     "clsx": "^2.1.1",
     "fast-glob": "^3.3.3",
     "flexsearch": "^0.8.212",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "react-highlight-words": "^0.21.0",
-    "tailwindcss": "^4.3.0",
-    "typescript": "^5.9.3"
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-highlight-words": "^1.0.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "@types/node": "^25.9.1",
-    "@types/react": "^19.2.15",
-    "@types/react-dom": "^19.2.3",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@types/react-highlight-words": "^0.20.1",
-    "sharp": "0.34.4"
+    "sharp": "0.35.5"
   },
   "browserslist": "defaults, not ie <= 11",
-  "packageManager": "pnpm@11.2.2"
+  "packageManager": "pnpm@11.28.8"
 }

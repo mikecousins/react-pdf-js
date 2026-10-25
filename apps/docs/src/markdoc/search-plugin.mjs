@@ -48,8 +48,7 @@ function buildIndex(contentDir) {
     let md = fs.readFileSync(path.join(contentDir, file), 'utf8');
 
     let ast = Markdoc.parse(md);
-    let title =
-      ast.attributes?.frontmatter?.match(/^title:\s*(.*?)\s*$/m)?.[1];
+    let title = ast.attributes?.frontmatter?.match(/^title:\s*(.*?)\s*$/m)?.[1];
     let sections = [[title, null, []]];
     extractSections(ast, sections);
 

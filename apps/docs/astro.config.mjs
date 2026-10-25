@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import markdoc from '@astrojs/markdoc';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
+import tailwindcss from '@tailwindcss/vite';
 
 import searchIndex from './src/markdoc/search-plugin.mjs';
 
@@ -10,6 +11,6 @@ export default defineConfig({
   site: 'https://react-pdf.cousins.ai',
   integrations: [markdoc(), react(), sitemap()],
   vite: {
-    plugins: [searchIndex()],
+    plugins: [tailwindcss(), searchIndex()],
   },
 });
